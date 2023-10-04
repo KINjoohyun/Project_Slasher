@@ -11,6 +11,9 @@ public class SwipeManager : MonoBehaviour
     private Vector3 prevPos = Vector3.zero;
 
     public float thick = 0.1f; // 선의 굵기
+    public Material mat; // 메테리얼
+    public Color startColor; // 선의 시작 색깔
+    public Color endColor; // 선의 끝 색깔
 
     private void Awake()
     {
@@ -50,8 +53,9 @@ public class SwipeManager : MonoBehaviour
 
         lineRend.startWidth = thick;
         lineRend.endWidth = thick;
-        lineRend.startColor = Color.red;
-        lineRend.endColor = Color.red;
+        lineRend.material = mat;
+        lineRend.startColor = startColor;
+        lineRend.endColor = endColor;
         lineRend.numCornerVertices = 5;
         lineRend.numCapVertices = 5;
         lineRend.SetPosition(0, mousePos);
@@ -73,7 +77,7 @@ public class SwipeManager : MonoBehaviour
 
     void LineCheck()
     {
-
+        GameManager.instance.HitMonsters('a'); // test code
 
         DeleteLine();
     }
