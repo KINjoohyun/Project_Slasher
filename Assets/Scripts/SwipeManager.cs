@@ -78,8 +78,9 @@ public class SwipeManager : MonoBehaviour
 
     void LineCheck()
     {
-        PixelReader(Pattern.Vertical);
-        GameManager.instance.HitMonsters(Pattern.Vertical);
+        //PixelReader(Pattern.Vertical);
+        //GameManager.instance.HitMonsters(Pattern.Vertical);
+        LineCompare();
 
         DeleteLine();
     }
@@ -115,6 +116,7 @@ public class SwipeManager : MonoBehaviour
         }
 
         float similarityScore = 0.0f;
+        float totalDifference = 0.0f;
         for (int i = 0; i < image.width; i++)
         {
             for (int j = 0; j < image.height; j++)
@@ -136,6 +138,37 @@ public class SwipeManager : MonoBehaviour
         {
             return false;
         }
+    }
+
+    void LineCompare()
+    {
+        Texture2D image = (Texture2D)Resources.Load("Patterns/test");
+        if (image == null)
+        {
+            Debug.LogWarning("Not Exist Image!");
+            return;
+        }
+        int width = image.width;
+        int height = image.height;
+        float totalDifference = 0;
+
+        for (int i = 0; i < curLine.positionCount; i++)
+        {
+            Vector3 linePoint = curLine.GetPosition(i);
+            Vector3 screenPoint = Camera.main.WorldToScreenPoint(linePoint);
+
+            int x = Mathf.Clamp(Mathf.RoundToInt(screenPoint.x), 0, width - 1);
+            int y = Mathf.Clamp(Mathf.RoundToInt(screenPoint.y), 0, height - 1);
+
+            Color imagePixel = image.GetPixel(x, y);
+
+            float difference = Mathf.Sqrt(Mathf.Pow(imagePixel.r - Color.black.r, 2) + Mathf.Pow(imagePixel.g - Color.black.g, 2) + Mathf.Pow(imagePixel.b - Color.black.b, 2));
+            totalDifference += difference;
+        }
+
+        float similarityScore = totalDifference / curLine.positionCount;
+        Debug.Log(similarityScore);
+        if (similarityScore >= similarity) GameManager.instance.HitMonsters(Pattern.Vertical);
     }
 
 }
