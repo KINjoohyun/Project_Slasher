@@ -14,6 +14,7 @@ public class SwipeManager : MonoBehaviour
     public Material mat; // 메테리얼
     public Color startColor; // 선의 시작 색깔
     public Color endColor; // 선의 끝 색깔
+    public float similarity = 50.0f; // 정확도
 
     private void Awake()
     {
@@ -77,7 +78,8 @@ public class SwipeManager : MonoBehaviour
 
     void LineCheck()
     {
-        GameManager.instance.HitMonsters('a'); // test code
+        PixelReader(Pattern.Vertical);
+        GameManager.instance.HitMonsters(Pattern.Vertical);
 
         DeleteLine();
     }
@@ -89,4 +91,51 @@ public class SwipeManager : MonoBehaviour
         Destroy(curLine.gameObject);
         curLine = null;
     }
+
+    private bool PixelReader(Pattern p)
+    {
+        Texture2D image;
+        switch (p)
+        {
+            case Pattern.Vertical:
+                image = (Texture2D)Resources.Load("Patterns/test");
+                break;
+            case Pattern.Horizontal:
+                image = (Texture2D)Resources.Load("Patterns/test");
+                break;
+            default:
+                image = null;
+                break;
+        }
+
+        if (image == null)
+        {
+            Debug.LogWarning("Not Exist Image!");
+            return false;
+        }
+
+        float similarityScore = 0.0f;
+        for (int i = 0; i < image.width; i++)
+        {
+            for (int j = 0; j < image.height; j++)
+            {
+                Color pixel = image.GetPixel(i, j);
+
+                if (pixel.r <= Color.black.r && pixel.g <= Color.black.g && pixel.b <= Color.black.b)
+                {
+                    Debug.Log($"{i} , {j}"); // 픽셀 Get 완료
+                }
+            }
+        }
+
+        if (similarityScore >= similarity)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
 }

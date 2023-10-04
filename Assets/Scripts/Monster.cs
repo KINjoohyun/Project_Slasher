@@ -6,7 +6,7 @@ public class Monster : MonoBehaviour
 {
     public float moveSpeed = 1.0f; // 이동속도
     public int damage = 1; // 공격력
-    public Queue<char> queue = new Queue<char>(); // 패턴 큐
+    public Queue<Pattern> queue = new Queue<Pattern>(); // 패턴 큐
     public int score = 1; // 점수
     
     private float initY = 0.0f;
@@ -51,12 +51,12 @@ public class Monster : MonoBehaviour
         transform.localScale = new Vector3(gap, gap, 1);
     }
 
-    public void SetUp(char c)
+    public void SetUp(Pattern c)
     {
         queue.Enqueue(c);
     }
 
-    public void OnHit(char c)
+    public void OnHit(Pattern c)
     {
         if (!isAlive) return;
 

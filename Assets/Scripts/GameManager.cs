@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
 
     public bool IsGameover { get; private set; }
     public int Score { get; private set; }
+    public int hp = 5;
     private List<Monster> monsterList;
 
     private void Start()
@@ -23,17 +24,22 @@ public class GameManager : MonoBehaviour
 
         monsterList = new List<Monster>();
         Score = 0;
+        hp = 5;
     }
 
     public void OnDamage(int damage)
     {
-        Debug.Log($"Player Hit! Damage : {damage}");
+        hp -= damage;
+
+        if (hp <= 0)
+        {
+            Gameover();
+        }
     }
 
     public void Gameover()
     {
         IsGameover = true;
-
     }
 
     public void AddMonster(Monster monster)
@@ -42,7 +48,7 @@ public class GameManager : MonoBehaviour
         //monster.onDeath += () => monsterList.Remove(monster);
     }
 
-    public void HitMonsters(char c)
+    public void HitMonsters(Pattern c)
     {
         if (monsterList.Count <= 0) return;
 
