@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.UIElements;
-using static UnityEditor.PlayerSettings;
 
 public class MonsterSpawner : MonoBehaviour
 {
@@ -52,10 +51,12 @@ public class MonsterSpawner : MonoBehaviour
         Vector3 pos = new Vector3(Mathf.Lerp(minX, maxX, Random.value), posY, 0);
         var prefab = monsterPrefabs[Random.Range(0, monsterPrefabs.Length)];
         var monster = monsterPool.Get();
-        //var monster = Instantiate(prefab, pos, prefab.transform.rotation);
+        monster.gameObject.SetActive(true);
         monster.SetUp(Pattern.Vertical); // test code
         monster.SetUp(Pattern.Vertical); // test code
+        monster.onDeath += () => monster.gameObject.SetActive(false);
         monster.onDeath += () => monsterPool.Release(monster);
+
         GameManager.instance.AddMonster(monster);
     }
 }

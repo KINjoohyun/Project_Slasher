@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,19 +12,15 @@ public class Monster : MonoBehaviour
     
     private float initY = 0.0f;
     public event Action onDeath;
-    public bool isAlive {  get; private set; }
 
     private void Start()
     {
         initY = transform.position.y;
         transform.localScale = Vector3.one;
-        isAlive = true;
     }
 
     private void Update()
     {
-        if (!isAlive) return;
-
         transform.position += Vector3.down * moveSpeed * Time.deltaTime;
 
         //LerpScale();
@@ -58,8 +55,6 @@ public class Monster : MonoBehaviour
 
     public void OnHit(Pattern c)
     {
-        if (!isAlive) return;
-
         if (queue.Peek() == c)
         {
             queue.Dequeue();
@@ -74,13 +69,11 @@ public class Monster : MonoBehaviour
 
     public void OnDie()
     {
+        GameManager.instance.AddScore(score);
+
         if (onDeath != null)
         {
             onDeath();
         }
-
-        isAlive = false;
-        GameManager.instance.AddScore(score);
-        Destroy(gameObject, 1f);
     }
 }

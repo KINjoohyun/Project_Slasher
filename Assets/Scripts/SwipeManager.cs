@@ -1,14 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class SwipeManager : MonoBehaviour
 {
     private LineRenderer curLine;
-    private Camera cam;
+    public RenderTexture rendtex;
+    private Camera maincam;
     private int positionCount = 2;
     private Vector3 prevPos = Vector3.zero;
+    private Pattern testInput = Pattern.None;
 
     public float thick = 0.1f; // 선의 굵기
     public Material mat; // 메테리얼
@@ -16,11 +19,9 @@ public class SwipeManager : MonoBehaviour
     public Color endColor; // 선의 끝 색깔
     public float similarity = 50.0f; // 정확도
 
-    public Pattern testInput = Pattern.Vertical; // 현재 테스트중인 제스처 입력
-
     private void Awake()
     {
-        cam = Camera.main;
+        maincam = Camera.main;
     }
 
     private void Update()
@@ -30,7 +31,7 @@ public class SwipeManager : MonoBehaviour
 
     private void DrawingUpdate()
     {
-        Vector3 mousePos = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1));
+        Vector3 mousePos = maincam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1));
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -49,9 +50,10 @@ public class SwipeManager : MonoBehaviour
     private void StartDrawing(Vector3 mousePos)
     {
         GameObject line = new GameObject("Line");
+        line.layer = LayerMask.NameToLayer("Line");
         LineRenderer lineRend = line.AddComponent<LineRenderer>();
 
-        line.transform.parent = cam.transform;
+        line.transform.parent = maincam.transform;
         line.transform.position = mousePos;
 
         lineRend.startWidth = thick;
@@ -80,9 +82,11 @@ public class SwipeManager : MonoBehaviour
 
     private void LineCheck()
     {
-        //PixelReader(Pattern.Vertical);
-        //LineCompare();
-        testInput = GetPattern();
+        for (Pattern i = 0; i < Pattern.Count; i++)
+        {
+            if (PixelReader(i)) testInput = i;
+        }
+ 
         GameManager.instance.HitMonsters(testInput);
         Debug.Log(testInput);
 
@@ -103,59 +107,66 @@ public class SwipeManager : MonoBehaviour
         switch (p)
         {
             case Pattern.Vertical:
-                image = (Texture2D)Resources.Load("Patterns/test");
+                image = (Texture2D)Resources.Load("Patterns/vertical");
                 break;
             case Pattern.Horizontal:
-                image = (Texture2D)Resources.Load("Patterns/test");
+                image = (Texture2D)Resources.Load("Patterns/horizontal");
                 break;
             default:
                 image = null;
                 break;
         }
 
-        if (image == null)
+        if (image == null) // Exception Handling
         {
             Debug.LogWarning("Not Exist Image!");
             return false;
         }
 
-        float similarityScore = 0.0f;
-        float totalDifference = 0.0f;
+        RenderTexture.active = rendtex;
+        Texture2D tex = new Texture2D(rendtex.width, rendtex.height);
+        tex.ReadPixels(new Rect(0, 0, rendtex.width, rendtex.height), 0, 0);
+        tex.Apply();
+
+        float total = 0.0f;
+        float increase = 0.0f;
         for (int i = 0; i < image.width; i++)
         {
             for (int j = 0; j < image.height; j++)
             {
                 Color pixel = image.GetPixel(i, j);
+                Color texPixel = tex.GetPixel(i, j);
 
-                if (pixel.r <= Color.black.r && pixel.g <= Color.black.g && pixel.b <= Color.black.b)
+                if (pixel.CompareRGB(Color.black))
                 {
-                    Debug.Log($"{i} , {j}"); // 픽셀 Get 완료
+                    total++;
+                    if (!texPixel.CompareRGB(Color.white))
+                    {
+                        increase++;
+                    }
+                }
+                else
+                {
+                    if (!texPixel.CompareRGB(Color.white))
+                    {
+                        increase--;
+                    }
                 }
             }
         }
+        float similarityScore = increase / total * 100.0f;
+        RenderTexture.active = null;
+        Destroy(tex);
 
         if (similarityScore >= similarity)
         {
+            Debug.Log($"{p} SUCCESS! : {similarityScore}");
             return true;
         }
         else
         {
+            Debug.Log($"{p} FAIL! : {similarityScore}");
             return false;
         }
     }
-
-    private Pattern GetPattern()
-    {
-        if (curLine.bounds.size.x > curLine.bounds.size.y * 1.25f)
-        {
-            return Pattern.Vertical;
-        }
-        else if (curLine.bounds.size.y > curLine.bounds.size.x * 1.25f)
-        {
-            return Pattern.Horizontal;
-        }
-        else
-            return Pattern.None;
-    }
-
 }
