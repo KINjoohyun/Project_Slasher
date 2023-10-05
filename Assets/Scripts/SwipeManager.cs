@@ -82,6 +82,7 @@ public class SwipeManager : MonoBehaviour
 
     private void LineCheck()
     {
+        testInput = Pattern.None;
         for (Pattern i = 0; i < Pattern.Count; i++)
         {
             if (PixelReader(i)) testInput = i;
@@ -111,6 +112,12 @@ public class SwipeManager : MonoBehaviour
                 break;
             case Pattern.Horizontal:
                 image = (Texture2D)Resources.Load("Patterns/horizontal");
+                break;
+            case Pattern.V:
+                image = (Texture2D)Resources.Load("Patterns/v");
+                break;
+            case Pattern.Caret:
+                image = (Texture2D)Resources.Load("Patterns/caret");
                 break;
             default:
                 image = null;
@@ -143,13 +150,6 @@ public class SwipeManager : MonoBehaviour
                     if (!texPixel.CompareRGB(Color.white))
                     {
                         increase++;
-                    }
-                }
-                else
-                {
-                    if (!texPixel.CompareRGB(Color.white))
-                    {
-                        increase--;
                     }
                 }
             }
