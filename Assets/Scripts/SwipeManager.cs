@@ -28,7 +28,7 @@ public class SwipeManager : MonoBehaviour
         DrawingUpdate();
     }
 
-    void DrawingUpdate()
+    private void DrawingUpdate()
     {
         Vector3 mousePos = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1));
 
@@ -46,7 +46,7 @@ public class SwipeManager : MonoBehaviour
         }
     }
 
-    void StartDrawing(Vector3 mousePos)
+    private void StartDrawing(Vector3 mousePos)
     {
         GameObject line = new GameObject("Line");
         LineRenderer lineRend = line.AddComponent<LineRenderer>();
@@ -67,7 +67,7 @@ public class SwipeManager : MonoBehaviour
         curLine = lineRend;
     }
 
-    void ConnectDrawing(Vector3 mousePos)
+    private void ConnectDrawing(Vector3 mousePos)
     {
         if (Vector3.Distance(prevPos, mousePos) >= 0.001f)
         {
@@ -78,16 +78,18 @@ public class SwipeManager : MonoBehaviour
         }
     }
 
-    void LineCheck()
+    private void LineCheck()
     {
         //PixelReader(Pattern.Vertical);
         //LineCompare();
-        GameManager.instance.HitMonsters(testInput); // test code
+        testInput = GetPattern();
+        GameManager.instance.HitMonsters(testInput);
+        Debug.Log(testInput);
 
         DeleteLine();
     }
 
-    void DeleteLine()
+    private void DeleteLine()
     {
         positionCount = 2;
         prevPos = Vector3.zero;
@@ -142,35 +144,18 @@ public class SwipeManager : MonoBehaviour
         }
     }
 
-    void LineCompare()
+    private Pattern GetPattern()
     {
-        Texture2D image = (Texture2D)Resources.Load("Patterns/test");
-        if (image == null)
+        if (curLine.bounds.size.x > curLine.bounds.size.y * 1.25f)
         {
-            Debug.LogWarning("Not Exist Image!");
-            return;
+            return Pattern.Vertical;
         }
-        int width = image.width;
-        int height = image.height;
-        float totalDifference = 0;
-
-        for (int i = 0; i < curLine.positionCount; i++)
+        else if (curLine.bounds.size.y > curLine.bounds.size.x * 1.25f)
         {
-            Vector3 linePoint = curLine.GetPosition(i);
-            Vector3 screenPoint = Camera.main.WorldToScreenPoint(linePoint);
-
-            int x = Mathf.Clamp(Mathf.RoundToInt(screenPoint.x), 0, width - 1);
-            int y = Mathf.Clamp(Mathf.RoundToInt(screenPoint.y), 0, height - 1);
-
-            Color imagePixel = image.GetPixel(x, y);
-
-            float difference = Mathf.Sqrt(Mathf.Pow(imagePixel.r - Color.black.r, 2) + Mathf.Pow(imagePixel.g - Color.black.g, 2) + Mathf.Pow(imagePixel.b - Color.black.b, 2));
-            totalDifference += difference;
+            return Pattern.Horizontal;
         }
-
-        float similarityScore = totalDifference / curLine.positionCount;
-        Debug.Log(similarityScore);
-        if (similarityScore >= similarity) GameManager.instance.HitMonsters(Pattern.Vertical);
+        else
+            return Pattern.None;
     }
 
 }
