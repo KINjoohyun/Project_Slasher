@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class MonsterSpawner : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class MonsterSpawner : MonoBehaviour
     public float maxSpawnTime = 1.0f; // 최대 스폰 시간
     private float nextSpawnTime = 0.0f;
     private float lastSpawnTime = 0.0f;
+
+    ObjectPool<Monster> monsterPool;
 
     private void Start()
     {
