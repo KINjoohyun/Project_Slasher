@@ -16,6 +16,8 @@ public class SwipeManager : MonoBehaviour
     public Color endColor; // 선의 끝 색깔
     public float similarity = 50.0f; // 정확도
 
+    public Pattern testInput = Pattern.Vertical; // 현재 테스트중인 제스처 입력
+
     private void Awake()
     {
         cam = Camera.main;
@@ -79,8 +81,8 @@ public class SwipeManager : MonoBehaviour
     void LineCheck()
     {
         //PixelReader(Pattern.Vertical);
-        //GameManager.instance.HitMonsters(Pattern.Vertical);
-        LineCompare();
+        //LineCompare();
+        GameManager.instance.HitMonsters(testInput); // test code
 
         DeleteLine();
     }

@@ -513,6 +513,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a75ea6500ba692840af9c5df156d9172, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hp: 5
 --- !u!114 &565701173
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -529,6 +530,8 @@ MonoBehaviour:
   mat: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   startColor: {r: 1, g: 0, b: 0, a: 1}
   endColor: {r: 1, g: 1, b: 1, a: 0.78431374}
+  similarity: 50
+  testInput: 0
 --- !u!1 &621367597
 GameObject:
   m_ObjectHideFlags: 0
@@ -819,6 +822,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterPrefabs:
   - {fileID: 8947185799719075465, guid: a8f64f1dfb1928242b21d68ee54b82c4, type: 3}
+  minSpawnTime: 0.5
+  maxSpawnTime: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
