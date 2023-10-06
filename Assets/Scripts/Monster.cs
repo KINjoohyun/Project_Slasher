@@ -62,6 +62,8 @@ public class Monster : MonoBehaviour
 
             if (queue.Count <= 0)
             {
+                GameManager.instance.AddScore(score);
+
                 OnDie();
             }
         }
@@ -71,7 +73,6 @@ public class Monster : MonoBehaviour
     public void OnDie()
     {
         IsAlive = false;
-        GameManager.instance.AddScore(score);
         GameManager.instance.RemoveMonster(this);
 
         if (onDeath != null)

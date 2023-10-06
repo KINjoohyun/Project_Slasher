@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     public bool IsGameover { get; private set; }
     public int Score { get; private set; }
     public int maxHp = 5; // 최대 체력
-    private int hp = 0;
+    public int hp { get; private set; }
 
     private List<Monster> monsterList;
     private List<Monster> removeList;
@@ -31,13 +31,13 @@ public class GameManager : MonoBehaviour
         Score = 0;
         hp = maxHp;
 
-        UIManager.instance.UpdateHP((float)hp / maxHp);
+        UIManager.instance.UpdateUI();
     }
 
     public void OnDamage(int damage)
     {
         hp -= damage;
-        UIManager.instance.UpdateHP((float)hp / maxHp);
+        UIManager.instance.UpdateHP();
 
         if (hp <= 0)
         {
@@ -74,6 +74,8 @@ public class GameManager : MonoBehaviour
     public void AddScore(int increase)
     {
         Score += increase;
+
+        UIManager.instance.UpdateScore();
     }
 
     public void RemoveMonster(Monster monster)

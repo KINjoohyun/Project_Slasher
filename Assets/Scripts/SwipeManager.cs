@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -130,13 +131,14 @@ public class SwipeManager : MonoBehaviour
             return false;
         }
 
+
         RenderTexture.active = rendtex;
         Texture2D tex = new Texture2D(rendtex.width, rendtex.height);
         tex.ReadPixels(new Rect(0, 0, rendtex.width, rendtex.height), 0, 0);
         tex.Apply();
 
         float total = 0.0f;
-        float increase = 0.0f;
+        float result = 0.0f;
         for (int i = 0; i < image.width; i++)
         {
             for (int j = 0; j < image.height; j++)
@@ -147,26 +149,35 @@ public class SwipeManager : MonoBehaviour
                 if (pixel.CompareRGB(Color.black))
                 {
                     total++;
+
                     if (!texPixel.CompareRGB(Color.white))
                     {
-                        increase++;
+                        result++;
                     }
                 }
             }
         }
-        float similarityScore = increase / total * 100.0f;
+        float similarityScore = result / total * 100.0f;
         RenderTexture.active = null;
         Destroy(tex);
 
+        Debug.Log($"{p} : {similarityScore}");
         if (similarityScore >= similarity)
         {
-            Debug.Log($"{p} SUCCESS! : {similarityScore}");
             return true;
         }
         else
         {
-            Debug.Log($"{p} FAIL! : {similarityScore}");
             return false;
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        if (curLine != null)
+        {
+            Gizmos.DrawWireCube(curLine.bounds.center, curLine.bounds.size);
         }
     }
 }

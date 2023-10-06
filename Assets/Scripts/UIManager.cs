@@ -15,14 +15,21 @@ public class UIManager : MonoBehaviour
     }
 
     public Slider hp;
+    public Text scoreText;
 
-    private void Start()
+    public void UpdateUI()
     {
-        
+        UpdateHP();
+        UpdateScore();
     }
 
-    public void UpdateHP(float value)
+    public void UpdateHP()
     {
-        hp.value = value;
+        hp.value = (float)GameManager.instance.hp / GameManager.instance.maxHp;
+    }
+
+    public void UpdateScore() 
+    {
+        scoreText.text = $"Score : {GameManager.instance.Score}";
     }
 }
