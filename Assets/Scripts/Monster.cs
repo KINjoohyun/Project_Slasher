@@ -13,6 +13,7 @@ public class Monster : MonoBehaviour
     
     public event Action onDeath;
     public bool IsAlive {  get; private set; }
+    public MonsterUiController queueUi;
 
     private void OnEnable()
     {
@@ -50,6 +51,7 @@ public class Monster : MonoBehaviour
     public void SetUp(Pattern c)
     {
         queue.Enqueue(c);
+        queueUi.EnqueueImage(c);
     }
 
     public void OnHit(Pattern c)
@@ -59,6 +61,7 @@ public class Monster : MonoBehaviour
         if (queue.Peek() == c)
         {
             queue.Dequeue();
+            queueUi.DequeueImage();
 
             if (queue.Count <= 0)
             {

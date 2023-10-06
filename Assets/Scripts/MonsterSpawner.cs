@@ -62,7 +62,8 @@ public class MonsterSpawner : MonoBehaviour
 
     private void MonsterPatternSetUp(Monster monster)
     {
-        monster.SetUp(Pattern.Vertical); // test code
-        monster.SetUp(Pattern.Vertical); // test code
+        // test로 2개만 랜덤으로 입력
+        monster.SetUp((Pattern)Random.Range(0, (int)Pattern.Count));
+        monster.SetUp((Pattern)Random.Range(0, (int)Pattern.Count));
     }
 }

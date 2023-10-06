@@ -1275,7 +1275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monsterPrefabs:
-  - {fileID: 8947185799719075465, guid: a8f64f1dfb1928242b21d68ee54b82c4, type: 3}
+  - {fileID: 3010339285993572229, guid: 2ab1234d54ad9304d9569783aa38886b, type: 3}
   minSpawnTime: 0.5
   maxSpawnTime: 1
 --- !u!1660057539 &9223372036854775807
