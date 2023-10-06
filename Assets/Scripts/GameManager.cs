@@ -16,21 +16,28 @@ public class GameManager : MonoBehaviour
 
     public bool IsGameover { get; private set; }
     public int Score { get; private set; }
-    public int hp = 5;
+    public int maxHp = 5; // 최대 체력
+    private int hp = 0;
+
     private List<Monster> monsterList;
+    private List<Monster> removeList;
 
     private void Start()
     {
         IsGameover = false;
 
         monsterList = new List<Monster>();
+        removeList = new List<Monster>();
         Score = 0;
-        hp = 5;
+        hp = maxHp;
+
+        UIManager.instance.UpdateHP((float)hp / maxHp);
     }
 
     public void OnDamage(int damage)
     {
         hp -= damage;
+        UIManager.instance.UpdateHP((float)hp / maxHp);
 
         if (hp <= 0)
         {
@@ -57,11 +64,20 @@ public class GameManager : MonoBehaviour
             monster.OnHit(c);
         }
 
-        // 순회 중 List에서 없애는 부분 처리할 것
+        foreach (var monster in removeList)
+        {
+            monsterList.Remove(monster);
+        }
+        removeList.Clear();
     }
 
     public void AddScore(int increase)
     {
         Score += increase;
+    }
+
+    public void RemoveMonster(Monster monster)
+    {
+        removeList.Add(monster);
     }
 }

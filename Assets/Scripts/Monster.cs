@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class Monster : MonoBehaviour
@@ -10,17 +11,21 @@ public class Monster : MonoBehaviour
     public Queue<Pattern> queue = new Queue<Pattern>(); // 패턴 큐
     public int score = 1; // 점수
     
-    private float initY = 0.0f;
     public event Action onDeath;
+    public bool IsAlive {  get; private set; }
 
-    private void Start()
+    private void OnEnable()
     {
-        initY = transform.position.y;
-        transform.localScale = Vector3.one;
+        IsAlive = true;
+        if (queue == null)
+        {
+            queue = new Queue<Pattern>();
+        }
     }
 
     private void Update()
     {
+        if (!IsAlive) return;
         transform.position += Vector3.down * moveSpeed * Time.deltaTime;
 
         //LerpScale();
@@ -42,12 +47,6 @@ public class Monster : MonoBehaviour
         }
     }
 
-    private void LerpScale()
-    {
-        float gap = (initY - transform.position.y) / initY * 2.0f;
-        transform.localScale = new Vector3(gap, gap, 1);
-    }
-
     public void SetUp(Pattern c)
     {
         queue.Enqueue(c);
@@ -55,6 +54,8 @@ public class Monster : MonoBehaviour
 
     public void OnHit(Pattern c)
     {
+        if (!IsAlive) return;
+
         if (queue.Peek() == c)
         {
             queue.Dequeue();
@@ -69,11 +70,14 @@ public class Monster : MonoBehaviour
 
     public void OnDie()
     {
+        IsAlive = false;
         GameManager.instance.AddScore(score);
+        GameManager.instance.RemoveMonster(this);
 
         if (onDeath != null)
         {
             onDeath();
+            onDeath = null;
         }
     }
 }

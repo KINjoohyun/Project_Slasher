@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.UIElements;
@@ -30,7 +31,9 @@ public class MonsterSpawner : MonoBehaviour
             Vector3 pos = new Vector3(Mathf.Lerp(minX, maxX, Random.value), posY, 0);
             var prefab = monsterPrefabs[Random.Range(0, monsterPrefabs.Length)];
             var monster = Instantiate(prefab, pos, prefab.transform.rotation);
-            return monster; });
+            return monster; }, 
+            delegate (Monster monster) { monster.gameObject.SetActive(true); },
+            delegate (Monster monster) { monster.gameObject.SetActive(false); });
     }
 
     private void Update()
@@ -49,14 +52,17 @@ public class MonsterSpawner : MonoBehaviour
     private void Spawn()
     {
         Vector3 pos = new Vector3(Mathf.Lerp(minX, maxX, Random.value), posY, 0);
-        var prefab = monsterPrefabs[Random.Range(0, monsterPrefabs.Length)];
         var monster = monsterPool.Get();
-        monster.gameObject.SetActive(true);
-        monster.SetUp(Pattern.Vertical); // test code
-        monster.SetUp(Pattern.Vertical); // test code
-        monster.onDeath += () => monster.gameObject.SetActive(false);
+        monster.transform.position = pos;
+        MonsterPatternSetUp(monster);
         monster.onDeath += () => monsterPool.Release(monster);
 
         GameManager.instance.AddMonster(monster);
+    }
+
+    private void MonsterPatternSetUp(Monster monster)
+    {
+        monster.SetUp(Pattern.Vertical); // test code
+        monster.SetUp(Pattern.Vertical); // test code
     }
 }
