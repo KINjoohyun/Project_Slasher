@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class ButtonHandler : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class ButtonHandler : MonoBehaviour
         seq.Append(transform.DOScale(1f, 0.1f));
 
         seq.Play().OnComplete(() => {
-            popupWindow.Show();
+            SceneManager.LoadScene("Game");
         });
     }
 }

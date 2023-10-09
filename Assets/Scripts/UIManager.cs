@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class UIManager : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class UIManager : MonoBehaviour
     }
 
     public Slider hp;
-    public Text scoreText;
+    public TextMeshProUGUI scoreText;
 
     public void UpdateUI()
     {

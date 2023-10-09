@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -41,5 +42,14 @@ public class MonsterUiController : MonoBehaviour
     {
         Destroy(queue.Peek());
         queue.Dequeue();
+    }
+
+    public void Clear()
+    {
+        while (queue.Count > 0)
+        {
+            Destroy(queue.Peek());
+            queue.Dequeue();
+        }
     }
 }

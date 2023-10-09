@@ -86,7 +86,11 @@ public class SwipeManager : MonoBehaviour
         testInput = Pattern.None;
         for (Pattern i = 0; i < Pattern.Count; i++)
         {
-            if (PixelReader(i)) testInput = i;
+            if (PixelReader(i)) 
+            {
+                testInput = i;
+                break;
+            }
         }
  
         GameManager.instance.HitMonsters(testInput);
@@ -172,6 +176,7 @@ public class SwipeManager : MonoBehaviour
         }
     }
 
+    /*
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
@@ -180,4 +185,5 @@ public class SwipeManager : MonoBehaviour
             Gizmos.DrawWireCube(curLine.bounds.center, curLine.bounds.size);
         }
     }
+    */
 }

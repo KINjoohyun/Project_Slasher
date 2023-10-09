@@ -77,6 +77,8 @@ public class Monster : MonoBehaviour
     {
         IsAlive = false;
         GameManager.instance.RemoveMonster(this);
+        queue.Clear();
+        queueUi.Clear();
 
         if (onDeath != null)
         {

@@ -32,8 +32,8 @@ public class MonsterSpawner : MonoBehaviour
             var prefab = monsterPrefabs[Random.Range(0, monsterPrefabs.Length)];
             var monster = Instantiate(prefab, pos, prefab.transform.rotation);
             return monster; }, 
-            delegate (Monster monster) { monster.gameObject.SetActive(true); },
-            delegate (Monster monster) { monster.gameObject.SetActive(false); });
+            delegate (Monster monster) { monster.gameObject.SetActive(true); }, // actionOnGet
+            delegate (Monster monster) { monster.gameObject.SetActive(false); }); // actionOnRelease
     }
 
     private void Update()
@@ -62,8 +62,11 @@ public class MonsterSpawner : MonoBehaviour
 
     private void MonsterPatternSetUp(Monster monster)
     {
-        // test로 2개만 랜덤으로 입력
-        monster.SetUp((Pattern)Random.Range(0, (int)Pattern.Count));
-        monster.SetUp((Pattern)Random.Range(0, (int)Pattern.Count));
+        var quantity = 2 + (GameManager.instance.Score / 20);
+        for (int i = 0; i < quantity; i++)
+        {
+            monster.SetUp((Pattern)Random.Range(0, (int)Pattern.Count));
+        }
+
     }
 }
