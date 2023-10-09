@@ -1104,7 +1104,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7213636182982627421, guid: f46117132497686499ee246bd262d8e8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: UpdateGameover
+      value: UpdatePause
       objectReference: {fileID: 0}
     - target: {fileID: 7213636182982627421, guid: f46117132497686499ee246bd262d8e8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
