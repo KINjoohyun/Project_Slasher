@@ -13,6 +13,7 @@ public class SwipeManager : MonoBehaviour
     private int positionCount = 2;
     private Vector3 prevPos = Vector3.zero;
     private Pattern testInput = Pattern.None;
+    public ParticleSystem slashParticle;
 
     public float thick = 0.1f; // 선의 굵기
     public Material mat; // 메테리얼
@@ -89,6 +90,8 @@ public class SwipeManager : MonoBehaviour
             if (PixelReader(i)) 
             {
                 testInput = i;
+                slashParticle.Stop();
+                slashParticle.Play();
                 break;
             }
         }
@@ -165,7 +168,7 @@ public class SwipeManager : MonoBehaviour
         RenderTexture.active = null;
         Destroy(tex);
 
-        Debug.Log($"{p} : {similarityScore}");
+        //Debug.Log($"{p} : {similarityScore}");
         if (similarityScore >= similarity)
         {
             return true;
