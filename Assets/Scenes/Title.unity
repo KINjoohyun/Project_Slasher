@@ -222,6 +222,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &187560322
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 187560324}
+  - component: {fileID: 187560323}
+  m_Layer: 0
+  m_Name: TitleManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &187560323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 187560322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 934854501335bc94d9c0bd58aa1b7a12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &187560324
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 187560322}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!850595691 &377567388
 LightingSettings:
   m_ObjectHideFlags: 0
@@ -759,6 +803,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 668340324}
     - target: {fileID: 3339495502609998168, guid: d946df9677d4529419d2f5ac86d4eb12, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 187560323}
+    - target: {fileID: 3339495502609998168, guid: d946df9677d4529419d2f5ac86d4eb12, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
@@ -771,15 +819,23 @@ PrefabInstance:
       value: OnButtonClick
       objectReference: {fileID: 0}
     - target: {fileID: 3339495502609998168, guid: d946df9677d4529419d2f5ac86d4eb12, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: GoGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 3339495502609998168, guid: d946df9677d4529419d2f5ac86d4eb12, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: ButtonHandler, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3339495502609998168, guid: d946df9677d4529419d2f5ac86d4eb12, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: ButtonHandler, Assembly-CSharp
+      value: TitleManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3339495502609998168, guid: d946df9677d4529419d2f5ac86d4eb12, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3339495502609998168, guid: d946df9677d4529419d2f5ac86d4eb12, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3339495502609998169, guid: d946df9677d4529419d2f5ac86d4eb12, type: 3}
@@ -1440,6 +1496,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: OptionPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 7638704349291021901, guid: 23dbfb59b38b575479052379c2609ca3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1486,6 +1546,10 @@ PrefabInstance:
     - target: {fileID: 2616989178669140353, guid: 340772086900a2f43a7c1bb80c88bffa, type: 3}
       propertyPath: m_Name
       value: ScorePanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 2616989178669140353, guid: 340772086900a2f43a7c1bb80c88bffa, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4498323446922258460, guid: 340772086900a2f43a7c1bb80c88bffa, type: 3}
       propertyPath: m_Pivot.x
@@ -1626,6 +1690,7 @@ RectTransform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 187560324}
   - {fileID: 534669905}
   - {fileID: 170076735}
   - {fileID: 1274961701}

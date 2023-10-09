@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class GameManager : MonoBehaviour
     public int Score { get; private set; }
     public int maxHp = 5; // 최대 체력
     public int hp { get; private set; }
+    public bool IsPause { get; private set; } = false;
 
     private List<Monster> monsterList;
     private List<Monster> removeList;
@@ -25,6 +27,8 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         IsGameover = false;
+        IsPause = false;
+        Time.timeScale = 1;
 
         monsterList = new List<Monster>();
         removeList = new List<Monster>();
@@ -48,6 +52,8 @@ public class GameManager : MonoBehaviour
     public void Gameover()
     {
         IsGameover = true;
+
+        UIManager.instance.UpdateGameover();
     }
 
     public void AddMonster(Monster monster)
@@ -81,5 +87,24 @@ public class GameManager : MonoBehaviour
     public void RemoveMonster(Monster monster)
     {
         removeList.Add(monster);
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene("Game");
+    }
+
+    public void Pause()
+    {
+        IsPause = !IsPause;
+
+        if (IsPause)
+        {
+            Time.timeScale = 0;
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
     }
 }

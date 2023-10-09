@@ -17,7 +17,8 @@ public class ButtonHandler : MonoBehaviour
         seq.Append(transform.DOScale(1f, 0.1f));
 
         seq.Play().OnComplete(() => {
-            SceneManager.LoadScene("Game");
+            //SceneManager.LoadScene("Game");
+            popupWindow.Show();
         });
     }
 }

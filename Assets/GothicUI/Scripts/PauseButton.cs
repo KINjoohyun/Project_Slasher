@@ -26,14 +26,12 @@ public class PauseButton : MonoBehaviour
 
         if (isPaused)
         {
-            yield return new WaitForSecondsRealtime(0.5f);
-            Time.timeScale = 0;
+            yield return new WaitForSeconds(0.1f);
             buttonImage.sprite = playSprite;
         }
         else
         {
-            Time.timeScale = 1;
-            yield return new WaitForSecondsRealtime(0.5f);
+            yield return new WaitForSeconds(0.1f);
             buttonImage.sprite = pauseSprite;
         }
     }
