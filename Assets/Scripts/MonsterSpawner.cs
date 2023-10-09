@@ -52,11 +52,11 @@ public class MonsterSpawner : MonoBehaviour
     private void Spawn()
     {
         Vector3 pos = new Vector3(Mathf.Lerp(minX, maxX, Random.value), posY, 0);
+
         var monster = monsterPool.Get();
         monster.transform.position = pos;
         MonsterPatternSetUp(monster);
         monster.onDeath += () => monsterPool.Release(monster);
-
         GameManager.instance.AddMonster(monster);
     }
 
