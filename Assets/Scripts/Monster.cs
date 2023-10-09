@@ -39,9 +39,9 @@ public class Monster : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
             GameManager.instance.OnDamage(damage);
             OnDie();
