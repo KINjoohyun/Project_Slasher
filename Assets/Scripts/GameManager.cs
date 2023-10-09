@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+
     private void Awake()
     {
         if (instance == null)
@@ -15,21 +16,28 @@ public class GameManager : MonoBehaviour
 
     public bool IsGameover { get; private set; }
     public int Score { get; private set; }
-    public int hp = 5;
+    public int maxHp = 5; // 최대 체력
+    public int hp { get; private set; }
+
     private List<Monster> monsterList;
+    private List<Monster> removeList;
 
     private void Start()
     {
         IsGameover = false;
 
         monsterList = new List<Monster>();
+        removeList = new List<Monster>();
         Score = 0;
-        hp = 5;
+        hp = maxHp;
+
+        UIManager.instance.UpdateUI();
     }
 
     public void OnDamage(int damage)
     {
         hp -= damage;
+        UIManager.instance.UpdateHP();
 
         if (hp <= 0)
         {
@@ -45,7 +53,6 @@ public class GameManager : MonoBehaviour
     public void AddMonster(Monster monster)
     {
         monsterList.Add(monster);
-        //monster.onDeath += () => monsterList.Remove(monster);
     }
 
     public void HitMonsters(Pattern c)
@@ -57,11 +64,22 @@ public class GameManager : MonoBehaviour
             monster.OnHit(c);
         }
 
-        // 최적화 필요 (순회 중 리스트 제거는 위험하여 현재 SetActiveFalse 상태)
+        foreach (var monster in removeList)
+        {
+            monsterList.Remove(monster);
+        }
+        removeList.Clear();
     }
 
     public void AddScore(int increase)
     {
         Score += increase;
+
+        UIManager.instance.UpdateScore();
+    }
+
+    public void RemoveMonster(Monster monster)
+    {
+        removeList.Add(monster);
     }
 }

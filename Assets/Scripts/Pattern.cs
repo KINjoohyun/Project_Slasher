@@ -4,7 +4,8 @@ public enum Pattern
 
     Vertical,
     Horizontal,
-    //V,
+    V,
+    Caret, // ^
 
     Count
 }

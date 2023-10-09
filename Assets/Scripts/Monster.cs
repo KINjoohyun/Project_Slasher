@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class Monster : MonoBehaviour
@@ -9,21 +11,22 @@ public class Monster : MonoBehaviour
     public Queue<Pattern> queue = new Queue<Pattern>(); // 패턴 큐
     public int score = 1; // 점수
     
-    private float initY = 0.0f;
     public event Action onDeath;
-    public bool isAlive {  get; private set; }
+    public bool IsAlive {  get; private set; }
+    public MonsterUiController queueUi;
 
-    private void Start()
+    private void OnEnable()
     {
-        initY = transform.position.y;
-        transform.localScale = Vector3.one;
-        isAlive = true;
+        IsAlive = true;
+        if (queue == null)
+        {
+            queue = new Queue<Pattern>();
+        }
     }
 
     private void Update()
     {
-        if (!isAlive) return;
-
+        if (!IsAlive) return;
         transform.position += Vector3.down * moveSpeed * Time.deltaTime;
 
         //LerpScale();
@@ -45,27 +48,25 @@ public class Monster : MonoBehaviour
         }
     }
 
-    private void LerpScale()
-    {
-        float gap = (initY - transform.position.y) / initY * 2.0f;
-        transform.localScale = new Vector3(gap, gap, 1);
-    }
-
     public void SetUp(Pattern c)
     {
         queue.Enqueue(c);
+        queueUi.EnqueueImage(c);
     }
 
     public void OnHit(Pattern c)
     {
-        if (!isAlive) return;
+        if (!IsAlive) return;
 
         if (queue.Peek() == c)
         {
             queue.Dequeue();
+            queueUi.DequeueImage();
 
             if (queue.Count <= 0)
             {
+                GameManager.instance.AddScore(score);
+
                 OnDie();
             }
         }
@@ -74,13 +75,15 @@ public class Monster : MonoBehaviour
 
     public void OnDie()
     {
+        IsAlive = false;
+        GameManager.instance.RemoveMonster(this);
+        queue.Clear();
+        queueUi.Clear();
+
         if (onDeath != null)
         {
             onDeath();
+            onDeath = null;
         }
-
-        isAlive = false;
-        GameManager.instance.AddScore(score);
-        Destroy(gameObject, 1f);
     }
 }

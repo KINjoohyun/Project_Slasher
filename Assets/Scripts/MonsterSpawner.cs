@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.Pool;
+using UnityEngine.UIElements;
 
 public class MonsterSpawner : MonoBehaviour
 {
@@ -16,7 +18,7 @@ public class MonsterSpawner : MonoBehaviour
     private float nextSpawnTime = 0.0f;
     private float lastSpawnTime = 0.0f;
 
-    ObjectPool<Monster> monsterPool;
+    private ObjectPool<Monster> monsterPool;
 
     private void Start()
     {
@@ -24,6 +26,14 @@ public class MonsterSpawner : MonoBehaviour
         minX = -x / 2.0f;
         maxX = +x / 2.0f;
         posY = gameObject.GetComponent<SpriteRenderer>().bounds.size.y / 2.0f + transform.position.y;
+
+        monsterPool = new ObjectPool<Monster>(() => {
+            Vector3 pos = new Vector3(Mathf.Lerp(minX, maxX, Random.value), posY, 0);
+            var prefab = monsterPrefabs[Random.Range(0, monsterPrefabs.Length)];
+            var monster = Instantiate(prefab, pos, prefab.transform.rotation);
+            return monster; }, 
+            delegate (Monster monster) { monster.gameObject.SetActive(true); }, // actionOnGet
+            delegate (Monster monster) { monster.gameObject.SetActive(false); }); // actionOnRelease
     }
 
     private void Update()
@@ -42,10 +52,21 @@ public class MonsterSpawner : MonoBehaviour
     private void Spawn()
     {
         Vector3 pos = new Vector3(Mathf.Lerp(minX, maxX, Random.value), posY, 0);
-        var prefab = monsterPrefabs[Random.Range(0, monsterPrefabs.Length)];
-        var monster = Instantiate(prefab, pos, prefab.transform.rotation);
-        monster.SetUp(Pattern.Vertical); // test code
-        monster.SetUp(Pattern.Vertical); // test code
+
+        var monster = monsterPool.Get();
+        monster.transform.position = pos;
+        MonsterPatternSetUp(monster);
+        monster.onDeath += () => monsterPool.Release(monster);
         GameManager.instance.AddMonster(monster);
+    }
+
+    private void MonsterPatternSetUp(Monster monster)
+    {
+        var quantity = 2 + (GameManager.instance.Score / 20);
+        for (int i = 0; i < quantity; i++)
+        {
+            monster.SetUp((Pattern)Random.Range(0, (int)Pattern.Count));
+        }
+
     }
 }

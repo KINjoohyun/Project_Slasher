@@ -1,14 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class SwipeManager : MonoBehaviour
 {
     private LineRenderer curLine;
-    private Camera cam;
+    public RenderTexture rendtex;
+    private Camera maincam;
     private int positionCount = 2;
     private Vector3 prevPos = Vector3.zero;
+    private Pattern testInput = Pattern.None;
 
     public float thick = 0.1f; // 선의 굵기
     public Material mat; // 메테리얼
@@ -16,11 +20,9 @@ public class SwipeManager : MonoBehaviour
     public Color endColor; // 선의 끝 색깔
     public float similarity = 50.0f; // 정확도
 
-    public Pattern testInput = Pattern.Vertical; // 현재 테스트중인 제스처 입력
-
     private void Awake()
     {
-        cam = Camera.main;
+        maincam = Camera.main;
     }
 
     private void Update()
@@ -28,9 +30,9 @@ public class SwipeManager : MonoBehaviour
         DrawingUpdate();
     }
 
-    void DrawingUpdate()
+    private void DrawingUpdate()
     {
-        Vector3 mousePos = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1));
+        Vector3 mousePos = maincam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1));
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -46,12 +48,13 @@ public class SwipeManager : MonoBehaviour
         }
     }
 
-    void StartDrawing(Vector3 mousePos)
+    private void StartDrawing(Vector3 mousePos)
     {
         GameObject line = new GameObject("Line");
+        line.layer = LayerMask.NameToLayer("Line");
         LineRenderer lineRend = line.AddComponent<LineRenderer>();
 
-        line.transform.parent = cam.transform;
+        line.transform.parent = maincam.transform;
         line.transform.position = mousePos;
 
         lineRend.startWidth = thick;
@@ -67,7 +70,7 @@ public class SwipeManager : MonoBehaviour
         curLine = lineRend;
     }
 
-    void ConnectDrawing(Vector3 mousePos)
+    private void ConnectDrawing(Vector3 mousePos)
     {
         if (Vector3.Distance(prevPos, mousePos) >= 0.001f)
         {
@@ -78,16 +81,25 @@ public class SwipeManager : MonoBehaviour
         }
     }
 
-    void LineCheck()
+    private void LineCheck()
     {
-        //PixelReader(Pattern.Vertical);
-        //LineCompare();
-        GameManager.instance.HitMonsters(testInput); // test code
+        testInput = Pattern.None;
+        for (Pattern i = 0; i < Pattern.Count; i++)
+        {
+            if (PixelReader(i)) 
+            {
+                testInput = i;
+                break;
+            }
+        }
+ 
+        GameManager.instance.HitMonsters(testInput);
+        Debug.Log(testInput);
 
         DeleteLine();
     }
 
-    void DeleteLine()
+    private void DeleteLine()
     {
         positionCount = 2;
         prevPos = Vector3.zero;
@@ -101,37 +113,59 @@ public class SwipeManager : MonoBehaviour
         switch (p)
         {
             case Pattern.Vertical:
-                image = (Texture2D)Resources.Load("Patterns/test");
+                image = (Texture2D)Resources.Load("Patterns/vertical");
                 break;
             case Pattern.Horizontal:
-                image = (Texture2D)Resources.Load("Patterns/test");
+                image = (Texture2D)Resources.Load("Patterns/horizontal");
+                break;
+            case Pattern.V:
+                image = (Texture2D)Resources.Load("Patterns/v");
+                break;
+            case Pattern.Caret:
+                image = (Texture2D)Resources.Load("Patterns/caret");
                 break;
             default:
                 image = null;
                 break;
         }
 
-        if (image == null)
+        if (image == null) // Exception Handling
         {
             Debug.LogWarning("Not Exist Image!");
             return false;
         }
 
-        float similarityScore = 0.0f;
-        float totalDifference = 0.0f;
+
+        RenderTexture.active = rendtex;
+        Texture2D tex = new Texture2D(rendtex.width, rendtex.height);
+        tex.ReadPixels(new Rect(0, 0, rendtex.width, rendtex.height), 0, 0);
+        tex.Apply();
+
+        float total = 0.0f;
+        float result = 0.0f;
         for (int i = 0; i < image.width; i++)
         {
             for (int j = 0; j < image.height; j++)
             {
                 Color pixel = image.GetPixel(i, j);
+                Color texPixel = tex.GetPixel(i, j);
 
-                if (pixel.r <= Color.black.r && pixel.g <= Color.black.g && pixel.b <= Color.black.b)
+                if (pixel.CompareRGB(Color.black))
                 {
-                    Debug.Log($"{i} , {j}"); // 픽셀 Get 완료
+                    total++;
+
+                    if (!texPixel.CompareRGB(Color.white))
+                    {
+                        result++;
+                    }
                 }
             }
         }
+        float similarityScore = result / total * 100.0f;
+        RenderTexture.active = null;
+        Destroy(tex);
 
+        Debug.Log($"{p} : {similarityScore}");
         if (similarityScore >= similarity)
         {
             return true;
@@ -142,35 +176,14 @@ public class SwipeManager : MonoBehaviour
         }
     }
 
-    void LineCompare()
+    /*
+    private void OnDrawGizmos()
     {
-        Texture2D image = (Texture2D)Resources.Load("Patterns/test");
-        if (image == null)
+        Gizmos.color = Color.red;
+        if (curLine != null)
         {
-            Debug.LogWarning("Not Exist Image!");
-            return;
+            Gizmos.DrawWireCube(curLine.bounds.center, curLine.bounds.size);
         }
-        int width = image.width;
-        int height = image.height;
-        float totalDifference = 0;
-
-        for (int i = 0; i < curLine.positionCount; i++)
-        {
-            Vector3 linePoint = curLine.GetPosition(i);
-            Vector3 screenPoint = Camera.main.WorldToScreenPoint(linePoint);
-
-            int x = Mathf.Clamp(Mathf.RoundToInt(screenPoint.x), 0, width - 1);
-            int y = Mathf.Clamp(Mathf.RoundToInt(screenPoint.y), 0, height - 1);
-
-            Color imagePixel = image.GetPixel(x, y);
-
-            float difference = Mathf.Sqrt(Mathf.Pow(imagePixel.r - Color.black.r, 2) + Mathf.Pow(imagePixel.g - Color.black.g, 2) + Mathf.Pow(imagePixel.b - Color.black.b, 2));
-            totalDifference += difference;
-        }
-
-        float similarityScore = totalDifference / curLine.positionCount;
-        Debug.Log(similarityScore);
-        if (similarityScore >= similarity) GameManager.instance.HitMonsters(Pattern.Vertical);
     }
-
+    */
 }
