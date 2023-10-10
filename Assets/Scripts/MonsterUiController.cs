@@ -9,7 +9,7 @@ public class MonsterUiController : MonoBehaviour
     public GameObject[] icons;
     public GameObject panel;
     private Queue<GameObject> queue = new Queue<GameObject>();
-    private GameObject curObj = null;
+    private GameObject inputObj = null;
     public ParticleSystem hitParticle;
 
     public void EnqueueImage(Pattern p)
@@ -17,25 +17,25 @@ public class MonsterUiController : MonoBehaviour
         switch (p)
         {
             case Pattern.Vertical:
-                curObj = Instantiate(icons[0]);
+                inputObj = Instantiate(icons[0]);
                 break;
             case Pattern.Horizontal:
-                curObj = Instantiate(icons[1]);
+                inputObj = Instantiate(icons[1]);
                 break;
             case Pattern.V:
-                curObj = Instantiate(icons[2]);
+                inputObj = Instantiate(icons[2]);
                 break;
             case Pattern.Caret:
-                curObj = Instantiate(icons[3]);
+                inputObj = Instantiate(icons[3]);
                 break;
             default:
-                curObj = null;
+                inputObj = null;
                 break;
         }
-        curObj.transform.SetParent(panel.transform, false);
-        if (curObj != null)
+        inputObj.transform.SetParent(panel.transform, false);
+        if (inputObj != null)
         { 
-            queue.Enqueue(curObj);
+            queue.Enqueue(inputObj);
         }
     }
 
