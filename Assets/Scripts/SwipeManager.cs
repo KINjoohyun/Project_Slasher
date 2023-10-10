@@ -12,7 +12,7 @@ public class SwipeManager : MonoBehaviour
     private Camera maincam;
     private int positionCount = 2;
     private Vector3 prevPos = Vector3.zero;
-    private Pattern testInput = Pattern.None;
+    private Pattern swipeInput = Pattern.None;
     public ParticleSystem slashParticle;
 
     public float thick = 0.1f; // ¼±ÀÇ ±½±â
@@ -84,20 +84,26 @@ public class SwipeManager : MonoBehaviour
 
     private void LineCheck()
     {
-        testInput = Pattern.None;
+        //curLine.bounds.min
+
+        swipeInput = Pattern.None;
         for (Pattern i = 0; i < Pattern.Count; i++)
         {
             if (PixelReader(i)) 
             {
-                testInput = i;
+                swipeInput = i;
                 slashParticle.Stop();
                 slashParticle.Play();
                 break;
             }
         }
- 
-        GameManager.instance.HitMonsters(testInput);
-        Debug.Log(testInput);
+        if (TestManager.instance != null)
+        {
+            TestManager.instance.SetText(swipeInput);
+        }
+
+        GameManager.instance.HitMonsters(swipeInput);
+        Debug.Log(swipeInput);
 
         DeleteLine();
     }
@@ -169,6 +175,11 @@ public class SwipeManager : MonoBehaviour
         Destroy(tex);
 
         //Debug.Log($"{p} : {similarityScore}");
+        if (TestManager.instance != null)
+        {
+            TestManager.instance.SetSimilarity(p, similarityScore);
+        }
+
         if (similarityScore >= similarity)
         {
             return true;

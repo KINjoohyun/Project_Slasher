@@ -10,6 +10,7 @@ public class MonsterUiController : MonoBehaviour
     public GameObject panel;
     private Queue<GameObject> queue = new Queue<GameObject>();
     private GameObject curObj = null;
+    public ParticleSystem hitParticle;
 
     public void EnqueueImage(Pattern p)
     {
@@ -42,6 +43,9 @@ public class MonsterUiController : MonoBehaviour
     {
         Destroy(queue.Peek());
         queue.Dequeue();
+
+        hitParticle.Stop();
+        hitParticle.Play();
     }
 
     public void Clear()
