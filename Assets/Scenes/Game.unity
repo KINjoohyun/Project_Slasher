@@ -1583,6 +1583,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sword Slash 9
       objectReference: {fileID: 0}
+    - target: {fileID: 1596681796980418, guid: 9ebee8c2fd4ac0e419980e4d6887f43c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1674154614088328, guid: 9ebee8c2fd4ac0e419980e4d6887f43c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4224248346873060, guid: 9ebee8c2fd4ac0e419980e4d6887f43c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.5
@@ -1673,14 +1681,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198228290782684382, guid: 9ebee8c2fd4ac0e419980e4d6887f43c, type: 3}
       propertyPath: EmissionModule.enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 198740660446778970, guid: 9ebee8c2fd4ac0e419980e4d6887f43c, type: 3}
       propertyPath: EmissionModule.enabled
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 1896747071135388, guid: 9ebee8c2fd4ac0e419980e4d6887f43c, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ebee8c2fd4ac0e419980e4d6887f43c, type: 3}
