@@ -17,7 +17,7 @@ public class SaveDataV1 : SaveData
         Version = 1;
     }
 
-    public int HighScore {  get; set; }
+    public int HighScore { get; set; }
 
     public override SaveData VersionUp()
     {
@@ -36,24 +36,16 @@ public class SaveDataV2 : SaveData
     }
 
     public int HighScore { get; set; }
-    public string Name { get; set; } = "unknown";
+    public int Gold { get; set; } = 0;
 
     public override SaveData VersionUp()
     {
         var data = new SaveDataV3();
         data.HighScore = HighScore;
-        data.Name = Name;
+        data.Gold = Gold;
 
         return data;
     }
-}
-
-public class ItemInfo
-{
-    public string name;
-    public Vector3 position;
-    public Quaternion rotation;
-    public Vector3 scale;
 }
 
 public class SaveDataV3 : SaveData
@@ -64,9 +56,7 @@ public class SaveDataV3 : SaveData
     }
 
     public int HighScore { get; set; }
-    public string Name { get; set; } = "unknown";
-
-    public List<ItemInfo> infos { get; set; } = new List<ItemInfo>();
+    public int Gold { get; set; } = 0;
 
     public override SaveData VersionUp()
     {
