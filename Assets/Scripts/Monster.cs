@@ -12,7 +12,7 @@ public class Monster : MonoBehaviour
     public int score = 1; // Á¡¼ö
     
     public event Action onDeath;
-    public bool IsAlive {  get; private set; }
+    public bool IsAlive { get; private set; }
     public MonsterUiController queueUi;
 
     private void OnEnable()
@@ -28,15 +28,6 @@ public class Monster : MonoBehaviour
     {
         if (!IsAlive) return;
         transform.position += Vector3.down * moveSpeed * Time.deltaTime;
-
-        //LerpScale();
-        if (Input.GetKeyDown(KeyCode.R)) // test code
-        {
-            foreach (char c in queue) 
-            {
-                Debug.Log(c);
-            }
-        }
     }
 
     private void OnTriggerEnter(Collider other)

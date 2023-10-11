@@ -63,7 +63,10 @@ public class GameManager : MonoBehaviour
 
     public void HitMonsters(Pattern c)
     {
-        if (monsterList.Count <= 0) return;
+        if (monsterList.Count <= 0) 
+        { 
+            return; 
+        }
 
         foreach (var monster in monsterList) 
         {
@@ -75,6 +78,8 @@ public class GameManager : MonoBehaviour
             monsterList.Remove(monster);
         }
         removeList.Clear();
+
+        UIManager.instance.UpdateGuide();
     }
 
     public void AddScore(int increase)
@@ -87,6 +92,7 @@ public class GameManager : MonoBehaviour
     public void RemoveMonster(Monster monster)
     {
         removeList.Add(monster);
+        UIManager.instance.UpdateGuide();
     }
 
     public void Restart()
@@ -106,5 +112,24 @@ public class GameManager : MonoBehaviour
         {
             Time.timeScale = 1;
         }
+    }
+
+    public Pattern CloserPattern()
+    {
+        if (monsterList.Count <= 0)
+        {
+            return Pattern.Count;
+        }
+
+        var min = monsterList[0];
+        foreach (var monster in monsterList) 
+        { 
+            if (monster.transform.position.y <= min.transform.position.y)
+            {
+                min = monster;
+            }
+        }
+        if (min.queue.Count <= 0) return Pattern.Count;
+        return min.queue.Peek();
     }
 }
