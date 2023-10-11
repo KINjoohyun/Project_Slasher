@@ -29,9 +29,13 @@ public class SwipeManager : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.instance.IsGameover || GameManager.instance.IsPause)
+        {
+            return;
+        }
         DrawingUpdate();
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape)) // test code
         {
             SceneManager.LoadScene("Title");
         }

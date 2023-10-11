@@ -1,5 +1,5 @@
 using UnityEngine.PlayerLoop;
-using SaveDataVC = SaveDataV2;
+using SaveDataVC = SaveDataV2; // Version Change?
 
 public static class PlayDataManager
 {
@@ -18,6 +18,12 @@ public static class PlayDataManager
     public static void Save()
     {
         SaveLoadSystem.Save(data, "savefile.json");
+    }
+
+    public static void Reset()
+    {
+        data = new SaveDataVC();
+        Save();
     }
 
     public static void Gameover()

@@ -7,7 +7,7 @@ using Newtonsoft.Json.Linq;
 
 public static class SaveLoadSystem
 {
-    public static int RecentlyVersion { get; } = 2;
+    public static int RecentlyVersion { get; } = 2; // Version Change?
 
     public static string SaveDirectory
     {
@@ -25,7 +25,7 @@ public static class SaveLoadSystem
         }
 
         var path = Path.Combine(SaveDirectory, fileName);
-        using (var writer = new JsonTextWriter(new StreamWriter(path)))
+        using (var writer = new JsonTextWriter(new StreamWriter(path))) // Add Converter
         {
             var serializer = new JsonSerializer();
             serializer.Converters.Add(new Vector3Converter());
