@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
-public class Monster : MonoBehaviour
+public class Monster : MonoBehaviour, ISlashable
 {
     public float moveSpeed = 1.0f; // 이동속도
     public int damage = 1; // 공격력

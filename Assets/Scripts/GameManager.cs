@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
     {
         if (monsterList.Count <= 0) 
         { 
-            return; 
+            return;
         }
 
         foreach (var monster in monsterList) 
