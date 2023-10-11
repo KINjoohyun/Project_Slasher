@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using SaveDataVC = SaveDataV2;
 
 public class GameManager : MonoBehaviour
 {
@@ -28,6 +27,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        PlayDataManager.Init();
+
         IsGameover = false;
         IsPause = false;
         Time.timeScale = 1;
@@ -35,7 +36,7 @@ public class GameManager : MonoBehaviour
         monsterList = new List<Monster>();
         removeList = new List<Monster>();
         Score = 0;
-        HighScore = LoadHighScore();
+        HighScore = PlayDataManager.data.HighScore;
         hp = maxHp;
 
         UIManager.instance.UpdateUI();
@@ -57,6 +58,7 @@ public class GameManager : MonoBehaviour
         IsGameover = true;
 
         UpdateHighScore();
+        PlayDataManager.Gameover();
         UIManager.instance.UpdateGameover();
     }
 
@@ -67,9 +69,6 @@ public class GameManager : MonoBehaviour
             return;
         }
         HighScore = Score;
-        var data = SaveLoadSystem.Load("savefile.json") as SaveDataVC;
-        data.HighScore = HighScore;
-        SaveLoadSystem.Save(data, "savefile.json");
     }
 
     public void AddMonster(Monster monster)
@@ -149,14 +148,5 @@ public class GameManager : MonoBehaviour
         return min.queue.Peek();
     }
 
-    private int LoadHighScore()
-    {
-        var data = SaveLoadSystem.Load("savefile.json") as SaveDataVC;
-        if (data == null)
-        {
-            data = new SaveDataVC();
-            SaveLoadSystem.Save(data, "savefile.json");
-        }
-        return data.HighScore;
-    }
+
 }

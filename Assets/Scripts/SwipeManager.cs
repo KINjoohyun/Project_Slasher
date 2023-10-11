@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SwipeManager : MonoBehaviour
@@ -29,6 +30,11 @@ public class SwipeManager : MonoBehaviour
     private void Update()
     {
         DrawingUpdate();
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("Title");
+        }
     }
 
     private void DrawingUpdate()
