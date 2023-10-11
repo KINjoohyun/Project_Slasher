@@ -21,6 +21,7 @@ public class UIManager : MonoBehaviour
     public GameObject pausePanel;
     public Image guideImage;
     public Sprite[] guides;
+    public TextMeshProUGUI highscoreText;
 
     public void UpdateUI()
     {
@@ -50,6 +51,7 @@ public class UIManager : MonoBehaviour
         {
             gameoverPanel.SetActive(false);
         }
+        highscoreText.text = $"HIGHSCORE : {GameManager.instance.HighScore}";
     }
 
     public void UpdatePause()

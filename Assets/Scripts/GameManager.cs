@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using SaveDataVC = SaveDataV2;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class GameManager : MonoBehaviour
 
     public bool IsGameover { get; private set; }
     public int Score { get; private set; }
+    public int HighScore { get; private set; }
     public int maxHp = 5; // 최대 체력
     public int hp { get; private set; }
     public bool IsPause { get; private set; } = false;
@@ -33,6 +35,7 @@ public class GameManager : MonoBehaviour
         monsterList = new List<Monster>();
         removeList = new List<Monster>();
         Score = 0;
+        HighScore = LoadHighScore();
         hp = maxHp;
 
         UIManager.instance.UpdateUI();
@@ -53,7 +56,20 @@ public class GameManager : MonoBehaviour
     {
         IsGameover = true;
 
+        UpdateHighScore();
         UIManager.instance.UpdateGameover();
+    }
+
+    private void UpdateHighScore()
+    {
+        if (Score < HighScore)
+        {
+            return;
+        }
+        HighScore = Score;
+        var data = SaveLoadSystem.Load("savefile.json") as SaveDataVC;
+        data.HighScore = HighScore;
+        SaveLoadSystem.Save(data, "savefile.json");
     }
 
     public void AddMonster(Monster monster)
@@ -131,5 +147,16 @@ public class GameManager : MonoBehaviour
         }
         if (min.queue.Count <= 0) return Pattern.Count;
         return min.queue.Peek();
+    }
+
+    private int LoadHighScore()
+    {
+        var data = SaveLoadSystem.Load("savefile.json") as SaveDataVC;
+        if (data == null)
+        {
+            data = new SaveDataVC();
+            SaveLoadSystem.Save(data, "savefile.json");
+        }
+        return data.HighScore;
     }
 }
