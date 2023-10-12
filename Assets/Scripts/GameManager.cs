@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
 
     public bool IsGameover { get; private set; }
     public int Score { get; private set; }
+    public int HighScore { get; private set; }
     public int maxHp = 5; // 최대 체력
     public int hp { get; private set; }
     public bool IsPause { get; private set; } = false;
@@ -30,9 +31,20 @@ public class GameManager : MonoBehaviour
         IsPause = false;
         Time.timeScale = 1;
 
+        var table = CsvTableMgr.GetTable<UpgradeTable>();
+
         monsterList = new List<Monster>();
         removeList = new List<Monster>();
         Score = 0;
+        HighScore = PlayDataManager.data.HighScore;
+        if (PlayDataManager.data.Upgrade_HealthUP == 0)
+        {
+            maxHp = 5;
+        }
+        else
+        {
+            maxHp = 5 + table.healthTable[PlayDataManager.data.Upgrade_HealthUP].VALUE;
+        }
         hp = maxHp;
 
         UIManager.instance.UpdateUI();
@@ -53,7 +65,18 @@ public class GameManager : MonoBehaviour
     {
         IsGameover = true;
 
+        UpdateHighScore();
+        PlayDataManager.Gameover();
         UIManager.instance.UpdateGameover();
+    }
+
+    private void UpdateHighScore()
+    {
+        if (Score < HighScore)
+        {
+            return;
+        }
+        HighScore = Score;
     }
 
     public void AddMonster(Monster monster)
@@ -132,4 +155,6 @@ public class GameManager : MonoBehaviour
         if (min.queue.Count <= 0) return Pattern.Count;
         return min.queue.Peek();
     }
+
+
 }

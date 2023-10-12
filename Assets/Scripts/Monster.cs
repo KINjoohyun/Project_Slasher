@@ -7,6 +7,7 @@ using UnityEngine;
 public class Monster : MonoBehaviour, ISlashable
 {
     public float moveSpeed = 1.0f; // 이동속도
+    private float speed = 1.0f;
     public int damage = 1; // 공격력
     public Queue<Pattern> queue = new Queue<Pattern>(); // 패턴 큐
     public int score = 1; // 점수
@@ -14,6 +15,7 @@ public class Monster : MonoBehaviour, ISlashable
     public event Action onDeath;
     public bool IsAlive { get; private set; }
     public MonsterUiController queueUi;
+    private Animator anim;
 
     private void OnEnable()
     {
@@ -22,12 +24,27 @@ public class Monster : MonoBehaviour, ISlashable
         {
             queue = new Queue<Pattern>();
         }
+
+        var table = CsvTableMgr.GetTable<UpgradeTable>();
+        if (PlayDataManager.data.Upgrade_SpeedDown == 0)
+        {
+            speed = moveSpeed;
+        }
+        else
+        {
+            speed = moveSpeed - table.speedTable[PlayDataManager.data.Upgrade_SpeedDown].VALUE;
+        }
+    }
+
+    private void Awake()
+    {
+        anim = GetComponentInChildren<Animator>();
     }
 
     private void Update()
     {
         if (!IsAlive) return;
-        transform.position += Vector3.down * moveSpeed * Time.deltaTime;
+        transform.position += Vector3.down * speed * Time.deltaTime;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -53,6 +70,7 @@ public class Monster : MonoBehaviour, ISlashable
         {
             queue.Dequeue();
             queueUi.DequeueImage();
+            anim.SetTrigger("Hit");
 
             if (queue.Count <= 0)
             {
@@ -70,6 +88,7 @@ public class Monster : MonoBehaviour, ISlashable
         GameManager.instance.RemoveMonster(this);
         queue.Clear();
         queueUi.Clear();
+        //anim.SetTrigger("Die");
 
         if (onDeath != null)
         {
