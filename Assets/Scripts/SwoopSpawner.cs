@@ -29,8 +29,7 @@ public class SwoopSpawner : MonoBehaviour
         monsterPool = new ObjectPool<Monster>(() => {
             Vector3 pos = new Vector3(Mathf.Lerp(minX, maxX, Random.value), posY, 0);
             var monster = Instantiate(prefab, pos, prefab.transform.rotation);
-            return monster;
-        },
+            return monster;},
             delegate (Monster monster) { monster.gameObject.SetActive(true); }, // actionOnGet
             delegate (Monster monster) { monster.gameObject.SetActive(false); }); // actionOnRelease
     }

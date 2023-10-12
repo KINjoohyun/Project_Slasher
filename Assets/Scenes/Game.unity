@@ -649,6 +649,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rendtex: {fileID: 8400000, guid: 8c6d7485bdeef7f47809d7d4d5e7d722, type: 2}
   slashParticle: {fileID: 996300852}
+  sparkParticle: {fileID: 0}
   thick: 0.1
   mat: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   startColor: {r: 0, g: 0, b: 0, a: 1}
@@ -1587,7 +1588,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1596681796980418, guid: 9ebee8c2fd4ac0e419980e4d6887f43c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1674154614088328, guid: 9ebee8c2fd4ac0e419980e4d6887f43c, type: 3}
       propertyPath: m_IsActive
@@ -1692,6 +1693,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 1896747071135388, guid: 9ebee8c2fd4ac0e419980e4d6887f43c, type: 3}
+    - {fileID: 1596681796980418, guid: 9ebee8c2fd4ac0e419980e4d6887f43c, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ebee8c2fd4ac0e419980e4d6887f43c, type: 3}

@@ -7,7 +7,7 @@ using Newtonsoft.Json.Linq;
 
 public static class SaveLoadSystem
 {
-    public static int RecentlyVersion { get; } = 2; // Version Change?
+    public static int RecentlyVersion { get; } = 3; // Version Change?
 
     public static string SaveDirectory
     {

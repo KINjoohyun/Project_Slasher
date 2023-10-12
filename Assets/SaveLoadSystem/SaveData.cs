@@ -23,7 +23,7 @@ public class SaveDataV1 : SaveData
     }
 }
 
-public class SaveDataV2 : SaveData // Current
+public class SaveDataV2 : SaveData 
 {
     public SaveDataV2()
     {
@@ -43,7 +43,7 @@ public class SaveDataV2 : SaveData // Current
     }
 }
 
-public class SaveDataV3 : SaveData
+public class SaveDataV3 : SaveData // Current
 {
     public SaveDataV3()
     {
@@ -52,6 +52,9 @@ public class SaveDataV3 : SaveData
 
     public int HighScore { get; set; } = 0;
     public int Gold { get; set; } = 0;
+    public int Upgrade_HealthUP { get; set; } = 0;
+    public int Upgrade_GoldUP { get; set; } = 0;
+    public int Upgrade_SpeedDown { get; set; } = 0;
 
     public override SaveData VersionUp()
     {

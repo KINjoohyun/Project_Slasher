@@ -31,10 +31,20 @@ public class GameManager : MonoBehaviour
         IsPause = false;
         Time.timeScale = 1;
 
+        var table = CsvTableMgr.GetTable<UpgradeTable>();
+
         monsterList = new List<Monster>();
         removeList = new List<Monster>();
         Score = 0;
         HighScore = PlayDataManager.data.HighScore;
+        if (PlayDataManager.data.Upgrade_HealthUP == 0)
+        {
+            maxHp = 5;
+        }
+        else
+        {
+            maxHp = 5 + table.healthTable[PlayDataManager.data.Upgrade_HealthUP].VALUE;
+        }
         hp = maxHp;
 
         UIManager.instance.UpdateUI();

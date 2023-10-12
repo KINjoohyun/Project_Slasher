@@ -1,5 +1,5 @@
 using UnityEngine.PlayerLoop;
-using SaveDataVC = SaveDataV2; // Version Change?
+using SaveDataVC = SaveDataV3; // Version Change?
 
 public static class PlayDataManager
 {
@@ -29,7 +29,28 @@ public static class PlayDataManager
     public static void Gameover()
     {
         data.HighScore = GameManager.instance.HighScore;
-        data.Gold += GameManager.instance.Score;
+        if (data.Upgrade_GoldUP == 0)
+        {
+            data.Gold += GameManager.instance.Score;
+        }
+        else
+        {
+            var table = CsvTableMgr.GetTable<UpgradeTable>();
+            data.Gold += GameManager.instance.Score * table.goldTable[data.Upgrade_GoldUP].VALUE;
+        }
         Save();
     }
+
+    public static bool Purchase(int pay)
+    {
+        if (pay > data.Gold)
+        {
+            return false;
+        }
+
+        data.Gold -= pay;
+        Save();
+        return true;
+    }
+
 }
