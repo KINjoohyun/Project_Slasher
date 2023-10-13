@@ -2625,8 +2625,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3f79838a9f3e3847ba177660326747f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnCount: 5
-  boss: {fileID: 3148659125997376746, guid: 6118ecd47a358b84c980ebbea1f0a0bb, type: 3}
+  SpawnCount: 50
+  bossPrefab: {fileID: 3148659125997376746, guid: 6118ecd47a358b84c980ebbea1f0a0bb, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

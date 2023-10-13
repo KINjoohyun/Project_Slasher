@@ -4,7 +4,7 @@ public class BossController : MonoBehaviour
 {
     public int Count { get; set; } = 0;
     public int SpawnCount = 50; // 소환에 필요한 처치 수
-    public Boss boss; // 소환할 보스
+    public Boss bossPrefab; // 소환할 보스
 
     private float posY;
 
@@ -21,12 +21,12 @@ public class BossController : MonoBehaviour
     {
         var table = CsvTableMgr.GetTable<MonsterTable>();
 
-        minSpeed = table.dataTable[boss.monsterID].MinSPD;
-        maxSpeed = table.dataTable[boss.monsterID].MaxSPD;
-        minPattern = table.dataTable[boss.monsterID].MinPTN;
-        maxPattern = table.dataTable[boss.monsterID].MaxPTN;
-        score = table.dataTable[boss.monsterID].SCORE;
-        damage = table.dataTable[boss.monsterID].DAMAGE;
+        minSpeed = table.dataTable[bossPrefab.monsterID].MinSPD;
+        maxSpeed = table.dataTable[bossPrefab.monsterID].MaxSPD;
+        minPattern = table.dataTable[bossPrefab.monsterID].MinPTN;
+        maxPattern = table.dataTable[bossPrefab.monsterID].MaxPTN;
+        score = table.dataTable[bossPrefab.monsterID].SCORE;
+        damage = table.dataTable[bossPrefab.monsterID].DAMAGE;
     }
 
     private void Start()
@@ -44,15 +44,15 @@ public class BossController : MonoBehaviour
             return;
         }
 
-        Instantiate(boss, new Vector3(0, posY, 0), boss.transform.rotation);
+        var boss = Instantiate(bossPrefab, new Vector3(0, posY, 0), bossPrefab.transform.rotation);
 
-        BossPatternSetUp();
-        //boss.actionOnDeath += () => GameManager.instance.Gameover(); // test code
+        BossPatternSetUp(boss);
+        boss.actionOnDeath += () => GameManager.instance.Gameover(); // test code
         GameManager.instance.AddMonster(boss);
         isSpawn = true;
     }
 
-    private void BossPatternSetUp()
+    private void BossPatternSetUp(Boss boss)
     {
         var quantity = Random.Range(minPattern, maxPattern + 1);
         for (int i = 0; i < quantity; i++)

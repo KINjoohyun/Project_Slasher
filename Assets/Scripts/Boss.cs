@@ -25,8 +25,6 @@ public class Boss : MonoBehaviour, ISlashable, IDeathEvent
     {
         IsAlive = true;
         speed = moveSpeed;
-
-        UpdateBossUi();
     }
 
     private void Awake()
@@ -142,13 +140,14 @@ public class Boss : MonoBehaviour, ISlashable, IDeathEvent
         StartCoroutine(GoUP(1.0f));
     }
 
-    IEnumerator GoUP(float duration)
+    private IEnumerator GoUP(float duration)
     {
         float time = 0.0f;
 
         while (time < duration)
         {
             time += Time.deltaTime;
+            transform.position += Vector3.up * moveSpeed * Time.deltaTime;
             transform.position += Vector3.up * Time.deltaTime;
 
             yield return null;
