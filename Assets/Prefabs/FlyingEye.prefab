@@ -151,7 +151,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63144a5c38dea784a83d3ce428979951, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  monsterID: 1002
   moveSpeed: 5
+  MinPTN: 1
+  MaxPTN: 1
   damage: 1
   score: 1
   queueUi: {fileID: 2138871751000836919}

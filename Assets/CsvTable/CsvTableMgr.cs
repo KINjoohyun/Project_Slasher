@@ -13,6 +13,9 @@ public static class CsvTableMgr
 
         var upgradeTable = new UpgradeTable();
         tables.Add(typeof(UpgradeTable), upgradeTable);
+
+        var monsterTable = new MonsterTable();
+        tables.Add(typeof(MonsterTable), monsterTable);
     }
 
     public static T GetTable<T>() where T : CsvTable

@@ -4,12 +4,36 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
+public enum MonsterID
+{
+    None = -1,
+
+    Goblin = 1001,
+    FlyingEye,
+    Boss1,
+    Mushroom,
+    BigMushroom,
+    Slime,
+    Boss2,
+    Skeleton,
+    Bandit,
+    Matial,
+    Boss3_1,
+    Boss3_2,
+
+    Count
+}
+
 public class Monster : MonoBehaviour, ISlashable
 {
+    public MonsterID monsterID = MonsterID.None; // 몬스터 ID
+
     public float moveSpeed = 1.0f; // 이동속도
     private float speed = 1.0f;
-    public int damage = 1; // 공격력
+
     public Queue<Pattern> queue = new Queue<Pattern>(); // 패턴 큐
+
+    public int damage = 1; // 공격력
     public int score = 1; // 점수
     
     public event Action onDeath;
@@ -56,7 +80,7 @@ public class Monster : MonoBehaviour, ISlashable
         }
     }
 
-    public void SetUp(Pattern c)
+    public void AddPattern(Pattern c)
     {
         queue.Enqueue(c);
         queueUi.EnqueueImage(c);

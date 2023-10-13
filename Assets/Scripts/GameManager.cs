@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        PlayDataManager.Init();
+
         IsGameover = false;
         IsPause = false;
         Time.timeScale = 1;

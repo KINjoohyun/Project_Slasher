@@ -19,10 +19,6 @@ public class TitleManager : MonoBehaviour
         GoldPrint();
     }
 
-    public void GoGame()
-    {
-        SceneManager.LoadScene("Game");
-    }
      // test code
     public TextMeshProUGUI goldText;
     public TextMeshProUGUI highscoreText;

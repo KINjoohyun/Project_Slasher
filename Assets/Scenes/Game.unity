@@ -649,7 +649,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rendtex: {fileID: 8400000, guid: 8c6d7485bdeef7f47809d7d4d5e7d722, type: 2}
   slashParticle: {fileID: 996300852}
-  sparkParticle: {fileID: 0}
   thick: 0.1
   mat: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   startColor: {r: 0, g: 0, b: 0, a: 1}
@@ -2513,7 +2512,7 @@ GameObject:
   - component: {fileID: 2143791426}
   - component: {fileID: 2143791427}
   m_Layer: 0
-  m_Name: Ground
+  m_Name: Spawner
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2598,10 +2597,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e1a67ad99aa28a48815574d7de97e92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterPrefabs:
-  - {fileID: 3010339285993572229, guid: ebe87bf31c1f58c42b3cefd5feb6b997, type: 3}
-  minSpawnTime: 5
-  maxSpawnTime: 5
+  monsterPrefab: {fileID: 3010339285993572229, guid: ebe87bf31c1f58c42b3cefd5feb6b997, type: 3}
 --- !u!114 &2143791427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2611,13 +2607,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2143791422}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db0f2b3d3d912e2458e057e59f6b35a0, type: 3}
+  m_Script: {fileID: 11500000, guid: 0e1a67ad99aa28a48815574d7de97e92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 3010339285993572229, guid: 3e883bdc3072df448becd33df5a591ec, type: 3}
-  minSpawnTime: 0
-  maxSpawnTime: 30
-  moveSpeed: 5
+  monsterPrefab: {fileID: 3010339285993572229, guid: 3e883bdc3072df448becd33df5a591ec, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

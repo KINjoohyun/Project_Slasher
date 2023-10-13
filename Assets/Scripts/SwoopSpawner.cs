@@ -61,7 +61,7 @@ public class SwoopSpawner : MonoBehaviour
 
     private void MonsterSetUp(Monster monster)
     {
-        monster.SetUp((Pattern)Random.Range(0, (int)Pattern.Count));
+        monster.AddPattern((Pattern)Random.Range(0, (int)Pattern.Count));
         monster.moveSpeed = moveSpeed;
     }
 }

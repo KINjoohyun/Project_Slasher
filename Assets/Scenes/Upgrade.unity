@@ -226,6 +226,7 @@ GameObject:
   - component: {fileID: 283454774}
   - component: {fileID: 283454773}
   - component: {fileID: 283454777}
+  - component: {fileID: 283454778}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -339,6 +340,18 @@ MonoBehaviour:
   - {fileID: 1963501279}
   - {fileID: 2013673064}
   - {fileID: 1340424047}
+--- !u!114 &283454778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 283454772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32ed95c7a40e0f248897cd4c0bb69c2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &344699709
 GameObject:
   m_ObjectHideFlags: 0
@@ -2243,7 +2256,7 @@ GameObject:
   - component: {fileID: 1385949012}
   - component: {fileID: 1385949011}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Previous Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2312,16 +2325,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 283454777}
-        m_TargetAssemblyTypeName: UpgradeManager, Assembly-CSharp
-        m_MethodName: ReturnScene
-        m_Mode: 1
+      - m_Target: {fileID: 283454778}
+        m_TargetAssemblyTypeName: MoveScene, Assembly-CSharp
+        m_MethodName: Move
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Lobby
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1385949012
