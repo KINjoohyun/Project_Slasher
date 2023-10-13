@@ -111,11 +111,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1399809726952692081}
-  - component: {fileID: 3010339285993572229}
+  - component: {fileID: 3148659125997376746}
   - component: {fileID: 2138871751000836919}
   - component: {fileID: 6003527169963761610}
   m_Layer: 0
-  m_Name: Goblin
+  m_Name: Boss1
   m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -139,7 +139,7 @@ Transform:
   - {fileID: 2150669059870793967}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
---- !u!114 &3010339285993572229
+--- !u!114 &3148659125997376746
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -148,13 +148,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 3996030650411640177}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63144a5c38dea784a83d3ce428979951, type: 3}
+  m_Script: {fileID: 11500000, guid: 8576f071d4fc15947bdd170a346a7755, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterID: 1001
-  moveSpeed: 3
-  damage: 1
-  score: 1
+  monsterID: 1003
+  moveSpeed: 2
+  damage: 10
+  score: 500
   monsterUi: {fileID: 2138871751000836919}
 --- !u!114 &2138871751000836919
 MonoBehaviour:
@@ -10116,7 +10116,7 @@ GameObject:
   - component: {fileID: 8764324689073205888}
   - component: {fileID: 6287970707584172697}
   - component: {fileID: 6224708156600293064}
-  - component: {fileID: 7232062422016794764}
+  - component: {fileID: 8846866765695940637}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -10180,7 +10180,7 @@ SpriteRenderer:
   m_SortingLayerID: 686111517
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 4723107735738678597, guid: c1cdd26cc09ad224884556bc4d8296ae, type: 3}
+  m_Sprite: {fileID: -750047184722822154, guid: 1914d95466e3d4341a618c35a56d5f82, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -10201,7 +10201,7 @@ Animator:
   m_GameObject: {fileID: 7558838170016924280}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 4f230fa6acf87ff4aa55a06a9691101d, type: 2}
+  m_Controller: {fileID: 9100000, guid: ccee253ff083e9e45ac8d4d553de6318, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -10212,7 +10212,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &7232062422016794764
+--- !u!114 &8846866765695940637
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

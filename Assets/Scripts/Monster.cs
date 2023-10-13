@@ -24,7 +24,7 @@ public enum MonsterID
     Count
 }
 
-public class Monster : MonoBehaviour, ISlashable
+public class Monster : MonoBehaviour, ISlashable, IDeathEvent
 {
     public MonsterID monsterID = MonsterID.None; // 몬스터 ID
 
@@ -39,7 +39,7 @@ public class Monster : MonoBehaviour, ISlashable
     public event Action actionOnDeath;
     public event Action actionOnSlash; //추가 기능 구현 가능
     public bool IsAlive { get; private set; }
-    public MonsterUiController queueUi;
+    public MonsterUiController monsterUi;
     private Animator anim;
 
     private void OnEnable()
@@ -68,7 +68,11 @@ public class Monster : MonoBehaviour, ISlashable
 
     private void Update()
     {
-        if (!IsAlive) return;
+        if (!IsAlive)
+        {
+            return;
+        }
+
         transform.position += Vector3.down * speed * Time.deltaTime;
     }
 
@@ -84,22 +88,26 @@ public class Monster : MonoBehaviour, ISlashable
     public void AddPattern(Pattern c)
     {
         queue.Enqueue(c);
-        queueUi.EnqueueImage(c);
+        monsterUi.EnqueueImage(c);
     }
 
     public void OnSlashed(Pattern c)
     {
-        if (!IsAlive) return;
+        if (!IsAlive)
+        {
+            return;
+        }
 
         if (queue.Peek() == c)
         {
             queue.Dequeue();
-            queueUi.DequeueImage();
+            monsterUi.DequeueImage();
             anim.SetTrigger("Hit");
 
             if (actionOnSlash != null)
             {
                 actionOnSlash();
+                actionOnSlash = null;
             }
 
             if (queue.Count <= 0)
@@ -117,14 +125,8 @@ public class Monster : MonoBehaviour, ISlashable
         IsAlive = false;
         GameManager.instance.RemoveMonster(this);
         queue.Clear();
-        queueUi.Clear();
-        //anim.SetTrigger("Die");
-
-        if (actionOnDeath != null)
-        {
-            actionOnDeath();
-            actionOnDeath = null;
-        }
+        monsterUi.Clear();
+        anim.SetTrigger("Die");
     }
 
     public Pattern GetPattern()
@@ -139,5 +141,14 @@ public class Monster : MonoBehaviour, ISlashable
     public float GetYPos()
     {
         return transform.position.y;
+    }
+
+    public void OnDeath()
+    {
+        if (actionOnDeath != null)
+        {
+            actionOnDeath();
+            actionOnDeath = null;
+        }
     }
 }

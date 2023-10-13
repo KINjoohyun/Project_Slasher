@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     public int maxHp = 5; // 최대 체력
     public int hp { get; private set; }
     public bool IsPause { get; private set; } = false;
+    public BossController bossCon;
 
     private List<ISlashable> slashList;
     private List<ISlashable> removeList;
@@ -81,7 +82,7 @@ public class GameManager : MonoBehaviour
         HighScore = Score;
     }
 
-    public void AddMonster(Monster monster)
+    public void AddMonster(ISlashable monster)
     {
         slashList.Add(monster);
     }
@@ -104,17 +105,20 @@ public class GameManager : MonoBehaviour
         }
         removeList.Clear();
 
+        bossCon.Spawn();
+
         UIManager.instance.UpdateGuide();
     }
 
     public void AddScore(int increase)
     {
         Score += increase;
+        bossCon.Count++;
 
         UIManager.instance.UpdateScore();
     }
 
-    public void RemoveMonster(Monster monster)
+    public void RemoveMonster(ISlashable monster)
     {
         removeList.Add(monster);
         UIManager.instance.UpdateGuide();
