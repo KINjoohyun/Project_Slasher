@@ -112,7 +112,7 @@ public class SwipeManager : MonoBehaviour
             TestManager.instance.SetText(swipeInput);
         }
 
-        GameManager.instance.HitMonsters(swipeInput);
+        GameManager.instance.SlashMonsters(swipeInput);
         Debug.Log(swipeInput);
 
         DeleteLine();

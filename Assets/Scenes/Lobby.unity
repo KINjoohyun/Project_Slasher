@@ -1919,7 +1919,7 @@ GameObject:
   - component: {fileID: 1440685631}
   - component: {fileID: 1440685630}
   m_Layer: 5
-  m_Name: Shop Button
+  m_Name: Arsenal Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2566,7 +2566,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Shop
+  m_text: Arsenal
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1773b7a21741db448a27f3596a6ebecf, type: 2}
   m_sharedMaterial: {fileID: -882335057430080514, guid: 1773b7a21741db448a27f3596a6ebecf, type: 2}

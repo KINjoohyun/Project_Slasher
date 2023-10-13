@@ -25,13 +25,11 @@ public class MonsterSpawner : MonoBehaviour
     private float nextSpawnTime = 0.0f;
     private float lastSpawnTime = 0.0f;
 
-    private MonsterTable table;
-
     private ObjectPool<Monster> monsterPool;
 
     private void Awake()
     {
-        table = CsvTableMgr.GetTable<MonsterTable>();
+        var table = CsvTableMgr.GetTable<MonsterTable>();
 
         minSpeed = table.dataTable[monsterPrefab.monsterID].MinSPD;
         maxSpeed = table.dataTable[monsterPrefab.monsterID].MaxSPD;
@@ -75,7 +73,7 @@ public class MonsterSpawner : MonoBehaviour
         var monster = monsterPool.Get();
         monster.transform.position = pos;
         MonsterPatternSetUp(monster);
-        monster.onDeath += () => monsterPool.Release(monster);
+        monster.actionOnDeath += () => monsterPool.Release(monster);
         GameManager.instance.AddMonster(monster);
         UIManager.instance.UpdateGuide();
     }

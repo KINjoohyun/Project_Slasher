@@ -36,7 +36,8 @@ public class Monster : MonoBehaviour, ISlashable
     public int damage = 1; // 공격력
     public int score = 1; // 점수
     
-    public event Action onDeath;
+    public event Action actionOnDeath;
+    public event Action actionOnSlash; //추가 기능 구현 가능
     public bool IsAlive { get; private set; }
     public MonsterUiController queueUi;
     private Animator anim;
@@ -86,7 +87,7 @@ public class Monster : MonoBehaviour, ISlashable
         queueUi.EnqueueImage(c);
     }
 
-    public void OnHit(Pattern c)
+    public void OnSlashed(Pattern c)
     {
         if (!IsAlive) return;
 
@@ -95,6 +96,11 @@ public class Monster : MonoBehaviour, ISlashable
             queue.Dequeue();
             queueUi.DequeueImage();
             anim.SetTrigger("Hit");
+
+            if (actionOnSlash != null)
+            {
+                actionOnSlash();
+            }
 
             if (queue.Count <= 0)
             {
@@ -114,10 +120,24 @@ public class Monster : MonoBehaviour, ISlashable
         queueUi.Clear();
         //anim.SetTrigger("Die");
 
-        if (onDeath != null)
+        if (actionOnDeath != null)
         {
-            onDeath();
-            onDeath = null;
+            actionOnDeath();
+            actionOnDeath = null;
         }
+    }
+
+    public Pattern GetPattern()
+    {
+        if (queue.Count <= 0)
+        {
+            return Pattern.Count;
+        }
+        return queue.Peek();
+    }
+
+    public float GetYPos()
+    {
+        return transform.position.y;
     }
 }

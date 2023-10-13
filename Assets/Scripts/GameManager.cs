@@ -22,8 +22,8 @@ public class GameManager : MonoBehaviour
     public int hp { get; private set; }
     public bool IsPause { get; private set; } = false;
 
-    private List<Monster> monsterList;
-    private List<Monster> removeList;
+    private List<ISlashable> slashList;
+    private List<ISlashable> removeList;
 
     private void Start()
     {
@@ -35,8 +35,8 @@ public class GameManager : MonoBehaviour
 
         var table = CsvTableMgr.GetTable<UpgradeTable>();
 
-        monsterList = new List<Monster>();
-        removeList = new List<Monster>();
+        slashList = new List<ISlashable>();
+        removeList = new List<ISlashable>();
         Score = 0;
         HighScore = PlayDataManager.data.HighScore;
         if (PlayDataManager.data.Upgrade_HealthUP == 0)
@@ -83,24 +83,24 @@ public class GameManager : MonoBehaviour
 
     public void AddMonster(Monster monster)
     {
-        monsterList.Add(monster);
+        slashList.Add(monster);
     }
 
-    public void HitMonsters(Pattern c)
+    public void SlashMonsters(Pattern c)
     {
-        if (monsterList.Count <= 0) 
+        if (slashList.Count <= 0) 
         { 
             return;
         }
 
-        foreach (var monster in monsterList) 
+        foreach (var monster in slashList) 
         {
-            monster.OnHit(c);
+            monster.OnSlashed(c);
         }
 
         foreach (var monster in removeList)
         {
-            monsterList.Remove(monster);
+            slashList.Remove(monster);
         }
         removeList.Clear();
 
@@ -141,21 +141,20 @@ public class GameManager : MonoBehaviour
 
     public Pattern CloserPattern()
     {
-        if (monsterList.Count <= 0)
+        if (slashList.Count <= 0)
         {
             return Pattern.Count;
         }
 
-        var min = monsterList[0];
-        foreach (var monster in monsterList) 
+        var min = slashList[0];
+        foreach (var monster in slashList) 
         { 
-            if (monster.transform.position.y <= min.transform.position.y)
+            if (monster.GetYPos() <= min.GetYPos())
             {
                 min = monster;
             }
         }
-        if (min.queue.Count <= 0) return Pattern.Count;
-        return min.queue.Peek();
+        return min.GetPattern();
     }
 
 
