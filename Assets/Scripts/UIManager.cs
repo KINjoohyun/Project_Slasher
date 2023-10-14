@@ -22,6 +22,7 @@ public class UIManager : MonoBehaviour
     public Image guideImage;
     public Sprite[] guides;
     public TextMeshProUGUI highscoreText;
+    public TextMeshProUGUI goldText;
 
     public void UpdateUI()
     {
@@ -52,6 +53,18 @@ public class UIManager : MonoBehaviour
             gameoverPanel.SetActive(false);
         }
         highscoreText.text = $"HIGHSCORE : {GameManager.instance.HighScore}";
+
+        var g = 0;
+        if (PlayDataManager.data.Upgrade_GoldUP == 0)
+        {
+            g = GameManager.instance.Score;
+        }
+        else
+        {
+            var table = CsvTableMgr.GetTable<UpgradeTable>();
+            g = GameManager.instance.Score * table.goldTable[PlayDataManager.data.Upgrade_GoldUP].VALUE;
+        }
+        goldText.text = $"+GOLD : {g}";
     }
 
     public void UpdatePause()

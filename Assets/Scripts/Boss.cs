@@ -135,12 +135,30 @@ public class Boss : MonoBehaviour, ISlashable, IDeathEvent
         anim.SetTrigger("Die");
     }
 
-    public void Knockback()
+    public void Stiffness(float time)
     {
-        StartCoroutine(GoUP(1.0f));
+        StartCoroutine(StiffnessCoroutine(time));
     }
 
-    private IEnumerator GoUP(float duration)
+    private IEnumerator StiffnessCoroutine(float duration)
+    {
+        float time = 0.0f;
+
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            transform.position += Vector3.up * moveSpeed * Time.deltaTime;
+
+            yield return null;
+        }
+    }
+
+    public void Knockback()
+    {
+        StartCoroutine(KnockbackCoroutine(1.0f));
+    }
+
+    private IEnumerator KnockbackCoroutine(float duration)
     {
         float time = 0.0f;
 

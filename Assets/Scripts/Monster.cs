@@ -151,4 +151,41 @@ public class Monster : MonoBehaviour, ISlashable, IDeathEvent
             actionOnDeath = null;
         }
     }
+
+    public void Stiffness(float time)
+    {
+        StartCoroutine(StiffnessCoroutine(time));
+    }
+
+    private IEnumerator StiffnessCoroutine(float duration)
+    {
+        float time = 0.0f;
+
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            transform.position += Vector3.up * moveSpeed * Time.deltaTime;
+
+            yield return null;
+        }
+    }
+
+    public void Knockback(float time)
+    {
+        StartCoroutine(KnockbackCoroutine(time));
+    }
+
+    private IEnumerator KnockbackCoroutine(float duration)
+    {
+        float time = 0.0f;
+
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            transform.position += Vector3.up * moveSpeed * Time.deltaTime;
+            transform.position += Vector3.up * Time.deltaTime;
+
+            yield return null;
+        }
+    }
 }

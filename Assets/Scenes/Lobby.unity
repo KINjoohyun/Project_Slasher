@@ -204,7 +204,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!114 &53161794
 MonoBehaviour:
@@ -1185,6 +1185,7 @@ GameObject:
   - component: {fileID: 852028862}
   - component: {fileID: 852028864}
   - component: {fileID: 852028863}
+  - component: {fileID: 852028865}
   m_Layer: 5
   m_Name: Highscore Text
   m_TagString: Untagged
@@ -1308,6 +1309,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 852028861}
   m_CullTransparentMesh: 1
+--- !u!114 &852028865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 852028861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0844b197f0c163a429d37feef256c28d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &964464087
 GameObject:
   m_ObjectHideFlags: 0
@@ -1320,6 +1333,7 @@ GameObject:
   - component: {fileID: 964464090}
   - component: {fileID: 964464089}
   - component: {fileID: 964464088}
+  - component: {fileID: 964464093}
   - component: {fileID: 964464092}
   m_Layer: 5
   m_Name: Canvas
@@ -1423,6 +1437,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32ed95c7a40e0f248897cd4c0bb69c2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &964464093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 964464087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb2bbd404d45d64ba4a37b99d991ffd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  list:
+  - {fileID: 1925179427}
+  - {fileID: 852028861}
 --- !u!1 &1071081564
 GameObject:
   m_ObjectHideFlags: 0
@@ -2386,6 +2415,7 @@ GameObject:
   - component: {fileID: 1925179428}
   - component: {fileID: 1925179430}
   - component: {fileID: 1925179429}
+  - component: {fileID: 1925179431}
   m_Layer: 5
   m_Name: Gold Text
   m_TagString: Untagged
@@ -2509,6 +2539,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1925179427}
   m_CullTransparentMesh: 1
+--- !u!114 &1925179431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1925179427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86360f32d6785b847bb5f9254086ce0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2137329879
 GameObject:
   m_ObjectHideFlags: 0
