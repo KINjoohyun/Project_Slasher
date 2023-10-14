@@ -7,18 +7,39 @@ using UnityEngine.UIElements;
 
 public class MonsterSpawner : MonoBehaviour
 {
-    public Monster[] monsterPrefabs; // 소환할 몬스터들
+    public Monster monsterPrefab; // 몬스터 프리팹
     
     private float minX;
     private float maxX;
     private float posY;
 
-    public float minSpawnTime = 0.5f; // 최소 스폰 시간
-    public float maxSpawnTime = 1.0f; // 최대 스폰 시간
+    private float minSpeed = 1.0f;
+    private float maxSpeed = 1.0f;
+    private int minPattern = 1;
+    private int maxPattern = 1;
+    private float minSpawnTime = 0.0f;
+    private float maxSpawnTime = 1.0f;
+    private int score = 1;
+    private int damage = 1;
+
     private float nextSpawnTime = 0.0f;
     private float lastSpawnTime = 0.0f;
 
     private ObjectPool<Monster> monsterPool;
+
+    private void Awake()
+    {
+        var table = CsvTableMgr.GetTable<MonsterTable>();
+
+        minSpeed = table.dataTable[monsterPrefab.monsterID].MinSPD;
+        maxSpeed = table.dataTable[monsterPrefab.monsterID].MaxSPD;
+        minPattern = table.dataTable[monsterPrefab.monsterID].MinPTN;
+        maxPattern = table.dataTable[monsterPrefab.monsterID].MaxPTN;
+        minSpawnTime = table.dataTable[monsterPrefab.monsterID].MinSpwTime;
+        maxSpawnTime = table.dataTable[monsterPrefab.monsterID].MaxSpwTime;
+        score = table.dataTable[monsterPrefab.monsterID].SCORE;
+        damage = table.dataTable[monsterPrefab.monsterID].DAMAGE;
+    }
 
     private void Start()
     {
@@ -27,11 +48,7 @@ public class MonsterSpawner : MonoBehaviour
         maxX = +x / 2.0f;
         posY = gameObject.GetComponent<SpriteRenderer>().bounds.size.y / 2.0f + transform.position.y;
 
-        monsterPool = new ObjectPool<Monster>(() => {
-            Vector3 pos = new Vector3(Mathf.Lerp(minX, maxX, Random.value), posY, 0);
-            var prefab = monsterPrefabs[Random.Range(0, monsterPrefabs.Length)];
-            var monster = Instantiate(prefab, pos, prefab.transform.rotation);
-            return monster; }, 
+        monsterPool = new ObjectPool<Monster>(() => { var monster = Instantiate(monsterPrefab); return monster; }, 
             delegate (Monster monster) { monster.gameObject.SetActive(true); }, // actionOnGet
             delegate (Monster monster) { monster.gameObject.SetActive(false); }); // actionOnRelease
     }
@@ -56,18 +73,21 @@ public class MonsterSpawner : MonoBehaviour
         var monster = monsterPool.Get();
         monster.transform.position = pos;
         MonsterPatternSetUp(monster);
-        monster.onDeath += () => monsterPool.Release(monster);
+        monster.actionOnDeath += () => monsterPool.Release(monster);
         GameManager.instance.AddMonster(monster);
         UIManager.instance.UpdateGuide();
     }
 
     private void MonsterPatternSetUp(Monster monster)
     {
-        var quantity = 2 + (GameManager.instance.Score / 20);
+        var quantity = Random.Range(minPattern, maxPattern + 1);
         for (int i = 0; i < quantity; i++)
         {
-            monster.SetUp((Pattern)Random.Range(0, (int)Pattern.Count));
+            monster.AddPattern((Pattern)Random.Range(0, (int)Pattern.Count));
         }
 
+        monster.moveSpeed = Random.Range(minSpeed, maxSpeed);
+        monster.score = score;
+        monster.damage = damage;
     }
 }

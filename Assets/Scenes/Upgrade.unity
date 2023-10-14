@@ -226,6 +226,8 @@ GameObject:
   - component: {fileID: 283454774}
   - component: {fileID: 283454773}
   - component: {fileID: 283454777}
+  - component: {fileID: 283454778}
+  - component: {fileID: 283454779}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -334,11 +336,37 @@ MonoBehaviour:
   valueText: {fileID: 1049143846}
   noticeText: {fileID: 510276584}
   purchaseIcon: {fileID: 1253824298}
-  upgradeType: 0
+  upgradeType: -1
   panels:
   - {fileID: 1963501279}
   - {fileID: 2013673064}
   - {fileID: 1340424047}
+--- !u!114 &283454778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 283454772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32ed95c7a40e0f248897cd4c0bb69c2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &283454779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 283454772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb2bbd404d45d64ba4a37b99d991ffd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  list:
+  - {fileID: 1804548830}
 --- !u!1 &344699709
 GameObject:
   m_ObjectHideFlags: 0
@@ -761,7 +789,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startColor: {r: 1, g: 0, b: 0, a: 1}
-  endColor: {r: 0.9803922, g: 0, b: 0, a: 1}
+  endColor: {r: 0.9803922, g: 0, b: 0, a: 0}
   t: 1
 --- !u!1 &604715338
 GameObject:
@@ -1521,7 +1549,7 @@ MonoBehaviour:
   m_Content: {fileID: 202966920}
   m_Horizontal: 0
   m_Vertical: 1
-  m_MovementType: 1
+  m_MovementType: 2
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
@@ -2243,7 +2271,7 @@ GameObject:
   - component: {fileID: 1385949012}
   - component: {fileID: 1385949011}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Previous Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2312,16 +2340,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 283454777}
-        m_TargetAssemblyTypeName: UpgradeManager, Assembly-CSharp
-        m_MethodName: ReturnScene
-        m_Mode: 1
+      - m_Target: {fileID: 283454778}
+        m_TargetAssemblyTypeName: MoveScene, Assembly-CSharp
+        m_MethodName: Move
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Lobby
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1385949012
@@ -2984,6 +3012,7 @@ GameObject:
   - component: {fileID: 1804548831}
   - component: {fileID: 1804548833}
   - component: {fileID: 1804548832}
+  - component: {fileID: 1804548834}
   m_Layer: 5
   m_Name: Gold Text
   m_TagString: Untagged
@@ -3107,6 +3136,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1804548830}
   m_CullTransparentMesh: 1
+--- !u!114 &1804548834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1804548830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86360f32d6785b847bb5f9254086ce0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1963501279 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8959722771270529770, guid: 9fe8d39c706732d4eb1a5fa5a85d4ce1, type: 3}

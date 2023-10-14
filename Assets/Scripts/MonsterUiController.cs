@@ -56,4 +56,9 @@ public class MonsterUiController : MonoBehaviour
             queue.Dequeue();
         }
     }
+
+    public bool IsEmpty()
+    {
+        return queue.Count <= 0;
+    }
 }

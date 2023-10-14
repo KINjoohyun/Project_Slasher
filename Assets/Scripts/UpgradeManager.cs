@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public enum UpgradeType
@@ -27,7 +24,7 @@ public class UpgradeManager : MonoBehaviour
 
     private void Start()
     {
-        PlayDataManager.Init(); // test code
+        PlayDataManager.Init();
 
         UpdateUi();
     }
@@ -78,11 +75,6 @@ public class UpgradeManager : MonoBehaviour
     {
         noticeText.gameObject.SetActive(true);
         noticeText.text = str;
-    }
-
-    public void ReturnScene()
-    {
-        SceneManager.LoadScene("Title"); // Lobby 씬으로 변경 필요
     }
 
     public void IconHandling(Sprite sprite)

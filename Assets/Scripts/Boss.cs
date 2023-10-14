@@ -1,30 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
 
-public enum MonsterID
-{
-    None = -1,
-
-    Goblin = 1001,
-    FlyingEye,
-    Boss1,
-    Mushroom,
-    BigMushroom,
-    Slime,
-    Boss2,
-    Skeleton,
-    Bandit,
-    Matial,
-    Boss3_1,
-    Boss3_2,
-
-    Count
-}
-
-public class Monster : MonoBehaviour, ISlashable, IDeathEvent
+public class Boss : MonoBehaviour, ISlashable, IDeathEvent
 {
     public MonsterID monsterID = MonsterID.None; // 몬스터 ID
 
@@ -35,30 +14,17 @@ public class Monster : MonoBehaviour, ISlashable, IDeathEvent
 
     public int damage = 1; // 공격력
     public int score = 1; // 점수
-    
+
     public event Action actionOnDeath;
     public event Action actionOnSlash; //추가 기능 구현 가능
     public bool IsAlive { get; private set; }
     public MonsterUiController monsterUi;
     private Animator anim;
 
-    private void OnEnable()
+    private void Start()
     {
         IsAlive = true;
-        if (queue == null)
-        {
-            queue = new Queue<Pattern>();
-        }
-
-        var table = CsvTableMgr.GetTable<UpgradeTable>();
-        if (PlayDataManager.data.Upgrade_SpeedDown == 0)
-        {
-            speed = moveSpeed;
-        }
-        else
-        {
-            speed = moveSpeed - table.speedTable[PlayDataManager.data.Upgrade_SpeedDown].VALUE;
-        }
+        speed = moveSpeed;
     }
 
     private void Awake()
@@ -88,45 +54,28 @@ public class Monster : MonoBehaviour, ISlashable, IDeathEvent
     public void AddPattern(Pattern c)
     {
         queue.Enqueue(c);
-        monsterUi.EnqueueImage(c);
     }
 
-    public void OnSlashed(Pattern c)
+    public void UpdateBossUi()
     {
-        if (!IsAlive)
+        if (queue.Count <= 0)
         {
+            monsterUi.Clear();
             return;
         }
 
-        if (queue.Peek() == c)
+        int i = 0;
+        foreach (var c in queue)
         {
-            queue.Dequeue();
-            monsterUi.DequeueImage();
-            anim.SetTrigger("Hit");
+            monsterUi.EnqueueImage(c);
+            i++;
 
-            if (actionOnSlash != null)
+            if (i >= 5)
             {
-                actionOnSlash();
-                actionOnSlash = null;
-            }
-
-            if (queue.Count <= 0)
-            {
-                GameManager.instance.AddScore(score);
-
-                OnDie();
+                break;
             }
         }
         
-    }
-
-    public void OnDie()
-    {
-        IsAlive = false;
-        GameManager.instance.RemoveMonster(this);
-        queue.Clear();
-        monsterUi.Clear();
-        anim.SetTrigger("Die");
     }
 
     public Pattern GetPattern()
@@ -143,13 +92,47 @@ public class Monster : MonoBehaviour, ISlashable, IDeathEvent
         return transform.position.y;
     }
 
-    public void OnDeath()
+    public void OnSlashed(Pattern c)
     {
-        if (actionOnDeath != null)
+        if (!IsAlive) 
         {
-            actionOnDeath();
-            actionOnDeath = null;
+            return; 
         }
+
+        if (queue.Peek() == c)
+        {
+            queue.Dequeue();
+            monsterUi.DequeueImage();
+            anim.SetTrigger("Hit");
+
+            if (monsterUi.IsEmpty())
+            {
+                Knockback();
+                UpdateBossUi();
+            }
+
+            if (actionOnSlash != null)
+            {
+                actionOnSlash();
+                actionOnSlash = null;
+            }
+
+            if (queue.Count <= 0)
+            {
+                GameManager.instance.AddScore(score);
+
+                OnDie();
+            }
+        }
+    }
+
+    public void OnDie()
+    {
+        IsAlive = false;
+        GameManager.instance.RemoveMonster(this);
+        queue.Clear();
+        monsterUi.Clear();
+        anim.SetTrigger("Die");
     }
 
     public void Stiffness(float time)
@@ -170,9 +153,9 @@ public class Monster : MonoBehaviour, ISlashable, IDeathEvent
         }
     }
 
-    public void Knockback(float time)
+    public void Knockback()
     {
-        StartCoroutine(KnockbackCoroutine(time));
+        StartCoroutine(KnockbackCoroutine(1.0f));
     }
 
     private IEnumerator KnockbackCoroutine(float duration)
@@ -186,6 +169,15 @@ public class Monster : MonoBehaviour, ISlashable, IDeathEvent
             transform.position += Vector3.up * Time.deltaTime;
 
             yield return null;
+        }
+    }
+
+    public void OnDeath()
+    {
+        if (actionOnDeath != null)
+        {
+            actionOnDeath();
+            actionOnDeath = null;
         }
     }
 }

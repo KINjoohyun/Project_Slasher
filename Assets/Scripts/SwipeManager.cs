@@ -112,8 +112,7 @@ public class SwipeManager : MonoBehaviour
             TestManager.instance.SetText(swipeInput);
         }
 
-        GameManager.instance.HitMonsters(swipeInput);
-        Debug.Log(swipeInput);
+        GameManager.instance.SlashMonsters(swipeInput);
 
         DeleteLine();
     }
@@ -190,14 +189,7 @@ public class SwipeManager : MonoBehaviour
             TestManager.instance.SetSimilarity(p, similarityScore);
         }
 
-        if (similarityScore >= similarity)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return (similarityScore >= similarity);
     }
 
     /*
