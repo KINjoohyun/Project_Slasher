@@ -7,7 +7,7 @@ using Newtonsoft.Json.Linq;
 
 public static class SaveLoadSystem
 {
-    public static int RecentlyVersion { get; } = 3; // Version Change?
+    public static int RecentlyVersion { get; } = 4; // Version Change?
 
     public static string SaveDirectory
     {
@@ -68,6 +68,9 @@ public static class SaveLoadSystem
                     break;
                 case 3:
                     result = serializer.Deserialize<SaveDataV3>(reader);
+                    break;
+                case 4:
+                    result = serializer.Deserialize<SaveDataV4>(reader);
                     break;
             }
             while (result.Version < RecentlyVersion)

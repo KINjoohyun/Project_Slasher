@@ -1,5 +1,5 @@
 using UnityEngine.PlayerLoop;
-using SaveDataVC = SaveDataV3; // Version Change?
+using SaveDataVC = SaveDataV4; // Version Change?
 
 public static class PlayDataManager
 {
@@ -53,4 +53,12 @@ public static class PlayDataManager
         return true;
     }
 
+    public static void UnlockStage(int stage)
+    {
+        if (data.Stage == stage)
+        {
+            data.Stage++;
+            Save();
+        }
+    }
 }
