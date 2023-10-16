@@ -7,7 +7,7 @@ using Newtonsoft.Json.Linq;
 
 public static class SaveLoadSystem
 {
-    public static int RecentlyVersion { get; } = 4; // Version Change?
+    public static int RecentlyVersion { get; } = 5; // Version Change?
 
     public static string SaveDirectory
     {
@@ -58,7 +58,7 @@ public static class SaveLoadSystem
             serializer.Converters.Add(new Vector3Converter());
             serializer.Converters.Add(new QuaternionConverter());
 
-            switch (version)
+            switch (version) // Add Version?
             {
                 case 1:
                     result = serializer.Deserialize<SaveDataV1>(reader);
@@ -71,6 +71,9 @@ public static class SaveLoadSystem
                     break;
                 case 4:
                     result = serializer.Deserialize<SaveDataV4>(reader);
+                    break;
+                case 5:
+                    result = serializer.Deserialize<SaveDataV5>(reader);
                     break;
             }
             while (result.Version < RecentlyVersion)

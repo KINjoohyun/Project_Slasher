@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 public abstract class SaveData
 {
     public int Version { get; set; }
@@ -69,7 +71,7 @@ public class SaveDataV3 : SaveData
     }
 }
 
-public class SaveDataV4 : SaveData // Current
+public class SaveDataV4 : SaveData
 {
     public SaveDataV4()
     {
@@ -82,6 +84,36 @@ public class SaveDataV4 : SaveData // Current
     public int Upgrade_GoldUP { get; set; } = 0;
     public int Upgrade_SpeedDown { get; set; } = 0;
     public int Stage { get; set; } = 1;
+
+    public override SaveData VersionUp()
+    {
+        var data = new SaveDataV5();
+        data.HighScore = HighScore;
+        data.Gold = Gold;
+        data.Upgrade_HealthUP = Upgrade_HealthUP;
+        data.Upgrade_GoldUP = Upgrade_GoldUP;
+        data.Upgrade_SpeedDown = Upgrade_SpeedDown;
+        data.Stage = Stage;
+
+        return data;
+    }
+}
+
+public class SaveDataV5 : SaveData // Current
+{
+    public SaveDataV5()
+    {
+        Version = 5;
+    }
+
+    public int HighScore { get; set; } = 0;
+    public int Gold { get; set; } = 0;
+    public int Upgrade_HealthUP { get; set; } = 0;
+    public int Upgrade_GoldUP { get; set; } = 0;
+    public int Upgrade_SpeedDown { get; set; } = 0;
+    public int Stage { get; set; } = 1;
+    public WeaponID EquipWeapon { get; set; } = WeaponID.None;
+    public Dictionary<WeaponID, bool> UnlockList { get; set; } = new Dictionary<WeaponID, bool>();
 
     public override SaveData VersionUp()
     {

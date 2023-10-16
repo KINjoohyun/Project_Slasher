@@ -892,7 +892,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHp: 5
   bossCon: {fileID: 2143791428}
-  StageNum: 0
+  StageNum: 2
 --- !u!114 &565701173
 MonoBehaviour:
   m_ObjectHideFlags: 0

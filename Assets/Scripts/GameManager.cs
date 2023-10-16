@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     public int hp { get; private set; }
     public bool IsPause { get; private set; } = false;
     public BossController bossCon;
-    public string StageName = string.Empty;
+    public int StageNum = 0;
 
     private List<ISlashable> slashList;
     private List<ISlashable> removeList;
@@ -72,6 +72,12 @@ public class GameManager : MonoBehaviour
         UpdateHighScore();
         PlayDataManager.Gameover();
         UIManager.instance.UpdateGameover();
+    }
+
+    public void Win()
+    {
+        PlayDataManager.UnlockStage(StageNum);
+        Gameover();
     }
 
     private void UpdateHighScore()
@@ -127,7 +133,7 @@ public class GameManager : MonoBehaviour
 
     public void Restart()
     {
-        SceneManager.LoadScene(StageName);
+        SceneManager.LoadScene($"Stage{StageNum}");
     }
 
     public void Pause()
