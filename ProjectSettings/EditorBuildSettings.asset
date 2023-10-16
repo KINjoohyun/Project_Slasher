@@ -15,9 +15,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Upgrade.unity
     guid: 99706085b5b8da1439224dae5f337c1c
   - enabled: 1
-    path: Assets/Scenes/Stage1.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    path: Assets/Scenes/Arsenal.unity
+    guid: c5b59d0b05089f54e9e1b4ead6678ccc
   - enabled: 1
     path: Assets/Scenes/Stage.unity
     guid: bd9d7b31a2fe40141974bea2c7c28b42
+  - enabled: 1
+    path: Assets/Scenes/Stage1.unity
+    guid: 2cda990e2423bbf4892e6590ba056729
   m_configObjects: {}
