@@ -61,4 +61,18 @@ public static class PlayDataManager
             Save();
         }
     }
+
+    public static bool UnlockWeapon(WeaponID id)
+    {
+        var table = CsvTableMgr.GetTable<ArsenalTable>();
+        if (table.dataTable[id].PRICE > data.Gold)
+        {
+            return false;
+        }
+
+        data.Gold -= table.dataTable[id].PRICE;
+        data.UnlockList.Add(id);
+        Save();
+        return true;
+    }
 }

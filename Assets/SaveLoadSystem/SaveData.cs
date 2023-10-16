@@ -112,8 +112,8 @@ public class SaveDataV5 : SaveData // Current
     public int Upgrade_GoldUP { get; set; } = 0;
     public int Upgrade_SpeedDown { get; set; } = 0;
     public int Stage { get; set; } = 1;
-    public WeaponID EquipWeapon { get; set; } = WeaponID.None;
-    public Dictionary<WeaponID, bool> UnlockList { get; set; } = new Dictionary<WeaponID, bool>();
+    public WeaponID EquipWeapon { get; set; } = WeaponID.Starter;
+    public List<WeaponID> UnlockList { get; set; } = new List<WeaponID>();
 
     public override SaveData VersionUp()
     {
