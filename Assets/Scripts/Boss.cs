@@ -9,6 +9,9 @@ public class Boss : MonoBehaviour, ISlashable, IDeathEvent
 
     public float moveSpeed = 1.0f; // 이동속도
     private float speed = 1.0f;
+    public float stiffnessTime = 1.0f; // 경직 시간
+    public float knockbackTime = 1.0f; // 넉백 시간
+    public float knockbackDistance = 3.0f; // 넉백 거리
 
     public Queue<Pattern> queue = new Queue<Pattern>(); // 패턴 큐
 
@@ -107,7 +110,7 @@ public class Boss : MonoBehaviour, ISlashable, IDeathEvent
 
             if (monsterUi.IsEmpty())
             {
-                Knockback();
+                Knockback(knockbackTime, knockbackDistance);
                 UpdateBossUi();
             }
 
@@ -153,12 +156,12 @@ public class Boss : MonoBehaviour, ISlashable, IDeathEvent
         }
     }
 
-    public void Knockback()
+    public void Knockback(float time, float distance)
     {
-        StartCoroutine(KnockbackCoroutine(1.0f));
+        StartCoroutine(KnockbackCoroutine(time, distance));
     }
 
-    private IEnumerator KnockbackCoroutine(float duration)
+    private IEnumerator KnockbackCoroutine(float duration, float distance)
     {
         float time = 0.0f;
 
@@ -166,7 +169,7 @@ public class Boss : MonoBehaviour, ISlashable, IDeathEvent
         {
             time += Time.deltaTime;
             transform.position += Vector3.up * moveSpeed * Time.deltaTime;
-            transform.position += Vector3.up * Time.deltaTime;
+            transform.position += Vector3.up * distance * Time.deltaTime;
 
             yield return null;
         }

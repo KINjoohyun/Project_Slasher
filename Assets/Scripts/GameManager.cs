@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     public int hp { get; private set; }
     public bool IsPause { get; private set; } = false;
     public BossController bossCon;
+    public string StageName = string.Empty;
 
     private List<ISlashable> slashList;
     private List<ISlashable> removeList;
@@ -126,7 +127,7 @@ public class GameManager : MonoBehaviour
 
     public void Restart()
     {
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene(StageName);
     }
 
     public void Pause()
