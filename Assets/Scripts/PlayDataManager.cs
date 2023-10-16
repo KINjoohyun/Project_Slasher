@@ -1,5 +1,5 @@
 using UnityEngine.PlayerLoop;
-using SaveDataVC = SaveDataV4; // Version Change?
+using SaveDataVC = SaveDataV5; // Version Change?
 
 public static class PlayDataManager
 {
@@ -60,5 +60,19 @@ public static class PlayDataManager
             data.Stage++;
             Save();
         }
+    }
+
+    public static bool UnlockWeapon(WeaponID id)
+    {
+        var table = CsvTableMgr.GetTable<ArsenalTable>();
+        if (table.dataTable[id].PRICE > data.Gold)
+        {
+            return false;
+        }
+
+        data.Gold -= table.dataTable[id].PRICE;
+        data.UnlockList.Add(id);
+        Save();
+        return true;
     }
 }

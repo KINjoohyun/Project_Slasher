@@ -16,6 +16,9 @@ public static class CsvTableMgr
 
         var monsterTable = new MonsterTable();
         tables.Add(typeof(MonsterTable), monsterTable);
+
+        var arsenalTable = new ArsenalTable();
+        tables.Add(typeof(ArsenalTable), arsenalTable);
     }
 
     public static T GetTable<T>() where T : CsvTable
