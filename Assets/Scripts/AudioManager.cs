@@ -12,7 +12,7 @@ public class AudioManager : MonoBehaviour
 
     public void ChangerMaster()
     {
-        mixer.SetFloat("masterVol", Mathf.Lerp(-80, 0, musicSlider.value));
+        mixer.SetFloat("masterVol", Mathf.Lerp(-80, 0, masterSlider.value));
     }
 
     public void ChangeMusic()

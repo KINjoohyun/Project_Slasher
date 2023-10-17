@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        BGMobject.instance.Stop();
+
         PlayDataManager.Init();
 
         IsGameover = false;
@@ -172,5 +174,13 @@ public class GameManager : MonoBehaviour
             }
         }
         return min.GetPattern();
+    }
+
+    public void GoLobby()
+    {
+        UpdateHighScore();
+        PlayDataManager.Gameover();
+
+        BGMobject.instance.Play();
     }
 }
