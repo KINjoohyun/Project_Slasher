@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     public int Score { get; private set; }
     public int HighScore { get; private set; }
     public int maxHp = 5; // 최대 체력
-    public int hp { get; private set; }
+    public int hp { get; set; }
     public bool IsPause { get; private set; } = false;
     public BossController bossCon;
     public int StageNum = 0;

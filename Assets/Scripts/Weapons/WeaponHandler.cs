@@ -19,6 +19,7 @@ public class WeaponHandler : MonoBehaviour
         }
 
         SwipeManager.instance.slashParticle = weaponList[PlayDataManager.data.EquipWeapon];
+        SwipeManager.instance.slashParticle.GetComponent<IWeapon>().Ability(); // 무기 능력 발동
     }
 
 }
