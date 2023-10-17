@@ -4,6 +4,15 @@ using UnityEngine;
 
 public class WeaponHandler : MonoBehaviour
 {
+    public static WeaponHandler instance;
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+    }
+
     public List<ParticleSystem> particlePrefabs;
     public Dictionary<WeaponID, ParticleSystem> weaponList = new Dictionary<WeaponID, ParticleSystem>();
 
@@ -19,7 +28,11 @@ public class WeaponHandler : MonoBehaviour
         }
 
         SwipeManager.instance.slashParticle = weaponList[PlayDataManager.data.EquipWeapon];
-        SwipeManager.instance.slashParticle.GetComponent<IWeapon>().Ability(); // 무기 능력 발동
+    }
+
+    public void ActiveWeapon()
+    {
+        SwipeManager.instance.slashParticle.GetComponent<IWeapon>().Active();
     }
 
 }

@@ -1,4 +1,4 @@
 public interface IWeapon
 {
-    public void Ability();
+    public void Active();
 }

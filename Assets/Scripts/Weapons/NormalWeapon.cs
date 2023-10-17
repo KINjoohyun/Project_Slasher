@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NormalWeapon : MonoBehaviour, IWeapon
 {
-    public void Ability()
+    public void Active()
     {
         return; // 아무 능력 X
     }

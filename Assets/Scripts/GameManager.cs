@@ -52,6 +52,8 @@ public class GameManager : MonoBehaviour
         hp = maxHp;
 
         UIManager.instance.UpdateUI();
+
+        WeaponHandler.instance.ActiveWeapon();
     }
 
     public void OnDamage(int damage)
@@ -167,6 +169,4 @@ public class GameManager : MonoBehaviour
         }
         return min.GetPattern();
     }
-
-
 }
