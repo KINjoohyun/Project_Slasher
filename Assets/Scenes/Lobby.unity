@@ -377,8 +377,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 68, y: 13}
-  m_SizeDelta: {x: -88, y: -74}
+  m_AnchoredPosition: {x: 65, y: 15}
+  m_SizeDelta: {x: -90, y: -70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &379781423
 MonoBehaviour:
@@ -2608,7 +2608,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2677,7 +2677,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 77.31242, y: 0, z: 63.75119, w: 0}
+  m_margin: {x: 50, y: 0, z: 50, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
