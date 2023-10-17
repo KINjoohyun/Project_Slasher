@@ -17,6 +17,8 @@ public class SwipeManager : MonoBehaviour
     private Vector3 prevPos = Vector3.zero;
     private Pattern swipeInput = Pattern.None;
     public ParticleSystem slashParticle;
+    private AudioSource sound;
+    public AudioClip slashSound;
 
     public float thick = 0.1f; // 선의 굵기
     public Material mat; // 메테리얼
@@ -32,6 +34,7 @@ public class SwipeManager : MonoBehaviour
         }
 
         maincam = Camera.main;
+        sound = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -111,6 +114,7 @@ public class SwipeManager : MonoBehaviour
                 swipeInput = i;
                 slashParticle.Stop();
                 slashParticle.Play();
+                sound.PlayOneShot(slashSound);
                 break;
             }
         }
