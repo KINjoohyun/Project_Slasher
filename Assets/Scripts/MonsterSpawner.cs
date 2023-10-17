@@ -71,6 +71,7 @@ public class MonsterSpawner : MonoBehaviour
         Vector3 pos = new Vector3(Mathf.Lerp(minX, maxX, Random.value), posY, 0);
 
         var monster = monsterPool.Get();
+        monster.sprite.flipX = pos.x < 0.0f;
         monster.transform.position = pos;
         MonsterPatternSetUp(monster);
         monster.actionOnDeath += () => monsterPool.Release(monster);

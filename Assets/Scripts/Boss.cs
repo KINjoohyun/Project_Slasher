@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.U2D;
 
 public class Boss : MonoBehaviour, ISlashable, IDeathEvent
 {
@@ -23,6 +24,10 @@ public class Boss : MonoBehaviour, ISlashable, IDeathEvent
     public bool IsAlive { get; private set; }
     public MonsterUiController monsterUi;
     private Animator anim;
+    public SpriteRenderer sprite;
+
+    [Header("밝아지는 정도")]
+    public float fadeDark = 50.0f;
 
     private void Start()
     {
@@ -43,6 +48,9 @@ public class Boss : MonoBehaviour, ISlashable, IDeathEvent
         }
 
         transform.position += Vector3.down * speed * Time.deltaTime;
+
+        var y = transform.position.y / fadeDark; // color code
+        sprite.color = Color.Lerp(Color.white, Color.black, y); // color code
     }
 
     private void OnTriggerEnter(Collider other)

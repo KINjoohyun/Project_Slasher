@@ -146,6 +146,8 @@ public class GameManager : MonoBehaviour
 
         if (IsPause)
         {
+            var line = Camera.main.GetComponentInChildren<LineRenderer>();
+            line.enabled = false;
             Time.timeScale = 0;
         }
         else

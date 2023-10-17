@@ -94,7 +94,7 @@ public class UIManager : MonoBehaviour
     {
         if (count / spawnCount >= 1)
         {
-            bossCountText.text = "Warning";
+            bossCountText.text = "Boss Battle";
         }
         else
         {
