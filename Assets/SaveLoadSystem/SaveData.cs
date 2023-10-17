@@ -95,6 +95,8 @@ public class SaveDataV4 : SaveData
         data.Upgrade_SpeedDown = Upgrade_SpeedDown;
         data.Stage = Stage;
 
+        data.UnlockList.Add(WeaponID.Starter); // 기본 무기
+
         return data;
     }
 }

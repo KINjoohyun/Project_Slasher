@@ -8,6 +8,8 @@ using UnityEngine.UI;
 
 public class SwipeManager : MonoBehaviour
 {
+    public static SwipeManager instance;
+
     private LineRenderer curLine;
     public RenderTexture rendtex;
     private Camera maincam;
@@ -24,6 +26,11 @@ public class SwipeManager : MonoBehaviour
 
     private void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
+
         maincam = Camera.main;
     }
 

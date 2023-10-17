@@ -1,6 +1,3 @@
-using JetBrains.Annotations;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -66,6 +63,7 @@ public class ArsenalManager : MonoBehaviour
             if (PlayDataManager.data.UnlockList.Contains(weapon.ID))
             {
                 weapon.Unlock();
+                weapon.Equip(equipWeapon);
             }
         }
     }
@@ -88,10 +86,12 @@ public class ArsenalManager : MonoBehaviour
     {
         if (isUnlock)
         {
+            equipWeapon = selectWeapon;
             PlayDataManager.data.EquipWeapon = equipWeapon;
             PlayDataManager.Save();
 
             Notice("장비를 장착하였습니다.");
+            UnlockPanel();
         }
         else
         {
@@ -110,6 +110,7 @@ public class ArsenalManager : MonoBehaviour
         if (PlayDataManager.UnlockWeapon(selectWeapon))
         {
             Notice("해금에 성공하였습니다.");
+            UnlockPanel();
         }
         else
         {

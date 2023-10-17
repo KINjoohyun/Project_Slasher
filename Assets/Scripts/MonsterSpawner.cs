@@ -43,10 +43,10 @@ public class MonsterSpawner : MonoBehaviour
 
     private void Start()
     {
-        float x = gameObject.GetComponent<SpriteRenderer>().bounds.size.x;
+        float x = gameObject.GetComponentInParent<SpriteRenderer>().bounds.size.x;
         minX = -x / 2.0f;
         maxX = +x / 2.0f;
-        posY = gameObject.GetComponent<SpriteRenderer>().bounds.size.y / 2.0f + transform.position.y;
+        posY = gameObject.GetComponentInParent<SpriteRenderer>().bounds.size.y / 2.0f + transform.position.y;
 
         monsterPool = new ObjectPool<Monster>(() => { var monster = Instantiate(monsterPrefab); return monster; }, 
             delegate (Monster monster) { monster.gameObject.SetActive(true); }, // actionOnGet
@@ -71,6 +71,7 @@ public class MonsterSpawner : MonoBehaviour
         Vector3 pos = new Vector3(Mathf.Lerp(minX, maxX, Random.value), posY, 0);
 
         var monster = monsterPool.Get();
+        monster.sprite.flipX = pos.x < 0.0f;
         monster.transform.position = pos;
         MonsterPatternSetUp(monster);
         monster.actionOnDeath += () => monsterPool.Release(monster);

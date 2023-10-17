@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     public int Score { get; private set; }
     public int HighScore { get; private set; }
     public int maxHp = 5; // 최대 체력
-    public int hp { get; private set; }
+    public int hp { get; set; }
     public bool IsPause { get; private set; } = false;
     public BossController bossCon;
     public int StageNum = 0;
@@ -52,6 +52,9 @@ public class GameManager : MonoBehaviour
         hp = maxHp;
 
         UIManager.instance.UpdateUI();
+        UIManager.instance.UpdateBoss(bossCon.Count, bossCon.SpawnCount);
+
+        WeaponHandler.instance.ActiveWeapon();
     }
 
     public void OnDamage(int damage)
@@ -123,6 +126,7 @@ public class GameManager : MonoBehaviour
         bossCon.Count++;
 
         UIManager.instance.UpdateScore();
+        UIManager.instance.UpdateBoss(bossCon.Count, bossCon.SpawnCount);
     }
 
     public void RemoveMonster(ISlashable monster)
@@ -142,6 +146,8 @@ public class GameManager : MonoBehaviour
 
         if (IsPause)
         {
+            var line = Camera.main.GetComponentInChildren<LineRenderer>();
+            line.enabled = false;
             Time.timeScale = 0;
         }
         else
@@ -167,6 +173,4 @@ public class GameManager : MonoBehaviour
         }
         return min.GetPattern();
     }
-
-
 }

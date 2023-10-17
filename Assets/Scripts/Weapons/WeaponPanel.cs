@@ -9,7 +9,7 @@ public class WeaponPanel : MonoBehaviour
     public GameObject locker;
     public TextMeshProUGUI priceText;
 
-    private void Start()
+    private void Awake()
     {
         var table = CsvTableMgr.GetTable<ArsenalTable>().dataTable;
         priceText.text = table[ID].PRICE.ToString();
@@ -18,7 +18,15 @@ public class WeaponPanel : MonoBehaviour
     public void Unlock()
     {
         locker.SetActive(false);
-        priceText.text = "소지 중";
+        priceText.text = "보유";
+    }
+
+    public void Equip(WeaponID id)
+    {
+        if (ID == id)
+        {
+            priceText.text = "장착중";
+        }
     }
 
     public void Select()
