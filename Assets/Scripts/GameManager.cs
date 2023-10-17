@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour
         hp = maxHp;
 
         UIManager.instance.UpdateUI();
+        UIManager.instance.UpdateBoss(bossCon.Count, bossCon.SpawnCount);
 
         WeaponHandler.instance.ActiveWeapon();
     }
@@ -125,6 +126,7 @@ public class GameManager : MonoBehaviour
         bossCon.Count++;
 
         UIManager.instance.UpdateScore();
+        UIManager.instance.UpdateBoss(bossCon.Count, bossCon.SpawnCount);
     }
 
     public void RemoveMonster(ISlashable monster)

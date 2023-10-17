@@ -10,6 +10,7 @@ public class HealtyWeapon : MonoBehaviour, IWeapon
     {
         GameManager.instance.maxHp += value;
         GameManager.instance.hp += value;
+        UIManager.instance.UpdateHP();
     }
 
 }

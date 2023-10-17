@@ -16,6 +16,7 @@ public class UIManager : MonoBehaviour
     }
 
     public Slider hp;
+    public TextMeshProUGUI hpText;
     public TextMeshProUGUI scoreText;
     public GameObject gameoverPanel;
     public GameObject pausePanel;
@@ -23,6 +24,8 @@ public class UIManager : MonoBehaviour
     public Sprite[] guides;
     public TextMeshProUGUI highscoreText;
     public TextMeshProUGUI goldText;
+    public TextMeshProUGUI bossCountText;
+
 
     public void UpdateUI()
     {
@@ -35,11 +38,12 @@ public class UIManager : MonoBehaviour
     public void UpdateHP()
     {
         hp.value = (float)GameManager.instance.hp / GameManager.instance.maxHp;
+        hpText.text = $"{GameManager.instance.hp} / {GameManager.instance.maxHp}";
     }
 
     public void UpdateScore() 
     {
-        scoreText.text = $"Score : {GameManager.instance.Score}";
+        scoreText.text = $"점수 : {GameManager.instance.Score}";
     }
 
     public void UpdateGameover()
@@ -52,7 +56,7 @@ public class UIManager : MonoBehaviour
         {
             gameoverPanel.SetActive(false);
         }
-        highscoreText.text = $"HIGHSCORE : {GameManager.instance.HighScore}";
+        highscoreText.text = $"최고기록 : {GameManager.instance.HighScore}";
 
         var g = 0;
         if (PlayDataManager.data.Upgrade_GoldUP == 0)
@@ -84,5 +88,17 @@ public class UIManager : MonoBehaviour
     {
         var index = GameManager.instance.CloserPattern();
         guideImage.sprite = guides[(int)index];
+    }
+
+    public void UpdateBoss(int count, int spawnCount)
+    {
+        if (count / spawnCount >= 1)
+        {
+            bossCountText.text = "Warning";
+        }
+        else
+        {
+            bossCountText.text = $"{count}/{spawnCount}";
+        }
     }
 }
