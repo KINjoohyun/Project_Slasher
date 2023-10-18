@@ -7,6 +7,7 @@ public class BossController : MonoBehaviour
     public int SpawnCount = 50; // 소환에 필요한 처치 수
     public Boss bossPrefab; // 소환할 보스
     public MonsterSpawner[] disableSpwners; // 비활성화할 스포너들
+    public bool IsEnd = true;
 
     private float posY;
 
@@ -33,7 +34,7 @@ public class BossController : MonoBehaviour
         Count = 0;
         isSpawn = false;
 
-        posY = gameObject.GetComponent<SpriteRenderer>().bounds.size.y / 2.0f + transform.position.y;
+        posY = gameObject.GetComponentInParent<SpriteRenderer>().bounds.size.y / 2.0f + transform.position.y;
     }
 
     public void Spawn()
@@ -46,7 +47,22 @@ public class BossController : MonoBehaviour
         var boss = Instantiate(bossPrefab, new Vector3(0, posY, 0), bossPrefab.transform.rotation);
 
         BossPatternSetUp(boss);
-        boss.actionOnDeath += () => GameManager.instance.Win();
+        if (IsEnd)
+        {
+            boss.actionOnDeath += () => GameManager.instance.Win();
+        }
+        else
+        {
+            boss.actionOnDeath += () =>
+            {
+                foreach (var item in disableSpwners)
+                {
+                    item.gameObject.SetActive(true);
+                }
+
+                gameObject.SetActive(false);
+            };
+        }
         GameManager.instance.AddMonster(boss);
         isSpawn = true;
 

@@ -7,23 +7,23 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/Scenes/Title.unity
-    guid: 3dc430675d9d88544938e901d86df08d
+    guid: 6911c995011b5fd4c9b86bea5da88a48
   - enabled: 1
     path: Assets/Scenes/Lobby.unity
-    guid: d3f4e1e166ecd56459817ffe8c076467
+    guid: 3a317be5638dff74ab59ff26aeec8cd1
   - enabled: 1
     path: Assets/Scenes/Upgrade.unity
-    guid: 5bc1294d6f26e84449a46d84355ce637
+    guid: 2994599bf807fc746af44d5e13d7a0b7
   - enabled: 1
     path: Assets/Scenes/Arsenal.unity
-    guid: c5b59d0b05089f54e9e1b4ead6678ccc
+    guid: b076f6d720ed55f428a2175668aff75d
   - enabled: 1
     path: Assets/Scenes/Stage.unity
-    guid: 381bae4178f3ea74888ecc37537c4866
+    guid: c5c436879c0552f47bf699a7fbc0c04f
   - enabled: 1
     path: Assets/Scenes/Stage1.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 0
+    guid: d617a7242710794418f96d2a7b853db4
+  - enabled: 1
     path: Assets/Scenes/Stage2.unity
-    guid: bb5fcce3237ed104a8f0eaaecdd4a237
+    guid: ddf032badcfc7af418bf5024ba47c050
   m_configObjects: {}
