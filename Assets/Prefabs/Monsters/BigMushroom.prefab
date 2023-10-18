@@ -237,9 +237,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monsterID: 1005
-  moveSpeed: 1
-  damage: 1
-  score: 1
+  moveSpeed: 4
+  damage: 3
+  score: 30
   monsterUi: {fileID: 2138871751000836919}
   sprite: {fileID: 6287970707584172697}
   fadeDark: 20

@@ -237,11 +237,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monsterID: 1002
-  moveSpeed: 5
+  moveSpeed: 10
   damage: 1
-  score: 1
+  score: 5
   monsterUi: {fileID: 2138871751000836919}
   sprite: {fileID: 6287970707584172697}
+  fadeDark: 20
 --- !u!114 &2138871751000836919
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -237,7 +237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monsterID: 1003
-  moveSpeed: 2
+  moveSpeed: 1
   stiffnessTime: 1
   knockbackTime: 1
   knockbackDistance: 3
