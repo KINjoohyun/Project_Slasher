@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class FadeOut : MonoBehaviour
+public class NoticeOut : MonoBehaviour
 {
     public Color startColor;
     public Color endColor;
