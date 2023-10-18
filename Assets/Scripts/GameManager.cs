@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -21,7 +22,7 @@ public class GameManager : MonoBehaviour
     public int maxHp = 5; // 최대 체력
     public int hp { get; set; }
     public bool IsPause { get; private set; } = false;
-    public BossController bossCon;
+    public BossController[] bossCon;
     public int StageNum = 0;
 
     private List<ISlashable> slashList;
@@ -29,7 +30,10 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        BGMobject.instance.Stop();
+        if (BGMobject.instance != null)
+        {
+            BGMobject.instance.Stop();
+        }
 
         PlayDataManager.Init();
 
@@ -54,7 +58,10 @@ public class GameManager : MonoBehaviour
         hp = maxHp;
 
         UIManager.instance.UpdateUI();
-        UIManager.instance.UpdateBoss(bossCon.Count, bossCon.SpawnCount);
+        foreach (var item in bossCon)
+        {
+            UIManager.instance.UpdateBoss(item.Count, item.SpawnCount);
+        }
 
         WeaponHandler.instance.ActiveWeapon();
     }
@@ -63,6 +70,7 @@ public class GameManager : MonoBehaviour
     {
         hp -= damage;
         UIManager.instance.UpdateHP();
+        RemoveListAct();
 
         if (hp <= 0)
         {
@@ -110,25 +118,38 @@ public class GameManager : MonoBehaviour
         {
             monster.OnSlashed(c);
         }
+        RemoveListAct();
 
+        foreach (var item in bossCon)
+        {
+            item.Spawn();
+        }
+
+        UIManager.instance.UpdateGuide();
+    }
+
+    public void RemoveListAct()
+    {
         foreach (var monster in removeList)
         {
             slashList.Remove(monster);
         }
         removeList.Clear();
-
-        bossCon.Spawn();
-
-        UIManager.instance.UpdateGuide();
     }
 
     public void AddScore(int increase)
     {
         Score += increase;
-        bossCon.Count++;
+        foreach (var item in bossCon)
+        {
+            item.Count++;
+        }
 
         UIManager.instance.UpdateScore();
-        UIManager.instance.UpdateBoss(bossCon.Count, bossCon.SpawnCount);
+        foreach (var item in bossCon)
+        {
+            UIManager.instance.UpdateBoss(item.Count, item.SpawnCount);
+        }
     }
 
     public void RemoveMonster(ISlashable monster)
@@ -181,6 +202,9 @@ public class GameManager : MonoBehaviour
         UpdateHighScore();
         PlayDataManager.Gameover();
 
-        BGMobject.instance.Play();
+        if (BGMobject.instance != null)
+        {
+            BGMobject.instance.Play();
+        }
     }
 }

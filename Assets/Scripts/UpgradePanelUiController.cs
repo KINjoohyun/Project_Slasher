@@ -39,17 +39,30 @@ public class UpgradePanelUiController : MonoBehaviour
     public void UpdateInfo()
     {
         var table = CsvTableMgr.GetTable<UpgradeTable>();
+
         string info = string.Empty;
         switch (upgradeType)
         {
             case UpgradeType.HealthUP:
-                info = table.healthTable[level + 1].INFO;
+                UpgradeTable.Data_HealthUP data1 = new UpgradeTable.Data_HealthUP(0, 0, string.Empty);
+                if (table.healthTable.TryGetValue(level + 1, out data1))
+                {
+                    info = data1.INFO;
+                }
                 break;
             case UpgradeType.GoldUP:
-                info = table.goldTable[level + 1].INFO;
+                UpgradeTable.Data_GoldUP data2 = new UpgradeTable.Data_GoldUP(0, 0, string.Empty);
+                if (table.goldTable.TryGetValue(level + 1, out data2))
+                {
+                    info = data2.INFO;
+                }
                 break;
             case UpgradeType.SpeedDown:
-                info = table.speedTable[level + 1].INFO;
+                UpgradeTable.Data_SpeedDown data3 = new UpgradeTable.Data_SpeedDown(0, 0, string.Empty);
+                if (table.speedTable.TryGetValue(level + 1, out data3))
+                {
+                    info = data3.INFO;
+                }
                 break;
             default:
                 return;
