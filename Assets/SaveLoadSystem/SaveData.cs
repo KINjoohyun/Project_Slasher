@@ -106,6 +106,8 @@ public class SaveDataV5 : SaveData
     public SaveDataV5()
     {
         Version = 5;
+
+        UnlockList.Add(WeaponID.Starter);
     }
 
     public int HighScore { get; set; } = 0;
@@ -143,6 +145,8 @@ public class SaveDataV6 : SaveData // Current
     public SaveDataV6()
     {
         Version = 6;
+
+        UnlockList.Add(WeaponID.Starter);
     }
 
     public int HighScore { get; set; } = 0;
