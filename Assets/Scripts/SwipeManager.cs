@@ -134,6 +134,12 @@ public class SwipeManager : MonoBehaviour
         prevPos = Vector3.zero;
         Destroy(curLine.gameObject);
         curLine = null;
+
+        var line = Camera.main.GetComponentInChildren<LineRenderer>();
+        if (line != null)
+        {
+            Destroy(line.gameObject);
+        }
     }
 
     private bool PixelReader(Pattern p)

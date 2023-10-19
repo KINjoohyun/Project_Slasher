@@ -10,6 +10,22 @@ public class AudioManager : MonoBehaviour
     public Slider musicSlider;
     public Slider effectsSlider;
 
+    private void Awake()
+    {
+        PlayDataManager.Init();
+    }
+
+    private void Start()
+    {
+        masterSlider.value = PlayDataManager.data.masterVol;
+        musicSlider.value = PlayDataManager.data.musicVol;
+        effectsSlider.value = PlayDataManager.data.sfxVol;
+
+        ChangerMaster();
+        ChangeMusic();
+        ChangeEffects();
+    }
+
     public void ChangerMaster()
     {
         mixer.SetFloat("masterVol", Mathf.Log10(masterSlider.value) * 20);
@@ -23,5 +39,14 @@ public class AudioManager : MonoBehaviour
     public void ChangeEffects()
     {
         mixer.SetFloat("sfxVol", Mathf.Log10(effectsSlider.value) * 20);
+    }
+
+    public void Save()
+    {
+        PlayDataManager.data.masterVol = masterSlider.value;
+        PlayDataManager.data.musicVol = musicSlider.value;
+        PlayDataManager.data.sfxVol = effectsSlider.value;
+
+        PlayDataManager.Save();
     }
 }
