@@ -40,7 +40,7 @@ public class UpgradePanelUiController : MonoBehaviour
     {
         var table = CsvTableMgr.GetTable<UpgradeTable>();
 
-        string info = string.Empty;
+        string info = "최대 레벨에 도달하였습니다.";
         switch (upgradeType)
         {
             case UpgradeType.HealthUP:

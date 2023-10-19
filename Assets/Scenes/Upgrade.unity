@@ -1566,7 +1566,7 @@ PrefabInstance:
     - target: {fileID: 6927506723384482676, guid: 9fe8d39c706732d4eb1a5fa5a85d4ce1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: 21300000, guid: 5f131f234764f3d4e9c4da2943f43edf, type: 3}
+      objectReference: {fileID: 21300000, guid: 6f5b9a7b139a20549947215dd6baafbe, type: 3}
     - target: {fileID: 6927506723384482676, guid: 9fe8d39c706732d4eb1a5fa5a85d4ce1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
@@ -3050,7 +3050,7 @@ PrefabInstance:
     - target: {fileID: 6927506723384482676, guid: 9fe8d39c706732d4eb1a5fa5a85d4ce1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: 21300000, guid: 2cefa37eaa070124c9345dd7aaf3c2fc, type: 3}
+      objectReference: {fileID: 21300000, guid: 81776185dadec8c4c9a9420756d6964a, type: 3}
     - target: {fileID: 6927506723384482676, guid: 9fe8d39c706732d4eb1a5fa5a85d4ce1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
@@ -4250,7 +4250,7 @@ PrefabInstance:
     - target: {fileID: 6927506723384482676, guid: 9fe8d39c706732d4eb1a5fa5a85d4ce1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: 21300000, guid: 472cb6be315cf4446bb4b178ed0808f0, type: 3}
+      objectReference: {fileID: 21300000, guid: 92f45b101478cfe47abaa29779a72f55, type: 3}
     - target: {fileID: 6927506723384482676, guid: 9fe8d39c706732d4eb1a5fa5a85d4ce1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
