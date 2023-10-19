@@ -129,7 +129,7 @@ public class SaveDataV5 : SaveData
         data.EquipWeapon = EquipWeapon;
         data.UnlockList = UnlockList;
 
-        if (data.UnlockList.Count < 0)
+        if (data.UnlockList.Count <= 0)
         {
             data.UnlockList.Add(WeaponID.Starter);
         }
