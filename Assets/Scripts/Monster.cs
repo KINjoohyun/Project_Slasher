@@ -38,6 +38,7 @@ public class Monster : MonoBehaviour, ISlashable, IDeathEvent
     public int score = 1; // 점수
     
     public event Action actionOnDeath;
+    public event Action actionOnAttack;
     public event Action actionOnSlash; //추가 기능 구현 가능
     public bool IsAlive { get; private set; }
     public MonsterUiController monsterUi;
@@ -56,6 +57,7 @@ public class Monster : MonoBehaviour, ISlashable, IDeathEvent
         }
 
         var table = CsvTableMgr.GetTable<UpgradeTable>();
+        var plusSpeed = 0.0f;
         if (PlayDataManager.data.Upgrade_SpeedDown == 0)
         {
             speed = moveSpeed;
@@ -88,6 +90,7 @@ public class Monster : MonoBehaviour, ISlashable, IDeathEvent
     {
         if (other.CompareTag("Player"))
         {
+            //OnAttack();
             GameManager.instance.OnDamage(damage);
             OnDie();
         }
@@ -135,6 +138,21 @@ public class Monster : MonoBehaviour, ISlashable, IDeathEvent
         queue.Clear();
         monsterUi.Clear();
         anim.SetTrigger("Die");
+    }
+
+    public void OnAttack()
+    {
+        IsAlive = false;
+        GameManager.instance.OnDamage(damage);
+        GameManager.instance.RemoveMonster(this);
+        queue.Clear();
+        monsterUi.Clear();
+
+        if (actionOnAttack != null)
+        {
+            actionOnAttack();
+            actionOnAttack = null;
+        }
     }
 
     public Pattern GetPattern()

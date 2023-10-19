@@ -27,6 +27,11 @@ public class UpgradeManager : MonoBehaviour
         PlayDataManager.Init();
 
         UpdateUi();
+
+        if (BGMobject.instance != null)
+        {
+            BGMobject.instance.Stop();
+        }
     }
 
     public void UpdateUi()
@@ -158,5 +163,13 @@ public class UpgradeManager : MonoBehaviour
         UpdateUi();
         Notice("구매하셨습니다.");
 
+    }
+
+    public void GoLobby()
+    {
+        if (BGMobject.instance != null)
+        {
+            BGMobject.instance.Play();
+        }
     }
 }

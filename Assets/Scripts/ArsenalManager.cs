@@ -47,6 +47,11 @@ public class ArsenalManager : MonoBehaviour
         equipWeapon = PlayDataManager.data.EquipWeapon;
 
         UnlockPanel();
+
+        if (BGMobject.instance != null)
+        {
+            BGMobject.instance.Stop();
+        }
     }
 
     public void SelectWeapon(WeaponID id)
@@ -112,11 +117,20 @@ public class ArsenalManager : MonoBehaviour
         if (PlayDataManager.UnlockWeapon(selectWeapon))
         {
             Notice("해금에 성공하였습니다.");
+            SelectUnlock();
             UnlockPanel();
         }
         else
         {
             Notice("해금에 실패하였습니다.");
+        }
+    }
+
+    public void GoLobby()
+    {
+        if (BGMobject.instance != null)
+        {
+            BGMobject.instance.Play();
         }
     }
 }

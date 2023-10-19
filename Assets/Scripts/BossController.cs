@@ -70,6 +70,11 @@ public class BossController : MonoBehaviour
         {
             item.gameObject.SetActive(false);
         }
+
+        if (BossBGM.instance != null)
+        {
+            BossBGM.instance.Play();
+        }
     }
 
     private void BossPatternSetUp(Boss boss)

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.UIElements;
@@ -48,11 +49,13 @@ public class MonsterSpawner : MonoBehaviour
         maxX = +x / 2.0f;
         posY = gameObject.GetComponentInParent<SpriteRenderer>().bounds.size.y / 2.0f + transform.position.y;
 
+        lastSpawnTime = Time.time;
         nextSpawnTime = Random.Range(minSpawnTime, maxSpawnTime);
 
         monsterPool = new ObjectPool<Monster>(() => { var monster = Instantiate(monsterPrefab); return monster; }, 
             delegate (Monster monster) { monster.gameObject.SetActive(true); }, // actionOnGet
-            delegate (Monster monster) { monster.gameObject.SetActive(false); }); // actionOnRelease
+            delegate (Monster monster) { monster.gameObject.SetActive(false); }, // actionOnRelease
+            null, true, 20); 
     }
 
     private void Update()
@@ -77,6 +80,7 @@ public class MonsterSpawner : MonoBehaviour
         monster.transform.position = pos;
         MonsterPatternSetUp(monster);
         monster.actionOnDeath += () => monsterPool.Release(monster);
+        //monster.actionOnAttack += () => monsterPool.Release(monster);
         GameManager.instance.AddMonster(monster);
         UIManager.instance.UpdateGuide();
     }
