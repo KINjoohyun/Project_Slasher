@@ -58,7 +58,7 @@ public class Boss : MonoBehaviour, ISlashable, IDeathEvent
         if (other.CompareTag("Player"))
         {
             GameManager.instance.OnDamage(damage);
-            OnDie();
+            OnAttack();
         }
     }
 
@@ -139,11 +139,32 @@ public class Boss : MonoBehaviour, ISlashable, IDeathEvent
 
     public void OnDie()
     {
+        if (BossBGM.instance != null)
+        {
+            BossBGM.instance.Stop();
+        }
+
         IsAlive = false;
         GameManager.instance.RemoveMonster(this);
         queue.Clear();
         monsterUi.Clear();
         anim.SetTrigger("Die");
+    }
+
+    public void OnAttack()
+    {
+        if (BossBGM.instance != null)
+        {
+            BossBGM.instance.Stop();
+        }
+
+        actionOnDeath -= () => GameManager.instance.Win();
+
+        IsAlive = false;
+        GameManager.instance.RemoveMonster(this);
+        queue.Clear();
+        monsterUi.Clear();
+
     }
 
     public void Stiffness(float time)

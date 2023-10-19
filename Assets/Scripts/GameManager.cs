@@ -70,7 +70,6 @@ public class GameManager : MonoBehaviour
     {
         hp -= damage;
         UIManager.instance.UpdateHP();
-        RemoveListAct();
 
         if (hp <= 0)
         {
@@ -114,7 +113,7 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        foreach (var monster in slashList) 
+        foreach (var monster in slashList)
         {
             monster.OnSlashed(c);
         }
@@ -130,6 +129,11 @@ public class GameManager : MonoBehaviour
 
     public void RemoveListAct()
     {
+        if (removeList.Count < 0)
+        {
+            return;
+        }
+
         foreach (var monster in removeList)
         {
             slashList.Remove(monster);
@@ -160,7 +164,7 @@ public class GameManager : MonoBehaviour
 
     public void Restart()
     {
-        SceneManager.LoadScene($"Stage{StageNum}");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void Pause()

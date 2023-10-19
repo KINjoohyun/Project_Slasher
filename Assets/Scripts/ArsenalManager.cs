@@ -37,6 +37,7 @@ public class ArsenalManager : MonoBehaviour
     private bool isUnlock = false;
     public TextMeshProUGUI equipText;
     public TextMeshProUGUI infoText;
+    public TextMeshProUGUI titleText;
     public TextMeshProUGUI confirmText;
     public TextMeshProUGUI noticeText;
 
@@ -46,6 +47,11 @@ public class ArsenalManager : MonoBehaviour
         equipWeapon = PlayDataManager.data.EquipWeapon;
 
         UnlockPanel();
+
+        if (BGMobject.instance != null)
+        {
+            BGMobject.instance.Stop();
+        }
     }
 
     public void SelectWeapon(WeaponID id)
@@ -53,6 +59,7 @@ public class ArsenalManager : MonoBehaviour
         selectWeapon = id;
 
         var table = CsvTableMgr.GetTable<ArsenalTable>().dataTable;
+        titleText.text = table[id].TITLE;
         infoText.text = table[id].INFO;
     }
 
@@ -110,11 +117,20 @@ public class ArsenalManager : MonoBehaviour
         if (PlayDataManager.UnlockWeapon(selectWeapon))
         {
             Notice("해금에 성공하였습니다.");
+            SelectUnlock();
             UnlockPanel();
         }
         else
         {
             Notice("해금에 실패하였습니다.");
+        }
+    }
+
+    public void GoLobby()
+    {
+        if (BGMobject.instance != null)
+        {
+            BGMobject.instance.Play();
         }
     }
 }
