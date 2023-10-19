@@ -37,6 +37,7 @@ public class ArsenalManager : MonoBehaviour
     private bool isUnlock = false;
     public TextMeshProUGUI equipText;
     public TextMeshProUGUI infoText;
+    public TextMeshProUGUI titleText;
     public TextMeshProUGUI confirmText;
     public TextMeshProUGUI noticeText;
 
@@ -53,6 +54,7 @@ public class ArsenalManager : MonoBehaviour
         selectWeapon = id;
 
         var table = CsvTableMgr.GetTable<ArsenalTable>().dataTable;
+        titleText.text = table[id].TITLE;
         infoText.text = table[id].INFO;
     }
 

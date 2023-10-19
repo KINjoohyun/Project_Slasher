@@ -14,18 +14,21 @@ public class ArsenalTable : CsvTable
         public string ID { get; set; }
         public string NAME { get; set; }
         public string PRICE { get; set; }
+        public string TITLE { get; set; }
         public string INFO { get; set; }
     }
     public class Data_Weapon
     {
         public string NAME { get; set; }
         public int PRICE { get; set; }
+        public string TITLE { get; set; }
         public string INFO { get; set; }
 
-        public Data_Weapon(string name, int price, string info)
+        public Data_Weapon(string name, int price, string title, string info)
         {
             NAME = name;
             PRICE = price;
+            TITLE = title;
             INFO = info;
         }
     }
@@ -46,7 +49,7 @@ public class ArsenalTable : CsvTable
         var records = csv.GetRecords<Data>();
         foreach (var record in records) 
         {
-            dataTable.Add((WeaponID)int.Parse(record.ID), new Data_Weapon(record.NAME, int.Parse(record.PRICE), record.INFO));
+            dataTable.Add((WeaponID)int.Parse(record.ID), new Data_Weapon(record.NAME, int.Parse(record.PRICE), record.TITLE, record.INFO));
         }
     }
 }

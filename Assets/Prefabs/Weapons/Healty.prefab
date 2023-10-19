@@ -49027,6 +49027,7 @@ GameObject:
   - component: {fileID: 4003501900367752}
   - component: {fileID: 198274495757603134}
   - component: {fileID: 199017896374315618}
+  - component: {fileID: 2109285672606514892}
   m_Layer: 0
   m_Name: Healty
   m_TagString: Untagged
@@ -53937,6 +53938,19 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &2109285672606514892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1644958980890870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3975436b66df8844ebd0c8424bad37b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value: 2
 --- !u!1 &1727676261671216
 GameObject:
   m_ObjectHideFlags: 0

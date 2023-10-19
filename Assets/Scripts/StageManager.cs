@@ -9,14 +9,8 @@ public class StageManager : MonoBehaviour
     public int Stage { get; private set; } = 0;
     public TextMeshProUGUI stageText;
     public TextMeshProUGUI noticeText;
-    private MoveScene moveScene;
+    public FadeEffects moveScene;
     public GameObject[] locks;
-
-    private void Awake()
-    {
-        moveScene = GetComponent<MoveScene>();
-
-    }
 
     private void Start()
     {
@@ -31,7 +25,7 @@ public class StageManager : MonoBehaviour
         {
             if (IsUnlock())
             {
-                moveScene.Move(stageName);
+                moveScene.FadeOut(stageName);
             }
             else
             {

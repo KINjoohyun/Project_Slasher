@@ -210,6 +210,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BLACK
       objectReference: {fileID: 0}
+    - target: {fileID: 3726814144936415732, guid: 1c858b7a728d1824598cce97176d8763, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8112522419830450412, guid: 1c858b7a728d1824598cce97176d8763, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1177,11 +1181,11 @@ MonoBehaviour:
   stageName: 
   stageText: {fileID: 1955946164}
   noticeText: {fileID: 1357954769}
+  moveScene: {fileID: 21226352}
   locks:
   - {fileID: 2079183718}
   - {fileID: 346657327}
   - {fileID: 69758277}
-  - {fileID: 0}
 --- !u!1 &1050165754
 GameObject:
   m_ObjectHideFlags: 0
@@ -1304,9 +1308,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 21226352}
-        m_TargetAssemblyTypeName: FadeEffects, Assembly-CSharp
-        m_MethodName: FadeOut
+      - m_Target: {fileID: 964464093}
+        m_TargetAssemblyTypeName: StageManager, Assembly-CSharp
+        m_MethodName: StageSelect
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2199,9 +2203,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 21226352}
-        m_TargetAssemblyTypeName: FadeEffects, Assembly-CSharp
-        m_MethodName: FadeOut
+      - m_Target: {fileID: 964464093}
+        m_TargetAssemblyTypeName: StageManager, Assembly-CSharp
+        m_MethodName: StageSelect
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2694,9 +2698,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 21226352}
-        m_TargetAssemblyTypeName: FadeEffects, Assembly-CSharp
-        m_MethodName: FadeOut
+      - m_Target: {fileID: 964464093}
+        m_TargetAssemblyTypeName: StageManager, Assembly-CSharp
+        m_MethodName: StageSelect
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
