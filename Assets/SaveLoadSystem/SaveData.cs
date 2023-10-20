@@ -95,17 +95,22 @@ public class SaveDataV4 : SaveData
         data.Upgrade_SpeedDown = Upgrade_SpeedDown;
         data.Stage = Stage;
 
-        data.UnlockList.Add(WeaponID.Starter); // 기본 무기
+        if (data.UnlockList.Count <= 0)
+        {
+            data.UnlockList.Add(WeaponID.Starter);
+        }
 
         return data;
     }
 }
 
-public class SaveDataV5 : SaveData // Current
+public class SaveDataV5 : SaveData
 {
     public SaveDataV5()
     {
         Version = 5;
+
+        UnlockList.Add(WeaponID.Starter);
     }
 
     public int HighScore { get; set; } = 0;
@@ -116,6 +121,48 @@ public class SaveDataV5 : SaveData // Current
     public int Stage { get; set; } = 1;
     public WeaponID EquipWeapon { get; set; } = WeaponID.Starter;
     public List<WeaponID> UnlockList { get; set; } = new List<WeaponID>();
+
+    public override SaveData VersionUp()
+    {
+        var data = new SaveDataV6();
+        data.HighScore = HighScore;
+        data.Gold = Gold;
+        data.Upgrade_HealthUP = Upgrade_HealthUP;
+        data.Upgrade_GoldUP = Upgrade_GoldUP;
+        data.Upgrade_SpeedDown = Upgrade_SpeedDown;
+        data.Stage = Stage;
+        data.EquipWeapon = EquipWeapon;
+        data.UnlockList = UnlockList;
+
+        if (data.UnlockList.Count <= 0)
+        {
+            data.UnlockList.Add(WeaponID.Starter);
+        }
+
+        return data;
+    }
+}
+
+public class SaveDataV6 : SaveData // Current
+{
+    public SaveDataV6()
+    {
+        Version = 6;
+
+        UnlockList.Add(WeaponID.Starter);
+    }
+
+    public int HighScore { get; set; } = 0;
+    public int Gold { get; set; } = 0;
+    public int Upgrade_HealthUP { get; set; } = 0;
+    public int Upgrade_GoldUP { get; set; } = 0;
+    public int Upgrade_SpeedDown { get; set; } = 0;
+    public int Stage { get; set; } = 1;
+    public WeaponID EquipWeapon { get; set; } = WeaponID.Starter;
+    public List<WeaponID> UnlockList { get; set; } = new List<WeaponID>();
+    public float masterVol { get; set; } = 1.0f;
+    public float musicVol { get; set; } = 1.0f;
+    public float sfxVol { get; set; } = 1.0f;
 
     public override SaveData VersionUp()
     {

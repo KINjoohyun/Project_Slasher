@@ -7,8 +7,6 @@ public class UiUpdater : MonoBehaviour
 
     private void Start()
     {
-        PlayDataManager.Init();
-
         UpdateAll();
     }
 
