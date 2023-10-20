@@ -95,7 +95,10 @@ public class SaveDataV4 : SaveData
         data.Upgrade_SpeedDown = Upgrade_SpeedDown;
         data.Stage = Stage;
 
-        data.UnlockList.Add(WeaponID.Starter);
+        if (data.UnlockList.Count <= 0)
+        {
+            data.UnlockList.Add(WeaponID.Starter);
+        }
 
         return data;
     }
