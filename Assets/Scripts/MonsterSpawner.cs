@@ -52,7 +52,7 @@ public class MonsterSpawner : MonoBehaviour
         lastSpawnTime = Time.time;
         nextSpawnTime = Random.Range(minSpawnTime, maxSpawnTime);
 
-        monsterPool = new ObjectPool<Monster>(() => { var monster = Instantiate(monsterPrefab); return monster; }, 
+        monsterPool = new ObjectPool<Monster>(() => { var monster = Instantiate(monsterPrefab); monster.gameObject.SetActive(false); return monster; }, 
             delegate (Monster monster) { monster.gameObject.SetActive(true); }, // actionOnGet
             delegate (Monster monster) { monster.gameObject.SetActive(false); }, // actionOnRelease
             null, true, 20); 
