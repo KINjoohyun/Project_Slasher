@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class MultiTouchManager : MonoBehaviour
@@ -39,7 +37,7 @@ public class MultiTouchManager : MonoBehaviour
                 case TouchPhase.Stationary:
                     break;
                 case TouchPhase.Ended:
-                case TouchPhase.Canceled: // 화면 밖으로 입력이 끊겼을 때인가?
+                case TouchPhase.Canceled:
                     if (touch.fingerId == primary)
                     {
                         primary = int.MinValue;
