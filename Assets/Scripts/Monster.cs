@@ -57,7 +57,6 @@ public class Monster : MonoBehaviour, ISlashable, IDeathEvent
         }
 
         var table = CsvTableMgr.GetTable<UpgradeTable>();
-        var plusSpeed = 0.0f;
         if (PlayDataManager.data.Upgrade_SpeedDown == 0)
         {
             speed = moveSpeed;

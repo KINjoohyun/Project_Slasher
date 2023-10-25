@@ -44,15 +44,11 @@ public class SwipeManager : MonoBehaviour
             return;
         }
         DrawingUpdate();
-
-        if (Input.GetKeyDown(KeyCode.Escape)) // test code
-        {
-            SceneManager.LoadScene("Title");
-        }
     }
 
     private void DrawingUpdate()
     {
+//#if UNITY_EDITOR
         Vector3 mousePos = maincam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1));
 
         if (Input.GetMouseButtonDown(0))
@@ -67,6 +63,13 @@ public class SwipeManager : MonoBehaviour
         {
             LineCheck();
         }
+//#endif
+
+//#if UNITY_ANDROID || UNITY_IOS
+        //var touchPos = [MultiTouchManager.instance.primary];
+
+//#endif
+
     }
 
     private void StartDrawing(Vector3 mousePos)
@@ -104,8 +107,6 @@ public class SwipeManager : MonoBehaviour
 
     private void LineCheck()
     {
-        //curLine.bounds.min
-
         swipeInput = Pattern.None;
         for (Pattern i = 0; i < Pattern.Count; i++)
         {
