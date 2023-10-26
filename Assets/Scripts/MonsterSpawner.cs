@@ -82,7 +82,6 @@ public class MonsterSpawner : MonoBehaviour
         monster.actionOnDeath += () => monsterPool.Release(monster);
         //monster.actionOnAttack += () => monsterPool.Release(monster);
         GameManager.instance.AddMonster(monster);
-        UIManager.instance.UpdateGuide();
     }
 
     private void MonsterPatternSetUp(Monster monster)

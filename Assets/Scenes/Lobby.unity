@@ -507,6 +507,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3726814144936415732, guid: 1c858b7a728d1824598cce97176d8763, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 8112522419830450412, guid: 1c858b7a728d1824598cce97176d8763, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

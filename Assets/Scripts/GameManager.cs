@@ -124,7 +124,6 @@ public class GameManager : MonoBehaviour
             item.Spawn();
         }
 
-        UIManager.instance.UpdateGuide();
     }
 
     public void RemoveListAct()
@@ -159,7 +158,6 @@ public class GameManager : MonoBehaviour
     public void RemoveMonster(ISlashable monster)
     {
         removeList.Add(monster);
-        UIManager.instance.UpdateGuide();
     }
 
     public void Restart()

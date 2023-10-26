@@ -1,30 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
+using System.Drawing;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class SwipeManager : MonoBehaviour
 {
     public static SwipeManager instance;
 
-    private LineRenderer curLine;
-    public RenderTexture rendtex;
     private Camera maincam;
-    private int positionCount = 2;
-    private Vector3 prevPos = Vector3.zero;
+    public GameObject stone;
+    private TrailRenderer trail;
+    public bool IsDraw { get; private set; }
+
     private Pattern swipeInput = Pattern.None;
     public ParticleSystem slashParticle;
     private AudioSource sound;
     public AudioClip slashSound;
-
-    public float thick = 0.1f; // 선의 굵기
-    public Material mat; // 메테리얼
-    public Color startColor; // 선의 시작 색깔
-    public Color endColor; // 선의 끝 색깔
-    public float similarity = 50.0f; // 정확도
 
     private void Awake()
     {
@@ -34,6 +24,7 @@ public class SwipeManager : MonoBehaviour
         }
 
         maincam = Camera.main;
+        trail = stone.GetComponent<TrailRenderer>();
         sound = GetComponent<AudioSource>();
     }
 
@@ -48,166 +39,83 @@ public class SwipeManager : MonoBehaviour
 
     private void DrawingUpdate()
     {
-//#if UNITY_EDITOR
-        Vector3 mousePos = maincam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1));
+        if (MultiTouchManager.instance.primary != int.MinValue)
+        {
+            IsDraw = true;
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            StartDrawing(mousePos);
+            var prime = Input.GetTouch(MultiTouchManager.instance.primary).position;
+            Vector3 pos = maincam.ScreenToWorldPoint(new Vector3(prime.x, prime.y, 10));
+
+            DrawLine(pos);
         }
-        else if (Input.GetMouseButton(0))
+        else if (IsDraw)
         {
-            ConnectDrawing(mousePos);
-        }
-        else if (Input.GetMouseButtonUp(0))
-        {
+            IsDraw = false;
+
             LineCheck();
+            DeleteLine();
         }
-//#endif
-
-//#if UNITY_ANDROID || UNITY_IOS
-        //var touchPos = [MultiTouchManager.instance.primary];
-
-//#endif
-
     }
 
-    private void StartDrawing(Vector3 mousePos)
+    private void DrawLine(Vector3 pos)
     {
-        GameObject line = new GameObject("Line");
-        line.layer = LayerMask.NameToLayer("Line");
-        LineRenderer lineRend = line.AddComponent<LineRenderer>();
-
-        line.transform.parent = maincam.transform;
-        line.transform.position = mousePos;
-
-        lineRend.startWidth = thick;
-        lineRend.endWidth = thick;
-        lineRend.material = mat;
-        lineRend.startColor = startColor;
-        lineRend.endColor = endColor;
-        lineRend.numCornerVertices = 5;
-        lineRend.numCapVertices = 5;
-        lineRend.SetPosition(0, mousePos);
-        lineRend.SetPosition(1, mousePos);
-
-        curLine = lineRend;
-    }
-
-    private void ConnectDrawing(Vector3 mousePos)
-    {
-        if (Vector3.Distance(prevPos, mousePos) >= 0.001f)
-        {
-            prevPos = mousePos;
-            positionCount++;
-            curLine.positionCount = positionCount;
-            curLine.SetPosition(positionCount - 1, mousePos);
-        }
+        stone.SetActive(true);
+        stone.transform.position = pos;
     }
 
     private void LineCheck()
     {
-        swipeInput = Pattern.None;
-        for (Pattern i = 0; i < Pattern.Count; i++)
+        var size = trail.bounds.size;
+        if (size == null)
         {
-            if (PixelReader(i)) 
-            {
-                swipeInput = i;
-                slashParticle.Stop();
-                slashParticle.Play();
-                sound.PlayOneShot(slashSound);
-                break;
-            }
+            return;
         }
-        if (TestManager.instance != null)
+
+        // Horizontal
+        if (size.z <= 1.0f && size.x > size.z && size.x >= 0.5f)
         {
-            TestManager.instance.SetText(swipeInput);
+            swipeInput = Pattern.Horizontal;
+        }
+        // Vertical
+        else if (size.x <= 1.0f && size.z > size.x && size.z >= 0.5f)
+        {
+            swipeInput = Pattern.Vertical;
+        }
+        // V
+        else if (trail.bounds.ClosestPoint(trail.GetPosition(0)).z < trail.bounds.center.z &&
+            trail.bounds.ClosestPoint(trail.GetPosition(trail.positionCount - 1)).z < trail.bounds.center.z &&
+            trail.bounds.ClosestPoint(trail.GetPosition(trail.positionCount / 2)).z > trail.bounds.center.z)
+        {
+            swipeInput = Pattern.V;
+        }
+        // Caret
+        else if (trail.bounds.ClosestPoint(trail.GetPosition(0)).z > trail.bounds.center.z &&
+            trail.bounds.ClosestPoint(trail.GetPosition(trail.positionCount - 1)).z > trail.bounds.center.z &&
+            trail.bounds.ClosestPoint(trail.GetPosition(trail.positionCount / 2)).z < trail.bounds.center.z)
+        {
+            swipeInput = Pattern.Caret;
+        }
+        // None
+        else
+        {
+            swipeInput = Pattern.None;
+
+            return;
         }
 
         GameManager.instance.SlashMonsters(swipeInput);
+        slashParticle.Stop();
+        slashParticle.Play();
+        sound.PlayOneShot(slashSound);
 
         DeleteLine();
     }
 
     private void DeleteLine()
     {
-        positionCount = 2;
-        prevPos = Vector3.zero;
-        Destroy(curLine.gameObject);
-        curLine = null;
-
-        var line = Camera.main.GetComponentInChildren<LineRenderer>();
-        if (line != null)
-        {
-            Destroy(line.gameObject);
-        }
-    }
-
-    private bool PixelReader(Pattern p)
-    {
-        Texture2D image;
-        switch (p)
-        {
-            case Pattern.Vertical:
-                image = (Texture2D)Resources.Load("Patterns/vertical");
-                break;
-            case Pattern.Horizontal:
-                image = (Texture2D)Resources.Load("Patterns/horizontal");
-                break;
-            case Pattern.V:
-                image = (Texture2D)Resources.Load("Patterns/v");
-                break;
-            case Pattern.Caret:
-                image = (Texture2D)Resources.Load("Patterns/caret");
-                break;
-            default:
-                image = null;
-                break;
-        }
-
-        if (image == null) // Exception Handling
-        {
-            Debug.LogWarning("Not Exist Image!");
-            return false;
-        }
-
-
-        RenderTexture.active = rendtex;
-        Texture2D tex = new Texture2D(rendtex.width, rendtex.height);
-        tex.ReadPixels(new Rect(0, 0, rendtex.width, rendtex.height), 0, 0);
-        tex.Apply();
-
-        float total = 0.0f;
-        float result = 0.0f;
-        for (int i = 0; i < image.width; i++)
-        {
-            for (int j = 0; j < image.height; j++)
-            {
-                Color pixel = image.GetPixel(i, j);
-                Color texPixel = tex.GetPixel(i, j);
-
-                if (pixel.CompareRGB(Color.black))
-                {
-                    total++;
-
-                    if (!texPixel.CompareRGB(Color.white))
-                    {
-                        result++;
-                    }
-                }
-            }
-        }
-        float similarityScore = result / total * 100.0f;
-        RenderTexture.active = null;
-        Destroy(tex);
-
-        //Debug.Log($"{p} : {similarityScore}");
-        if (TestManager.instance != null)
-        {
-            TestManager.instance.SetSimilarity(p, similarityScore);
-        }
-
-        return (similarityScore >= similarity);
+        trail.Clear();
+        stone.transform.position = Vector3.zero;
+        stone.SetActive(false);
     }
 
     /*
