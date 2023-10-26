@@ -111,7 +111,7 @@ public class SwipeManager : MonoBehaviour
         DeleteLine();
     }
 
-    private void DeleteLine()
+    public void DeleteLine()
     {
         trail.Clear();
         stone.transform.position = Vector3.zero;

@@ -80,6 +80,7 @@ public class GameManager : MonoBehaviour
     public void Gameover()
     {
         IsGameover = true;
+        SwipeManager.instance.DeleteLine();
 
         UpdateHighScore();
         PlayDataManager.Gameover();
@@ -171,8 +172,7 @@ public class GameManager : MonoBehaviour
 
         if (IsPause)
         {
-            var line = Camera.main.GetComponentInChildren<LineRenderer>();
-            line.enabled = false;
+            SwipeManager.instance.DeleteLine();
             Time.timeScale = 0;
         }
         else
