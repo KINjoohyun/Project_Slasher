@@ -2,8 +2,8 @@ public enum Pattern
 {
     None = -1,
 
-    Vertical,
     Horizontal,
+    Vertical,
     V,
     Caret, // ^
 

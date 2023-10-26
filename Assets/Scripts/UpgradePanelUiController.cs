@@ -30,7 +30,6 @@ public class UpgradePanelUiController : MonoBehaviour
                 level = PlayDataManager.data.Upgrade_SpeedDown;
                 break;
             default:
-                return;
                 break;
         }
         levelText.text = $"현재 레벨 {level}";
@@ -65,7 +64,6 @@ public class UpgradePanelUiController : MonoBehaviour
                 }
                 break;
             default:
-                return;
                 break;
         }
         infoText.text = info;

@@ -20,8 +20,6 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public GameObject gameoverPanel;
     public GameObject pausePanel;
-    public Image guideImage;
-    public Sprite[] guides;
     public TextMeshProUGUI highscoreText;
     public TextMeshProUGUI goldText;
     public TextMeshProUGUI bossCountText;
@@ -32,7 +30,6 @@ public class UIManager : MonoBehaviour
         UpdateHP();
         UpdateScore();
         UpdateGameover();
-        UpdateGuide();
     }
 
     public void UpdateHP()
@@ -82,12 +79,6 @@ public class UIManager : MonoBehaviour
             pausePanel.SetActive(true);
         }
         GameManager.instance.Pause();
-    }
-
-    public void UpdateGuide()
-    {
-        var index = GameManager.instance.CloserPattern();
-        guideImage.sprite = guides[(int)index];
     }
 
     public void UpdateBoss(int count, int spawnCount)
