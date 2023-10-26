@@ -12,7 +12,10 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
-        PlayDataManager.Init();
+        if (PlayDataManager.data == null)
+        {
+            PlayDataManager.Init();
+        }
     }
 
     private void Start()
@@ -21,12 +24,12 @@ public class AudioManager : MonoBehaviour
         musicSlider.value = PlayDataManager.data.musicVol;
         effectsSlider.value = PlayDataManager.data.sfxVol;
 
-        ChangerMaster();
+        ChangeMaster();
         ChangeMusic();
         ChangeEffects();
     }
 
-    public void ChangerMaster()
+    public void ChangeMaster()
     {
         mixer.SetFloat("masterVol", Mathf.Log10(masterSlider.value) * 20);
     }

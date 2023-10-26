@@ -8,6 +8,7 @@ public class FadeEffects : MonoBehaviour
 {
     public float t;
     private Image image;
+    private Coroutine coRun = null;
 
     private void Awake()
     {
@@ -21,12 +22,18 @@ public class FadeEffects : MonoBehaviour
 
     public void FadeIn()
     {
-        StartCoroutine(CoFadeIn());
+        if (coRun == null)
+        {
+            coRun = StartCoroutine(CoFadeIn());
+        }
     }
 
     public void FadeOut(string sceneName)
     {
-        StartCoroutine(CoFadeOut(sceneName));
+        if (coRun == null)
+        {
+            coRun = StartCoroutine(CoFadeOut(sceneName));
+        }
     }
 
     private IEnumerator CoFadeIn()
@@ -40,6 +47,7 @@ public class FadeEffects : MonoBehaviour
 
             yield return null;
         }
+        coRun = null;
     }
 
     private IEnumerator CoFadeOut(string sceneName)
@@ -53,6 +61,7 @@ public class FadeEffects : MonoBehaviour
 
             yield return null;
         }
+        coRun = null;
         SceneManager.LoadScene(sceneName);
     }
 }

@@ -126,6 +126,8 @@ public class Monster : MonoBehaviour, ISlashable, IDeathEvent
 
                 OnDie();
             }
+
+            Stiffness(0.2f); // test code
         }
         
     }
@@ -189,7 +191,7 @@ public class Monster : MonoBehaviour, ISlashable, IDeathEvent
         while (time < duration)
         {
             time += Time.deltaTime;
-            transform.position += Vector3.up * moveSpeed * Time.deltaTime;
+            transform.position += Vector3.up * speed * Time.deltaTime;
 
             yield return null;
         }
@@ -207,7 +209,7 @@ public class Monster : MonoBehaviour, ISlashable, IDeathEvent
         while (time < duration)
         {
             time += Time.deltaTime;
-            transform.position += Vector3.up * moveSpeed * Time.deltaTime;
+            transform.position += Vector3.up * speed * Time.deltaTime;
             transform.position += Vector3.up * Time.deltaTime;
 
             yield return null;

@@ -18,7 +18,10 @@ public class WeaponHandler : MonoBehaviour
 
     private void Start()
     {
-        PlayDataManager.Init();
+        if (PlayDataManager.data == null)
+        {
+            PlayDataManager.Init();
+        }
 
         int index = 0;
         for (WeaponID i = WeaponID.Starter; i < WeaponID.Count; i++)
@@ -32,7 +35,7 @@ public class WeaponHandler : MonoBehaviour
 
     public void ActiveWeapon()
     {
-        SwipeManager.instance.slashParticle.GetComponent<IWeapon>().Active();
+        SwipeManager.instance.slashParticle.GetComponent<IWeapon>()?.Active();
     }
 
 }

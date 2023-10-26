@@ -14,7 +14,10 @@ public class StageManager : MonoBehaviour
 
     private void Start()
     {
-        PlayDataManager.Init();
+        if (PlayDataManager.data == null)
+        {
+            PlayDataManager.Init();
+        }
 
         Unlock();
     }

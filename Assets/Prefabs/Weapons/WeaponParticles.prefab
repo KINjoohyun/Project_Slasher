@@ -200,9 +200,21 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1274964268278182, guid: 06d17bf96b64c57499fd849dad9e44f0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1335481215348364, guid: 06d17bf96b64c57499fd849dad9e44f0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1644958980890870, guid: 06d17bf96b64c57499fd849dad9e44f0, type: 3}
       propertyPath: m_Name
       value: Healty
+      objectReference: {fileID: 0}
+    - target: {fileID: 1644958980890870, guid: 06d17bf96b64c57499fd849dad9e44f0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1729018054953286, guid: 06d17bf96b64c57499fd849dad9e44f0, type: 3}
       propertyPath: m_IsActive
@@ -269,6 +281,42 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 198255169002853248, guid: 06d17bf96b64c57499fd849dad9e44f0, type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].time
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198274495757603134, guid: 06d17bf96b64c57499fd849dad9e44f0, type: 3}
+      propertyPath: SizeModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198274495757603134, guid: 06d17bf96b64c57499fd849dad9e44f0, type: 3}
+      propertyPath: ColorModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198274495757603134, guid: 06d17bf96b64c57499fd849dad9e44f0, type: 3}
+      propertyPath: ForceModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198274495757603134, guid: 06d17bf96b64c57499fd849dad9e44f0, type: 3}
+      propertyPath: ShapeModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198274495757603134, guid: 06d17bf96b64c57499fd849dad9e44f0, type: 3}
+      propertyPath: EmissionModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198274495757603134, guid: 06d17bf96b64c57499fd849dad9e44f0, type: 3}
+      propertyPath: VelocityModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198274495757603134, guid: 06d17bf96b64c57499fd849dad9e44f0, type: 3}
+      propertyPath: CollisionModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198274495757603134, guid: 06d17bf96b64c57499fd849dad9e44f0, type: 3}
+      propertyPath: ClampVelocityModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198274495757603134, guid: 06d17bf96b64c57499fd849dad9e44f0, type: 3}
       propertyPath: EmissionModule.m_Bursts.Array.data[0].time
       value: 0
       objectReference: {fileID: 0}
@@ -342,6 +390,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198969644884396194, guid: 06d17bf96b64c57499fd849dad9e44f0, type: 3}
       propertyPath: InitialModule.startRotationY.scalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 199017896374315618, guid: 06d17bf96b64c57499fd849dad9e44f0, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 199017896374315618, guid: 06d17bf96b64c57499fd849dad9e44f0, type: 3}

@@ -43,7 +43,10 @@ public class ArsenalManager : MonoBehaviour
 
     private void Start()
     {
-        PlayDataManager.Init();
+        if (PlayDataManager.data == null)
+        {
+            PlayDataManager.Init();
+        }
         equipWeapon = PlayDataManager.data.EquipWeapon;
 
         UnlockPanel();

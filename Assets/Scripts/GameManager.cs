@@ -35,7 +35,10 @@ public class GameManager : MonoBehaviour
             BGMobject.instance.Stop();
         }
 
-        PlayDataManager.Init();
+        if (PlayDataManager.data == null)
+        {
+            PlayDataManager.Init();
+        }
 
         IsGameover = false;
         IsPause = false;

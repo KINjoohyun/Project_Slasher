@@ -165,6 +165,7 @@ public class Boss : MonoBehaviour, ISlashable, IDeathEvent
         queue.Clear();
         monsterUi.Clear();
 
+        gameObject.SetActive(false);
     }
 
     public void Stiffness(float time)

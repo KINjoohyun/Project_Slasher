@@ -1,5 +1,3 @@
-using System.Drawing;
-using TMPro;
 using UnityEngine;
 
 public class SwipeManager : MonoBehaviour
@@ -39,6 +37,23 @@ public class SwipeManager : MonoBehaviour
 
     private void DrawingUpdate()
     {
+#if UNITY_EDITOR || UNITY_STANDALONE
+        if (Input.GetMouseButton(0))
+        {
+            IsDraw = true;
+
+            Vector3 pos = maincam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
+
+            DrawLine(pos);
+        }
+        else if (Input.GetMouseButtonUp(0)) 
+        {
+            IsDraw = false;
+
+            LineCheck();
+            DeleteLine();
+        }
+#elif UNITY_ANDROID || UNITY_IOS
         if (MultiTouchManager.instance.primary != int.MinValue)
         {
             IsDraw = true;
@@ -55,11 +70,12 @@ public class SwipeManager : MonoBehaviour
             LineCheck();
             DeleteLine();
         }
+#endif
     }
 
     private void DrawLine(Vector3 pos)
     {
-        stone.SetActive(true);
+        stone.SetActive(IsDraw);
         stone.transform.position = pos;
     }
 
@@ -115,7 +131,7 @@ public class SwipeManager : MonoBehaviour
     {
         trail.Clear();
         stone.transform.position = Vector3.zero;
-        stone.SetActive(false);
+        stone.SetActive(IsDraw);
     }
 
     /*
