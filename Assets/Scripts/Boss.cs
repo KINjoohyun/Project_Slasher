@@ -212,5 +212,7 @@ public class Boss : MonoBehaviour, ISlashable, IDeathEvent
             actionOnDeath();
             actionOnDeath = null;
         }
+        gameObject.SetActive(false);
+
     }
 }
