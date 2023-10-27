@@ -95,11 +95,6 @@ public class SaveDataV4 : SaveData
         data.Upgrade_SpeedDown = Upgrade_SpeedDown;
         data.Stage = Stage;
 
-        if (data.UnlockList.Count <= 0)
-        {
-            data.UnlockList.Add(WeaponID.Starter);
-        }
-
         return data;
     }
 }
@@ -109,8 +104,6 @@ public class SaveDataV5 : SaveData
     public SaveDataV5()
     {
         Version = 5;
-
-        UnlockList.Add(WeaponID.Starter);
     }
 
     public int HighScore { get; set; } = 0;
@@ -134,11 +127,6 @@ public class SaveDataV5 : SaveData
         data.EquipWeapon = EquipWeapon;
         data.UnlockList = UnlockList;
 
-        if (data.UnlockList.Count <= 0)
-        {
-            data.UnlockList.Add(WeaponID.Starter);
-        }
-
         return data;
     }
 }
@@ -148,8 +136,6 @@ public class SaveDataV6 : SaveData // Current
     public SaveDataV6()
     {
         Version = 6;
-
-        UnlockList.Add(WeaponID.Starter);
     }
 
     public int HighScore { get; set; } = 0;

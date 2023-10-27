@@ -10,8 +10,9 @@ public static class PlayDataManager
         if (data == null)
         {
             data = new SaveDataVC();
-            SaveLoadSystem.Save(data, "savefile.json");
+            data.UnlockList.Add(WeaponID.Starter);
         }
+        SaveLoadSystem.Save(data, "savefile.json");
     }
 
     public static void Save()
@@ -22,6 +23,7 @@ public static class PlayDataManager
     public static void Reset()
     {
         data = new SaveDataVC();
+        data.UnlockList.Add(WeaponID.Starter);
         Save();
     }
 
@@ -64,7 +66,7 @@ public static class PlayDataManager
     public static bool UnlockWeapon(WeaponID id)
     {
         var table = CsvTableMgr.GetTable<ArsenalTable>();
-        if (table.dataTable[id].PRICE > data.Gold)
+        if (table.dataTable[id].PRICE > data.Gold) // data.UnlockList.Exists((x) => id == x)
         {
             return false;
         }

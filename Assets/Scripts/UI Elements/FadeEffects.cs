@@ -42,7 +42,7 @@ public class FadeEffects : MonoBehaviour
 
         while (time < t)
         {
-            time += Time.deltaTime;
+            time += Time.unscaledDeltaTime;
             image.color = Color.Lerp(Color.black, Color.clear, time / t);
 
             yield return null;
@@ -56,7 +56,7 @@ public class FadeEffects : MonoBehaviour
 
         while (time < t)
         {
-            time += Time.deltaTime;
+            time += Time.unscaledDeltaTime;
             image.color = Color.Lerp(Color.clear, Color.black, time / t);
 
             yield return null;
