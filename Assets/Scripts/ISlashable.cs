@@ -1,6 +1,6 @@
 public interface ISlashable
 {
-    public void OnSlashed(Pattern c);
+    public bool OnSlashed(Pattern c);
     public Pattern GetPattern();
     public float GetYPos();
 }

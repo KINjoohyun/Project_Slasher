@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -27,6 +28,8 @@ public class GameManager : MonoBehaviour
 
     private List<ISlashable> slashList;
     private List<ISlashable> removeList;
+
+    public TextMeshProUGUI slashText;
 
     private void Start()
     {
@@ -117,9 +120,17 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+        int slachCount = 0;
         foreach (var monster in slashList)
         {
-            monster.OnSlashed(c);
+            if (monster.OnSlashed(c))
+            {
+                slachCount++;
+            }
+        }
+        if (slachCount > 1)
+        {
+            MultiSlash(slachCount);
         }
         RemoveListAct();
 
@@ -128,6 +139,12 @@ public class GameManager : MonoBehaviour
             item.Spawn();
         }
 
+    }
+
+    private void MultiSlash(int slashCount)
+    {
+        slashText.text = $"X {slashCount}";
+        slashText.gameObject.SetActive(true);
     }
 
     public void RemoveListAct()

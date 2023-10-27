@@ -103,11 +103,11 @@ public class Boss : MonoBehaviour, ISlashable, IDeathEvent
         return transform.position.y;
     }
 
-    public void OnSlashed(Pattern c)
+    public bool OnSlashed(Pattern c)
     {
         if (!IsAlive) 
         {
-            return; 
+            return false; 
         }
 
         if (queue.Peek() == c)
@@ -133,7 +133,13 @@ public class Boss : MonoBehaviour, ISlashable, IDeathEvent
                 GameManager.instance.AddScore(score);
 
                 OnDie();
+                return true;
             }
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 

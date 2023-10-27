@@ -48,8 +48,6 @@ public class SwipeManager : MonoBehaviour
         }
         else if (Input.GetMouseButtonUp(0)) 
         {
-            IsDraw = false;
-
             LineCheck();
             DeleteLine();
         }
@@ -65,8 +63,6 @@ public class SwipeManager : MonoBehaviour
         }
         else if (IsDraw)
         {
-            IsDraw = false;
-
             LineCheck();
             DeleteLine();
         }
@@ -81,6 +77,11 @@ public class SwipeManager : MonoBehaviour
 
     private void LineCheck()
     {
+        if (trail.positionCount <= 0)
+        {
+            return;
+        }
+
         var size = trail.bounds.size;
         if (size == null)
         {
@@ -129,6 +130,8 @@ public class SwipeManager : MonoBehaviour
 
     public void DeleteLine()
     {
+        IsDraw = false;
+
         trail.Clear();
         stone.transform.position = Vector3.zero;
         stone.SetActive(IsDraw);

@@ -101,11 +101,11 @@ public class Monster : MonoBehaviour, ISlashable, IDeathEvent
         monsterUi.EnqueueImage(c);
     }
 
-    public void OnSlashed(Pattern c)
+    public bool OnSlashed(Pattern c)
     {
         if (!IsAlive)
         {
-            return;
+            return false;
         }
 
         if (queue.Peek() == c)
@@ -125,11 +125,16 @@ public class Monster : MonoBehaviour, ISlashable, IDeathEvent
                 GameManager.instance.AddScore(score);
 
                 OnDie();
+                return true;
             }
 
             Stiffness(0.2f); // test code
+            return true;
         }
-        
+        else
+        {
+            return false;
+        }
     }
 
     public void OnDie()

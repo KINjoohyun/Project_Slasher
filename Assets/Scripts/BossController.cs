@@ -59,8 +59,6 @@ public class BossController : MonoBehaviour
                 {
                     item.gameObject.SetActive(true);
                 }
-
-                gameObject.SetActive(false);
             };
         }
         GameManager.instance.AddMonster(boss);
