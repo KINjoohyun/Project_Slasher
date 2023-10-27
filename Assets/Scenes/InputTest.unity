@@ -801,6 +801,7 @@ MonoBehaviour:
   patternText: {fileID: 330477874}
   boundText: {fileID: 515823229}
   stone: {fileID: 195465036}
+  horizontalAngle: 30
 --- !u!114 &565701173
 MonoBehaviour:
   m_ObjectHideFlags: 0
