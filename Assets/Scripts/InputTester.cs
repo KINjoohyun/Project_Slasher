@@ -76,9 +76,7 @@ public class InputTester : MonoBehaviour
             p = Pattern.Vertical;
         }
         // V
-        else if (trail.bounds.ClosestPoint(trail.GetPosition(0)).z < trail.bounds.center.z &&
-            trail.bounds.ClosestPoint(trail.GetPosition(trail.positionCount - 1)).z < trail.bounds.center.z &&
-            trail.bounds.ClosestPoint(trail.GetPosition(trail.positionCount / 2)).z > trail.bounds.center.z)
+        else if (IsV())
         {
             p = Pattern.V;
         }
@@ -106,9 +104,8 @@ public class InputTester : MonoBehaviour
             vec.Normalize();
             var ang = Vector3.Angle(vec, normal);
 
-            if ((ang > rangeAngle || ang < -rangeAngle) && (ang > 180 + rangeAngle || ang < 180 - rangeAngle))
+            if (ang > rangeAngle && ang < 180 - rangeAngle)
             {
-
                 return false;
             }
         }
@@ -124,12 +121,48 @@ public class InputTester : MonoBehaviour
             vec.Normalize();
             var ang = Vector3.Angle(vec, normal);
 
-            if ((ang > rangeAngle || ang < -rangeAngle) && (ang > 180 + rangeAngle || ang < 180 - rangeAngle))
+            if (ang > rangeAngle && ang < 180 - rangeAngle)
             {
                 return false;
             }
         }
         return true;
+    }
+
+    private bool IsV()
+    {
+        {
+            Vector3 normal = new Vector3(1, 0, 1);
+            Vector3 vec = trail.GetPosition(trail.positionCount / 2) - trail.GetPosition(0);
+            vec.Normalize();
+            var ang = Vector3.Angle(vec, normal);
+
+            Debug.Log(ang);
+
+            if (ang > rangeAngle && ang < 180 - rangeAngle)
+            {
+                return false;
+            }
+        }
+        {
+            Vector3 normal = new Vector3(1, 0, -1);
+            Vector3 vec = trail.GetPosition(trail.positionCount) - trail.GetPosition(trail.positionCount / 2);
+            vec.Normalize();
+            var ang = Vector3.Angle(vec, normal);
+
+            Debug.Log(ang);
+
+            if (ang > rangeAngle && ang < 180 - rangeAngle)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private bool IsCaret()
+    {
+        return false;
     }
 
     private void PrintPattern()

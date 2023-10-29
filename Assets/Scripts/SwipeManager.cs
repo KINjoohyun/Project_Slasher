@@ -137,14 +137,14 @@ public class SwipeManager : MonoBehaviour
         stone.SetActive(IsDraw);
     }
 
-    /*
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        if (curLine != null)
+        if (trail != null)
         {
-            Gizmos.DrawWireCube(curLine.bounds.center, curLine.bounds.size);
+            Gizmos.DrawWireCube(trail.bounds.center, trail.bounds.size);
         }
     }
-    */
+#endif
 }
