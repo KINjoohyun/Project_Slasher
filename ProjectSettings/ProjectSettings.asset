@@ -259,7 +259,7 @@ PlayerSettings:
   AndroidTargetDevices: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: C:/Users/3RSYS/Documents/keystore/LastHighlander.keystore
+  AndroidKeystoreName: C:/Users/User/Documents/Keystore/LastHighlander.keystore
   AndroidKeyaliasName: release
   AndroidEnableArmv9SecurityFeatures: 0
   AndroidBuildApkPerCpuArchitecture: 0

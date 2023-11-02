@@ -170,13 +170,14 @@ public class InputTester : MonoBehaviour
         patternText.text = p.ToString();
     }
 
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.green;
-
+        Gizmos.color = Color.red;
         if (trail != null)
         {
             Gizmos.DrawWireCube(trail.bounds.center, trail.bounds.size);
         }
     }
+#endif
 }

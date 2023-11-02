@@ -49,7 +49,11 @@ public class BossController : MonoBehaviour
         BossPatternSetUp(boss);
         if (IsEnd)
         {
-            boss.actionOnDeath += () => GameManager.instance.Win();
+            boss.actionOnDeath += () =>
+            {
+                GameManager.instance.Win();
+
+            };
         }
         else
         {

@@ -74,6 +74,11 @@ public class GameManager : MonoBehaviour
 
     public void OnDamage(int damage)
     {
+        if (IsGameover)
+        {
+            return;
+        }
+
         hp -= damage;
         UIManager.instance.UpdateHP();
 
@@ -95,6 +100,12 @@ public class GameManager : MonoBehaviour
 
     public void Win()
     {
+        var monsters = GameObject.FindGameObjectsWithTag("Monster");
+        foreach (var item in monsters) 
+        {
+            item.SetActive(false);
+        }
+
         PlayDataManager.UnlockStage(StageNum);
         Gameover();
     }
