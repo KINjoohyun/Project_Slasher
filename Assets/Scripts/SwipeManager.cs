@@ -82,33 +82,23 @@ public class SwipeManager : MonoBehaviour
             return;
         }
 
-        var size = trail.bounds.size;
-        if (size == null)
-        {
-            return;
-        }
-
         // Horizontal
-        if (size.z <= 1.0f && size.x > size.z && size.x >= 0.5f)
+        if (IsHorizontal())
         {
             swipeInput = Pattern.Horizontal;
         }
         // Vertical
-        else if (size.x <= 1.0f && size.z > size.x && size.z >= 0.5f)
+        else if (IsVertical())
         {
             swipeInput = Pattern.Vertical;
         }
         // V
-        else if (trail.bounds.ClosestPoint(trail.GetPosition(0)).z < trail.bounds.center.z &&
-            trail.bounds.ClosestPoint(trail.GetPosition(trail.positionCount - 1)).z < trail.bounds.center.z &&
-            trail.bounds.ClosestPoint(trail.GetPosition(trail.positionCount / 2)).z > trail.bounds.center.z)
+        else if (IsV())
         {
             swipeInput = Pattern.V;
         }
         // Caret
-        else if (trail.bounds.ClosestPoint(trail.GetPosition(0)).z > trail.bounds.center.z &&
-            trail.bounds.ClosestPoint(trail.GetPosition(trail.positionCount - 1)).z > trail.bounds.center.z &&
-            trail.bounds.ClosestPoint(trail.GetPosition(trail.positionCount / 2)).z < trail.bounds.center.z)
+        else if (IsCaret())
         {
             swipeInput = Pattern.Caret;
         }
@@ -126,6 +116,32 @@ public class SwipeManager : MonoBehaviour
         sound.PlayOneShot(slashSound);
 
         DeleteLine();
+    }
+
+    private bool IsHorizontal()
+    {
+        var size = trail.bounds.size;
+        return size.z <= 1.0f && size.x > size.z && size.x >= 0.5f;
+    }
+
+    private bool IsVertical()
+    {
+        var size = trail.bounds.size;
+        return size.x <= 1.0f && size.z > size.x && size.z >= 0.5f;
+    }
+
+    private bool IsV()
+    {
+        return trail.bounds.ClosestPoint(trail.GetPosition(0)).z < trail.bounds.center.z &&
+            trail.bounds.ClosestPoint(trail.GetPosition(trail.positionCount - 1)).z < trail.bounds.center.z &&
+            trail.bounds.ClosestPoint(trail.GetPosition(trail.positionCount / 2)).z > trail.bounds.center.z;
+    }
+
+    private bool IsCaret()
+    {
+        return trail.bounds.ClosestPoint(trail.GetPosition(0)).z > trail.bounds.center.z &&
+            trail.bounds.ClosestPoint(trail.GetPosition(trail.positionCount - 1)).z > trail.bounds.center.z &&
+            trail.bounds.ClosestPoint(trail.GetPosition(trail.positionCount / 2)).z < trail.bounds.center.z;
     }
 
     public void DeleteLine()
