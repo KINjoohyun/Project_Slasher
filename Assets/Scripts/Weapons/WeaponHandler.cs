@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -35,7 +34,11 @@ public class WeaponHandler : MonoBehaviour
 
     public void ActiveWeapon()
     {
-        SwipeManager.instance.slashParticle.GetComponent<IWeapon>()?.Active();
+        var weapon = SwipeManager.instance.slashParticle.GetComponent<IWeapon>();
+        if (weapon != null)
+        {
+            weapon.Active();
+        }
     }
 
 }
