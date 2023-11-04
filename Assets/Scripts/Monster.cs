@@ -38,9 +38,9 @@ public class Monster : MonoBehaviour, ISlashable, IDeathEvent
     public int score = 1; // 점수
     
     public event Action actionOnDeath;
-    public event Action actionOnAttack;
-    public event Action actionOnSlash; //추가 기능 구현 가능
-    public bool IsAlive { get; private set; }
+    //public event Action actionOnAttack;
+    public event Action actionOnSlashed; //추가 기능 구현 가능
+    public bool IsAlive { get; set; }
     public MonsterUiController monsterUi;
     private Animator anim;
     public SpriteRenderer sprite;
@@ -89,9 +89,7 @@ public class Monster : MonoBehaviour, ISlashable, IDeathEvent
     {
         if (other.CompareTag("Player"))
         {
-            //OnAttack();
-            GameManager.instance.OnDamage(damage);
-            OnDie();
+            OnAttack();
         }
     }
 
@@ -103,7 +101,7 @@ public class Monster : MonoBehaviour, ISlashable, IDeathEvent
 
     public bool OnSlashed(Pattern c)
     {
-        if (!IsAlive)
+        if (!isActiveAndEnabled)
         {
             return false;
         }
@@ -114,10 +112,10 @@ public class Monster : MonoBehaviour, ISlashable, IDeathEvent
             monsterUi.DequeueImage();
             anim.SetTrigger("Hit");
 
-            if (actionOnSlash != null)
+            if (actionOnSlashed != null)
             {
-                actionOnSlash();
-                actionOnSlash = null;
+                actionOnSlashed();
+                actionOnSlashed = null;
             }
 
             if (queue.Count <= 0)
@@ -148,17 +146,19 @@ public class Monster : MonoBehaviour, ISlashable, IDeathEvent
 
     public void OnAttack()
     {
-        IsAlive = false;
-        GameManager.instance.OnDamage(damage);
-        GameManager.instance.RemoveMonster(this);
-        queue.Clear();
-        monsterUi.Clear();
-
+        /*
         if (actionOnAttack != null)
         {
             actionOnAttack();
             actionOnAttack = null;
         }
+        */
+
+        GameManager.instance.OnDamage(damage);
+        GameManager.instance.RemoveMonster(this);
+        queue.Clear();
+        monsterUi.Clear();
+        OnDeath();
     }
 
     public Pattern GetPattern()

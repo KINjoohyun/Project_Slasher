@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
 
     public TextMeshProUGUI slashText;
 
-    public event Action actionOnSlash;
+    public event Action actionOnKill;
 
     private void Start()
     {
@@ -143,10 +143,6 @@ public class GameManager : MonoBehaviour
         }
         if (slachCount > 0)
         {
-            if (actionOnSlash != null)
-            {
-                actionOnSlash();
-            }
             MultiSlash(slachCount);
         }
         RemoveListAct();
@@ -160,7 +156,7 @@ public class GameManager : MonoBehaviour
 
     private void MultiSlash(int slashCount)
     {
-        if (slashCount < 1)
+        if (slashCount < 2)
         {
             return;
         }
@@ -177,6 +173,10 @@ public class GameManager : MonoBehaviour
 
         foreach (var monster in removeList)
         {
+            if (actionOnKill != null && !monster.IsAlive)
+            {
+                actionOnKill();
+            }
             slashList.Remove(monster);
         }
         removeList.Clear();

@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
 
 public class BloodWeapon : MonoBehaviour, IWeapon
@@ -10,7 +9,7 @@ public class BloodWeapon : MonoBehaviour, IWeapon
 
     public void Active()
     {
-        GameManager.instance.actionOnSlash += () =>
+        GameManager.instance.actionOnKill += () =>
         {
             Drain();
         };
@@ -22,8 +21,8 @@ public class BloodWeapon : MonoBehaviour, IWeapon
         if (i >= count)
         {
             i = 0;
-            GameManager.instance.hp = math.clamp(GameManager.instance.hp + 1, 0, GameManager.instance.maxHp);
-            UIManager.instance.UpdateUI();
+            GameManager.instance.hp = Mathf.Clamp(GameManager.instance.hp + 1, 0, GameManager.instance.maxHp + 1);
+            UIManager.instance.UpdateHP();
         }
     }
 }

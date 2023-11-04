@@ -21,7 +21,7 @@ public class Boss : MonoBehaviour, ISlashable, IDeathEvent
 
     public event Action actionOnDeath;
     public event Action actionOnSlash; //추가 기능 구현 가능
-    public bool IsAlive { get; private set; }
+    public bool IsAlive { get; set; }
     public MonsterUiController monsterUi;
     private Animator anim;
     public SpriteRenderer sprite;
@@ -105,7 +105,7 @@ public class Boss : MonoBehaviour, ISlashable, IDeathEvent
 
     public bool OnSlashed(Pattern c)
     {
-        if (!IsAlive) 
+        if (!isActiveAndEnabled) 
         {
             return false; 
         }
@@ -166,12 +166,10 @@ public class Boss : MonoBehaviour, ISlashable, IDeathEvent
 
         actionOnDeath -= () => GameManager.instance.Win();
 
-        IsAlive = false;
         GameManager.instance.RemoveMonster(this);
         queue.Clear();
         monsterUi.Clear();
-
-        gameObject.SetActive(false);
+        OnDeath();
     }
 
     public void Stiffness(float time)
