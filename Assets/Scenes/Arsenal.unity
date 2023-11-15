@@ -1121,6 +1121,7 @@ MonoBehaviour:
   titleText: {fileID: 1559887221}
   confirmText: {fileID: 238127475}
   noticeText: {fileID: 3781990}
+  equipButton: {fileID: 1526141257}
 --- !u!82 &283454782
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1845,6 +1846,18 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 2316622698642220521, guid: 039b248a09e931d42a5df2525734cbf1, type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2316622698642220521, guid: 039b248a09e931d42a5df2525734cbf1, type: 3}
+      propertyPath: m_FillCenter
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2316622698642220521, guid: 039b248a09e931d42a5df2525734cbf1, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2463628256776119683, guid: 039b248a09e931d42a5df2525734cbf1, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
@@ -2096,6 +2109,14 @@ PrefabInstance:
     - target: {fileID: 6674275692505445675, guid: 039b248a09e931d42a5df2525734cbf1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6784938729262474753, guid: 039b248a09e931d42a5df2525734cbf1, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6880264896167284752, guid: 039b248a09e931d42a5df2525734cbf1, type: 3}
+      propertyPath: m_FillCenter
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6880264896167284752, guid: 039b248a09e931d42a5df2525734cbf1, type: 3}
       propertyPath: m_PixelsPerUnitMultiplier
@@ -3812,7 +3833,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 3
 --- !u!222 &690621307
 CanvasRenderer:
   m_ObjectHideFlags: 0

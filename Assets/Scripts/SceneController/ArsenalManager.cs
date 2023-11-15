@@ -41,6 +41,8 @@ public class ArsenalManager : MonoBehaviour
     public TextMeshProUGUI confirmText;
     public TextMeshProUGUI noticeText;
 
+    public GameObject equipButton;
+
     private void Start()
     {
         if (PlayDataManager.data == null)
@@ -83,6 +85,15 @@ public class ArsenalManager : MonoBehaviour
         isUnlock = true;
         equipText.text = "장착";
         confirmText.text = "장비를 장착 하시겠습니까?";
+
+        if (selectWeapon == equipWeapon)
+        {
+            equipButton.SetActive(false);
+        }
+        else
+        {
+            equipButton.SetActive(true);
+        }
     }
 
     public void SelectLock()
@@ -102,6 +113,14 @@ public class ArsenalManager : MonoBehaviour
 
             Notice("장비를 장착하였습니다.");
             UnlockPanel();
+            if (selectWeapon == equipWeapon)
+            {
+                equipButton.SetActive(false);
+            }
+            else
+            {
+                equipButton.SetActive(true);
+            }
         }
         else
         {
